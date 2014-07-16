@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Bash | TechBeats]]></title>
-  <link href="http://frozen-shelf-7499.herokuapp.com//tag/bash/atom.xml" rel="self"/>
-  <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-16T01:18:35-05:00</updated>
-  <id>http://frozen-shelf-7499.herokuapp.com//</id>
+  <link href="http://techbeats.deluan.com/tag/bash/atom.xml" rel="self"/>
+  <link href="http://techbeats.deluan.com/"/>
+  <updated>2014-07-16T01:34:35-05:00</updated>
+  <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Calling the Correct Grails Version Automatically From Command Line]]></title>
-    <link href="http://frozen-shelf-7499.herokuapp.com//calling-the-right-grails-version-from-command"/>
+    <link href="http://techbeats.deluan.com/calling-the-right-grails-version-from-command"/>
     <updated>2010-10-04T23:48:53-05:00</updated>
-    <id>http://frozen-shelf-7499.herokuapp.com//calling-the-correct-grails-version-automatically-from-command-line</id>
+    <id>http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>
 
 <p>Now that I decided to organize and publish some of my code/hacks here, I thought it would be a good thing to republish

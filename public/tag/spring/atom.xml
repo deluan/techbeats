@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Spring | TechBeats]]></title>
-  <link href="http://frozen-shelf-7499.herokuapp.com//tag/spring/atom.xml" rel="self"/>
-  <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-16T01:18:35-05:00</updated>
-  <id>http://frozen-shelf-7499.herokuapp.com//</id>
+  <link href="http://techbeats.deluan.com/tag/spring/atom.xml" rel="self"/>
+  <link href="http://techbeats.deluan.com/"/>
+  <updated>2014-07-16T01:34:35-05:00</updated>
+  <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[How to Use an External log4j.properties in You Grails Project]]></title>
-    <link href="http://frozen-shelf-7499.herokuapp.com//how-to-use-an-external-log4jproperties-in-you-0"/>
+    <link href="http://techbeats.deluan.com/how-to-use-an-external-log4jproperties-in-you-0"/>
     <updated>2010-09-30T22:33:52-05:00</updated>
-    <id>http://frozen-shelf-7499.herokuapp.com//how-to-use-an-external-log4j-dot-properties-in-you-grails-project</id>
+    <id>http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project</id>
     <content type="html"><![CDATA[<p>In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of
 those were that the log4j configuration for an application must be externalized in a properties file.</p>
 

@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://frozen-shelf-7499.herokuapp.com//sitemap.xml 
+Sitemap: http://techbeats.deluan.com/sitemap.xml 

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Groovy | TechBeats]]></title>
-  <link href="http://frozen-shelf-7499.herokuapp.com//tag/groovy/atom.xml" rel="self"/>
-  <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-16T01:18:35-05:00</updated>
-  <id>http://frozen-shelf-7499.herokuapp.com//</id>
+  <link href="http://techbeats.deluan.com/tag/groovy/atom.xml" rel="self"/>
+  <link href="http://techbeats.deluan.com/"/>
+  <updated>2014-07-16T01:34:35-05:00</updated>
+  <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Creating Permalinks With Grails]]></title>
-    <link href="http://frozen-shelf-7499.herokuapp.com//creating-permalinks-with-grails"/>
+    <link href="http://techbeats.deluan.com/creating-permalinks-with-grails"/>
     <updated>2009-03-18T21:51:37-05:00</updated>
-    <id>http://frozen-shelf-7499.herokuapp.com//creating-permalinks-with-grails</id>
+    <id>http://techbeats.deluan.com/creating-permalinks-with-grails</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing
 to say about it is how it&rsquo;s community is really great!</p>
 

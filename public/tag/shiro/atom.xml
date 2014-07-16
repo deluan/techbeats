@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Shiro | TechBeats]]></title>
-  <link href="http://frozen-shelf-7499.herokuapp.com//tag/shiro/atom.xml" rel="self"/>
-  <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-16T01:18:35-05:00</updated>
-  <id>http://frozen-shelf-7499.herokuapp.com//</id>
+  <link href="http://techbeats.deluan.com/tag/shiro/atom.xml" rel="self"/>
+  <link href="http://techbeats.deluan.com/"/>
+  <updated>2014-07-16T01:34:35-05:00</updated>
+  <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Apache Shiro Tags for Facelets - Securing Your JSF Pages]]></title>
-    <link href="http://frozen-shelf-7499.herokuapp.com//apache-shiro-tags-for-jsffacelets"/>
+    <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
     <updated>2010-11-01T00:49:27-05:00</updated>
-    <id>http://frozen-shelf-7499.herokuapp.com//apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
+    <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
     <content type="html"><![CDATA[<p>First, a little introduction. You can skip it and go straight to the
 <a href="http://github.com/deluan/shiro-faces">source code</a>, if you want.</p>
 
