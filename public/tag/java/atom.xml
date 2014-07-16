@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/tag/java/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T01:34:35-05:00</updated>
+  <updated>2014-07-16T01:45:55-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -31,7 +31,7 @@ of Shiro is unbeatable. For a quick introduction, here&rsquo;s a quote from the 
 
 
 <p>I&rsquo;ve used it in Java and Grails projects, and recently I&rsquo;ve even been
-<a href="https://github.com/deluan/shiro-gae">experimenting it with Google App Engine</a>. It fits very well in almost any Java
+<a href="https://code.google.com/p/shiro-gae">experimenting it with Google App Engine</a>. It fits very well in almost any Java
 platform project that needs security.</p>
 
 <p>Shiro already works great in a JSF/Facelets project. You can use it&rsquo;s <a href="http://shiro.apache.org/web.html">filters</a> to

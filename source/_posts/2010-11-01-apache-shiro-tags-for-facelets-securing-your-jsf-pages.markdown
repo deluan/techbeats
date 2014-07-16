@@ -21,7 +21,7 @@ With Shiro’s easy-to-understand API, you can quickly and easily secure any app
 <!-- more -->
 
 I've used it in Java and Grails projects, and recently I've even been 
-[experimenting it with Google App Engine](https://github.com/deluan/shiro-gae). It fits very well in almost any Java 
+[experimenting it with Google App Engine](https://code.google.com/p/shiro-gae). It fits very well in almost any Java 
 platform project that needs security.
 
 Shiro already works great in a JSF/Facelets project. You can use it's [filters](http://shiro.apache.org/web.html) to 
