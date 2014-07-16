@@ -4,7 +4,7 @@ title: "How to use an external log4j.properties in you Grails project"
 permalink: /how-to-use-an-external-log4jproperties-in-you-0
 date: 2010-09-30 22:33:52 -0500
 comments: true
-categories: [grails, groovy, spring]
+categories: [grails, spring]
 ---
 
 In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of 
