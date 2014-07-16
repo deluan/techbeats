@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[TechBeats]]></title>
-  <link href="http://frozen-shelf-7499.herokuapp.com//atom.xml" rel="self"/>
+  <title><![CDATA[Category: Groovy | TechBeats]]></title>
+  <link href="http://frozen-shelf-7499.herokuapp.com//blog/categories/groovy/atom.xml" rel="self"/>
   <link href="http://frozen-shelf-7499.herokuapp.com//"/>
   <updated>2014-07-15T21:57:39-05:00</updated>
   <id>http://frozen-shelf-7499.herokuapp.com//</id>
@@ -24,7 +24,7 @@
 
 <p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>
 
-<p>Please read the (excelent) Grails&#8217; manual for more info on how to use codecs.</p>
+<p>Please read the (excelent) Grails' manual for more info on how to use codecs.</p>
 ]]></content>
   </entry>
   
