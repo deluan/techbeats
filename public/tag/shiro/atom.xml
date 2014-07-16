@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Shiro | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/tag/shiro/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T01:45:55-05:00</updated>
+  <updated>2014-07-16T12:36:57-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -34,10 +34,10 @@ of Shiro is unbeatable. For a quick introduction, here&rsquo;s a quote from the 
 <a href="https://code.google.com/p/shiro-gae">experimenting it with Google App Engine</a>. It fits very well in almost any Java
 platform project that needs security.</p>
 
-<p>Shiro already works great in a JSF/Facelets project. You can use it&rsquo;s <a href="http://shiro.apache.org/web.html">filters</a> to
+<p>Shiro already works great in a JSF/Facelets project. You can use its <a href="http://shiro.apache.org/web.html">filters</a> to
 grant and deny access to some parts of your application and to force authentication (redirect to login).</p>
 
-<p>The only functionality missing is the power of it&rsquo;s JSP taglib, that are used to conditionally render some parts of
+<p>The only functionality missing is the power of its JSP taglib, that are used to conditionally render some parts of
 your HTML, based on user&rsquo;s authorization, roles and permissions (you can learn how to use them with this
 <a href="http://svn.apache.org/repos/asf/shiro/trunk/samples/web/">simple example project</a>). The problem is that this
 conditional rendering <a href="http://www.devx.com/Java/Article/21020/1954">is not totally compatible with JSF&rsquo;s phases</a>.

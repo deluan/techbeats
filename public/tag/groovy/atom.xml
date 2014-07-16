@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Groovy | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/tag/groovy/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T01:45:55-05:00</updated>
+  <updated>2014-07-16T12:36:57-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -12,6 +12,225 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using Spring DI in Your Gaelyk Projects]]></title>
+    <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
+    <updated>2010-10-11T00:07:55-05:00</updated>
+    <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
+    <content type="html"><![CDATA[<p>Since I started using <a href="http://gaelyk.appspot.com/">Gaelyk</a>, one of the features I missed most (coming from a Grails
+background) is Spring&rsquo;s dependency injection. Until recently I didn&rsquo;t even know if it was possible to use Spring in
+<a href="http://appengine.google.com/">Google App Engine</a>, so I decided to do a little investigation on the subject, and
+found out that it&rsquo;s very easy indeed.</p>
+
+<p>Here&rsquo;s a little tutorial on how to configure Spring in your Gaelyk project. I&rsquo;m assuming you have basic knowledge of
+Spring, Gaelyk and Maven.</p>
+
+<p>First, let&rsquo;s create a Gaelyk project. The easiest way is using the excellent
+<a href="http://code.google.com/p/maven-gaelyk/">maven-gaelyk archetype</a>:
+<code>
+mvn archetype:generate -DarchetypeGroupId=org.codeconsole -DarchetypeArtifactId=gaelyk-archetype -DarchetypeVersion=0.5.5 -DarchetypeRepository=http://maven-gaelyk.googlecode.com/svn/repository/ -DartifactId=gaelyk-spring -DgroupId=com.deluan.gaelyk -DgaeApplicationName=gaelyk-spring
+</code></p>
+
+<!-- more -->
+
+
+<p>Now open the project in your favorite IDE, so we can edit the configuration files. First, add the Spring dependency to your <code>pom.xml</code>:</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=pom.xml'></script>
+<noscript><pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+            &lt;version&gt;${spring.version}&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre></noscript></div>
+</p>
+
+<p>Next we need to configure Spring&rsquo;s ContextLoaderListener in <code>web.xml</code>:</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=web.xml'></script>
+<noscript><pre><code>    &lt;context-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;
+            /WEB-INF/spring/*.xml
+        &lt;/param-value&gt;
+    &lt;/context-param&gt;
+
+    &lt;listener&gt;
+        &lt;listener-class&gt;
+            org.springframework.web.context.ContextLoaderListener
+        &lt;/listener-class&gt;
+    &lt;/listener&gt;</code></pre></noscript></div>
+</p>
+
+<p>As you can see from above, we configured Spring to load all context configuration files under the directory <code>WEB-INF/spring</code>.</p>
+
+<p>With these configurations in place, your project is already Spring enabled. Now we need a easy way to access the
+Spring&rsquo;s Application Context. One good way to do this is using a singleton that implements the ApplicationContextAware
+interface. To keep this post as small as possible, I borrowed an implementation from
+<a href="http://sujitpal.blogspot.com/2007/03/accessing-spring-beans-from-legacy-code.html">this blog post</a>, where you can learn
+more about the details. Create the directory <code>src/main/groovy</code> and put the following SpringApplicationContext singleton
+there (in the correct package):</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=SpringApplicationContext.java'></script>
+<noscript><pre><code>package com.deluan.gaelyk;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+/**
+ * Wrapper to always return a reference to the Spring Application Context from
+ * within non-Spring enabled beans. Unlike Spring MVC's WebApplicationContextUtils
+ * we do not need a reference to the Servlet context for this. All we need is
+ * for this bean to be initialized during application startup.
+ *
+ * Original from http://sujitpal.blogspot.com/2007/03/accessing-spring-beans-from-legacy-code.html
+ */
+public class SpringApplicationContext implements ApplicationContextAware {
+
+    private static ApplicationContext CONTEXT;
+
+    /**
+     * This method is called from within the ApplicationContext once it is
+     * done starting up, it will stick a reference to itself into this bean.
+     * @param context a reference to the ApplicationContext.
+     */
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        CONTEXT = context;
+    }
+
+    /**
+     * This is about the same as context.getBean(&quot;beanName&quot;), except it has its
+     * own static handle to the Spring context, so calling this method statically
+     * will give access to the beans by name in the Spring application context.
+     * As in the context.getBean(&quot;beanName&quot;) call, the caller must cast to the
+     * appropriate target class. If the bean does not exist, then a Runtime error
+     * will be thrown.
+     * @param beanName the name of the bean to get.
+     * @return an Object reference to the named bean.
+     */
+    public static Object getBean(String beanName) {
+        return CONTEXT.getBean(beanName);
+    }
+
+    public static ApplicationContext getContext() {
+        return CONTEXT;
+    }
+}
+</code></pre></noscript></div>
+</p>
+
+<p>Configure the singleton in your spring context:</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=resources.xml'></script>
+<noscript><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+
+    &lt;bean id=&quot;springApplicationContext&quot; class=&quot;com.deluan.gaelyk.SpringApplicationContext&quot;/&gt;
+
+    &lt;bean id=&quot;dateFormat&quot; class=&quot;java.text.SimpleDateFormat&quot;&gt;
+        &lt;constructor-arg value=&quot;yyyy/MM/dd&quot; /&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;timeFormat&quot; class=&quot;java.text.SimpleDateFormat&quot;&gt;
+        &lt;constructor-arg value=&quot;hh:mm:ss&quot; /&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;dateTimeFormat&quot; class=&quot;java.text.SimpleDateFormat&quot;&gt;
+        &lt;constructor-arg value=&quot;yyyy/MM/dd hh:mm:ss&quot; /&gt;
+    &lt;/bean&gt;
+
+&lt;/beans&gt;</code></pre></noscript></div>
+</p>
+
+<p>As you can see, I also declared some SimpleDateFormat instances as beans to be used in our examples.</p>
+
+<p>Now everything is configured and ready to be used. Let&rsquo;s se how we can obtain a spring bean inside a Groovlet.
+Create the file <code>WEB-INF/groovy/index.groovy</code> with the following content:</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=index.groovy'></script>
+<noscript><pre><code>import com.deluan.gaelyk.SpringApplicationContext
+
+def dateFormat = SpringApplicationContext.getBean('dateFormat')
+def now = new Date()
+
+println dateFormat.format(now)</code></pre></noscript></div>
+</p>
+
+<p>Now run your application with the command <code>mvn gae:run</code>, point your browser to <a href="http://localhost:8080/index.groovy">http://localhost:8080/index.groovy</a> and
+you should see something like this:</p>
+
+<p><img src="/images/blog/2010-10-11-using-spring-di-in-your-gaelyk-projects/Screen_Shot.png"></p>
+
+<p>Well, that&rsquo;s it! Nothing much different from what you are used to do in a normal Web application, right? But
+remember: Gaelyk is NOT your normal Web framework so let&rsquo;s spice things a little bit.</p>
+
+<p>The solution for looking up beans depicted above is a bit cumbersome. Let&rsquo;s use
+<a href="http://gaelyk.appspot.com/tutorial/plugins">Gaelyk&rsquo;s plugin system</a> to make things a little more &ldquo;groovy&rdquo;.
+Using the plugin descriptor bellow, we can provide shortcuts to our SpringApplicationContext&rsquo;s methods, getContext()
+and getBean(). Save it in the file <code>WEB-INF/plugins/spring.groovy</code>:</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=spring.groovy'></script>
+<noscript><pre><code>import com.deluan.gaelyk.SpringApplicationContext
+
+binding {
+    appCtx = SpringApplicationContext.context
+
+    getBean = {
+        SpringApplicationContext.getBean(it)
+    }
+
+    autowire = { self, beanNames -&gt;
+        beanNames.each {
+            self.setProperty(it, SpringApplicationContext.getBean(it))
+        }
+    }
+}</code></pre></noscript></div>
+</p>
+
+<p>Before you can use these shortcuts, you need to tell Gaelyk about your descriptor by &ldquo;installing&rdquo; it in your project.
+Save the code bellow in the file WEB-INF/plugins.groovy:</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=plugins.groovy'></script>
+<noscript><pre><code>install spring</code></pre></noscript></div>
+</p>
+
+<p>Now you can use the shortcuts in your Groovlets this way:</p>
+
+<p><div><script src='https://gist.github.com/618739.js?file=index2.groovy'></script>
+<noscript><pre><code>
+def now = new Date()
+
+// Simple context lookup
+def dateFormat = getBean('dateFormat')
+
+// Resolve a list of bean names and create bindings for each one of them
+autowire this, ['timeFormat', 'dateTimeFormat']
+
+html.html {
+    body {
+        p appCtx.displayName  // Access the ApplicationContext
+        p dateFormat.format(now)
+        p timeFormat.format(now)
+        p dateTimeFormat.format(now)
+    }
+}</code></pre></noscript></div>
+</p>
+
+<p>Cool, isn&rsquo;t it? A note on the <code>autowire</code> binding: It creates bindings &ldquo;automagically&rdquo; for each bean you passed as a
+parameter, as if the beans were declared in your Groovlet.</p>
+
+<p>You can download the sample project used in this post from GitHub: <a href="http://github.com/deluan/gaelyk-spring.">http://github.com/deluan/gaelyk-spring.</a>
+You can follow each commit to see exactly what was changed in each step of this tutorial.</p>
+
+<p>If you have any suggestion or question, please let me know.</p>
+
+<p><strong>UPDATE</strong>: I&rsquo;ve refactored the <code>autowire</code>method into a Category, so now it&rsquo;s not necessary to pass <code>this</code> as the first
+parameter.  The new version is available at <a href="http://github.com/deluan/gaelyk-spring">GitHub</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Creating Permalinks With Grails]]></title>

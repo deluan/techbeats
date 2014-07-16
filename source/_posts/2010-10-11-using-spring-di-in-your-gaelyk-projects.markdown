@@ -4,7 +4,6 @@ title: "Using Spring DI in your Gaelyk projects"
 permalink: /using-spring-di-in-your-gaelyk-projects
 date: 2010-10-11 00:07:55 -0500
 comments: true
-published: false
 categories: [gaelyk, groovy, spring]
 ---
 
@@ -16,7 +15,7 @@ found out that it's very easy indeed.
 Here's a little tutorial on how to configure Spring in your Gaelyk project. I'm assuming you have basic knowledge of 
 Spring, Gaelyk and Maven.
 
-First, let's create a Gaelyk project. The easiest way is using the excelent 
+First, let's create a Gaelyk project. The easiest way is using the excellent 
 [maven-gaelyk archetype](http://code.google.com/p/maven-gaelyk/):
 ```
 mvn archetype:generate -DarchetypeGroupId=org.codeconsole -DarchetypeArtifactId=gaelyk-archetype -DarchetypeVersion=0.5.5 -DarchetypeRepository=http://maven-gaelyk.googlecode.com/svn/repository/ -DartifactId=gaelyk-spring -DgroupId=com.deluan.gaelyk -DgaeApplicationName=gaelyk-spring
@@ -55,7 +54,7 @@ Create the file `WEB-INF/groovy/index.groovy` with the following content:
 Now run your application with the command `mvn gae:run`, point your browser to http://localhost:8080/index.groovy and 
 you should see something like this:
 
-{% img /blog/images/image.png %}
+{% img /images/blog/2010-10-11-using-spring-di-in-your-gaelyk-projects/Screen_Shot.png %}
 
 Well, that's it! Nothing much different from what you are used to do in a normal Web application, right? But 
 remember: Gaelyk is NOT your normal Web framework so let's spice things a little bit.

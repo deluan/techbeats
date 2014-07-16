@@ -24,10 +24,10 @@ I've used it in Java and Grails projects, and recently I've even been
 [experimenting it with Google App Engine](https://code.google.com/p/shiro-gae). It fits very well in almost any Java 
 platform project that needs security.
 
-Shiro already works great in a JSF/Facelets project. You can use it's [filters](http://shiro.apache.org/web.html) to 
+Shiro already works great in a JSF/Facelets project. You can use its [filters](http://shiro.apache.org/web.html) to 
 grant and deny access to some parts of your application and to force authentication (redirect to login).
 
-The only functionality missing is the power of it's JSP taglib, that are used to conditionally render some parts of 
+The only functionality missing is the power of its JSP taglib, that are used to conditionally render some parts of 
 your HTML, based on user's authorization, roles and permissions (you can learn how to use them with this 
 [simple example project](http://svn.apache.org/repos/asf/shiro/trunk/samples/web/)). The problem is that this 
 conditional rendering [is not totally compatible with JSF's phases](http://www.devx.com/Java/Article/21020/1954). 
