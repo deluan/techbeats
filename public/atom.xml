@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://frozen-shelf-7499.herokuapp.com//atom.xml" rel="self"/>
   <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-15T23:59:22-05:00</updated>
+  <updated>2014-07-16T01:18:35-05:00</updated>
   <id>http://frozen-shelf-7499.herokuapp.com//</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -12,6 +12,281 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Profiling Web Requests in Your Grails Application]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//profiling-web-requests-in-grails-application"/>
+    <updated>2010-12-29T00:11:39-06:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//profiling-web-requests-in-your-grails-application</id>
+    <content type="html"><![CDATA[<p>Here’s a simple filter I’ve been using to help me detect points of improvement in my application:</p>
+
+<!-- more -->
+
+
+
+
+<div><script src='https://gist.github.com/744828.js'></script>
+<noscript><pre><code>class UtilFilters {
+
+    def filters = {
+
+        profiler(controller: '*', action: '*') {
+            before = {
+                request._timeBeforeRequest = System.currentTimeMillis()
+            }
+
+            after = {
+                request._timeAfterRequest = System.currentTimeMillis()
+            }
+
+            afterView = {
+                if (params.showTime) {
+                    session._showTime = params.showTime == &quot;on&quot;
+                }
+                if (session._showTime) {
+                    def actionDuration = request._timeAfterRequest - request._timeBeforeRequest
+                    def viewDuration = System.currentTimeMillis() - request._timeAfterRequest
+                    log.debug(&quot;Request duration for (${controllerName}/${actionName}): ${actionDuration}ms/${viewDuration}ms&quot;)
+                }
+            }
+        }
+    }
+
+}
+
+</code></pre></noscript></div>
+
+
+<p>To use it, put this class in the <code>grails-app/conf</code> folder of your project. To activate the profile, call any URL
+of your application with the <code>showTime=on</code> parameter, like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://localhost:8080/my-grails-app/book/list?showTime=on</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After calling that URL, all request times will be measured and informed on the application’s log, like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2010-12-21 12:02:31,698 [http-8080-5] DEBUG filters.UtilFilters  - Request duration for (book/list): 20ms/50ms</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first time informed (20ms) is the time spent executing the action (list in this case) and the second (50ms) is
+the time spent rendering the view (<code>list.gsp</code>).</p>
+
+<p>To turn off the profiler, call any URL with <code>showTime=off</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://localhost:8080/my-grails-app?showTime=on</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enjoy :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Cache-Headers Plugin in a Non-english Server]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//using-cache-headers-plugin-in-a-non-english-s"/>
+    <updated>2010-12-21T00:03:35-06:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//using-cache-headers-plugin-in-a-non-english-server</id>
+    <content type="html"><![CDATA[<p><strong>UPDATE: This problem has been fixed in version 1.1.3 of the plugin. Thanks Marc and Luke Daley!</strong></p>
+
+<p>This week I tried the <a href="http://www.anyware.co.uk/2005/">Marc Palmer</a>’s excelent plugin
+<a href="http://www.grails.org/plugin/cache-headers">Cache-Headers</a>, and it really rocks! Using it I can make all my
+server-side generated images be cached on the client, reducing significantly the bandwidth and cpu-power necessary by
+my application.</p>
+
+<p>But there’s a little gotcha: The plugin (as of version 1.1.2) uses a SimpleDateFormat to generate and check the
+Last-Modified header, and the implementation creates this SimpleDateFormat with the system’s default Locale, in my
+case Portuguese. This causes errors like this:</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>java.lang.IllegalArgumentException: Ter, 21 dez 2010 15:10:33 GMT
+</span><span class='line'>    at com.grailsrocks.cacheheaders.CacheHeadersService.withCacheHeaders(CacheHeadersService.groovy:140)
+</span><span class='line'>    at com.grailsrocks.cacheheaders.CacheHeadersService$withCacheHeaders.call(Unknown Source)
+</span><span class='line'>    at CacheHeadersGrailsPlugin$_addCacheMethods_closure7_closure11.doCall(CacheHeadersGrailsPlugin.groovy:61)
+</span><span class='line'>    at org.weceem.controllers.WcmContentController$_closure3.doCall(WcmContentController.groovy:172)
+</span><span class='line'>    at org.weceem.controllers.WcmContentController$_closure3.doCall(WcmContentController.groovy)
+</span><span class='line'>    at org.apache.shiro.web.servlet.ShiroFilter.executeChain(ShiroFilter.java:687)
+</span><span class='line'>    at org.apache.shiro.web.servlet.ShiroFilter.doFilterInternal(ShiroFilter.java:616)
+</span><span class='line'>    at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:81)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The workaround I found was to override the construction of that SimpleDateFormat. Luckily it’s been created in a small
+class, that is easy to extend:</p>
+
+<div><script src='https://gist.github.com/749785.js'></script>
+<noscript><pre><code>package com.deluan.grails.util
+
+import java.text.SimpleDateFormat
+import com.grailsrocks.cacheheaders.DateFormatterThreadLocal
+
+/**
+ * This class is used to force CacheHeadersService (from the cache-headers 
+ * plugin) to generate http-dates in english. It MUST be used when the 
+ * locale of your server is not English.
+ * &lt;p/&gt;
+ * To use it, put the following configuration in your Config.groovy:
+ * &lt;pre&gt;
+ * beans {
+ *    cacheHeadersService {
+ *        dateFormatters = new com.deluan.grails.util.EnglishDateFormatterThreadLocal()
+ *    }
+ * }
+ * &lt;/pre&gt;
+ * 
+ * @author Deluan
+ */
+class EnglishDateFormatterThreadLocal extends DateFormatterThreadLocal {
+    SimpleDateFormat initialValue() {
+        def v = new SimpleDateFormat(RFC1123_DATE_FORMAT, Locale.ENGLISH)
+        v.timeZone = TimeZone.getTimeZone('GMT')
+        return v
+    }
+}
+</code></pre></noscript></div>
+
+
+<p>All you have to do is put this class in your project (in the <code>src/groovy</code> folder) and add the following configuration
+override in your <code>Config.groovy</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">beans</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">cacheHeadersService</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">dateFormatters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">com</span><span class="o">.</span><span class="na">deluan</span><span class="o">.</span><span class="na">grails</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">EnglishDateFormatterThreadLocal</span><span class="o">()</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>I already filled a bug report here: <a href="http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,">http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,</a> and probably this post will be
+obsolete in a near future :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apache Shiro Tags for Facelets - Securing Your JSF Pages]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//apache-shiro-tags-for-jsffacelets"/>
+    <updated>2010-11-01T00:49:27-05:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
+    <content type="html"><![CDATA[<p>First, a little introduction. You can skip it and go straight to the
+<a href="http://github.com/deluan/shiro-faces">source code</a>, if you want.</p>
+
+<p>I started working with <a href="http://shiro.apache.org/">Apache Shiro</a> when it was still called JSecurity, and I have to
+say that it really rocks! I tried to use Spring Security (Acegi) in some projects, but the easiness and lean approach
+of Shiro is unbeatable. For a quick introduction, here&rsquo;s a quote from the project&rsquo;s site:</p>
+
+<blockquote><p>Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. <br/>With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p></blockquote>
+
+
+<!-- more -->
+
+
+<p>I&rsquo;ve used it in Java and Grails projects, and recently I&rsquo;ve even been
+<a href="https://github.com/deluan/shiro-gae">experimenting it with Google App Engine</a>. It fits very well in almost any Java
+platform project that needs security.</p>
+
+<p>Shiro already works great in a JSF/Facelets project. You can use it&rsquo;s <a href="http://shiro.apache.org/web.html">filters</a> to
+grant and deny access to some parts of your application and to force authentication (redirect to login).</p>
+
+<p>The only functionality missing is the power of it&rsquo;s JSP taglib, that are used to conditionally render some parts of
+your HTML, based on user&rsquo;s authorization, roles and permissions (you can learn how to use them with this
+<a href="http://svn.apache.org/repos/asf/shiro/trunk/samples/web/">simple example project</a>). The problem is that this
+conditional rendering <a href="http://www.devx.com/Java/Article/21020/1954">is not totally compatible with JSF&rsquo;s phases</a>.
+Better than trying to fit a cube in a spherical hole, I decided to rewrite Shiro&rsquo;s JSP tags into a
+<a href="http://en.wikipedia.org/wiki/Facelets">Facelets</a> taglib, totally compatible with JSF.</p>
+
+<p>All original tags are available as their Facelets equivalents, and I have introduced two new ones:</p>
+
+<p><code>&lt;shiro:hasAnyPermission&gt;</code> &ndash; Displays body content only if the current user has one of the specified permissions from
+a comma-separated list of permission strings.
+<code>&lt;shiro:remembered&gt;</code> &ndash; Displays body content only if the current user has a known identity that has been obtained from
+&lsquo;RememberMe&rsquo; services. Note that this is semantically different from the &lsquo;authenticated&rsquo; tag, which is more restrictive.</p>
+
+<p>I&rsquo;ve already submitted a <a href="https://issues.apache.org/jira/browse/SHIRO-206">patch</a> to Shiro&rsquo;s development team, but
+they&rsquo;re very busy at the moment packaging the new 1.1 version for release. So I decided to
+<a href="http://deluan.github.com/shiro-faces">share the taglib on GitHub</a>, and host the artifacts in my personal maven
+repository, as I need to use the tags in an on-going project.</p>
+
+<p>If you want to try it in your maven project, add my repository to your pom.xml:</p>
+
+<div><script src='https://gist.github.com/655983.js?file=repositories_pom.xml'></script>
+<noscript><pre><code>        &lt;repositories&gt;
+            &lt;repository&gt;
+                &lt;id&gt;deluan.repo&lt;/id&gt;
+                &lt;name&gt;Deluan's Public Repository&lt;/name&gt;
+                &lt;url&gt;http://deluan.googlecode.com/svn/releases&lt;/url&gt;
+            &lt;/repository&gt;
+            &lt;repository&gt;
+                &lt;id&gt;deluan.snapshots&lt;/id&gt;
+                &lt;name&gt;Deluan's Public Snapshots Repository&lt;/name&gt;
+                &lt;url&gt;http://deluan.googlecode.com/svn/snapshots&lt;/url&gt;
+                &lt;releases&gt;
+                    &lt;enabled&gt;false&lt;/enabled&gt;
+                &lt;/releases&gt;
+            &lt;/repository&gt;
+        &lt;/repositories&gt;</code></pre></noscript></div>
+
+
+<p>and add the jar dependency:</p>
+
+<div><script src='https://gist.github.com/655983.js?file=dependency_pom.xml'></script>
+<noscript><pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
+            &lt;artifactId&gt;shiro-faces&lt;/artifactId&gt;
+            &lt;!-- See the latest version on the project's homepage --&gt;
+            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre></noscript></div>
+
+
+<p>Now you can declare Shiro&rsquo;s namespace in your xhtml pages and use the tags like this:</p>
+
+<div><script src='https://gist.github.com/655983.js?file=test.xhtml'></script>
+<noscript><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;
+      xmlns:ui=&quot;http://java.sun.com/jsf/facelets&quot;
+      xmlns:shiro=&quot;http://shiro.apache.org/tags&quot;&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;ui:insert name=&quot;titulo&quot;&gt;Shiro Faces Test&lt;/ui:insert&gt;&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;p&gt;Hi, &lt;shiro:guest&gt;Guest&lt;/shiro:guest&gt;
+          &lt;shiro:user&gt;&lt;shiro:principal/&gt;&lt;/shiro:user&gt;!
+    &lt;/p&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre></noscript></div>
+
+
+<p>That&rsquo;s it! Just keep in mind that as soon as this lib gets incorporated officially in Shiro, I&rsquo;ll stop updating it
+in GitHub and all future enhancements will only be available in the official version. If you want to see the tags
+incorporated officially into Shiro sooner than later, you can vote here: <a href="https://issues.apache.org/jira/browse/SHIRO-206">https://issues.apache.org/jira/browse/SHIRO-206</a></p>
+
+<p>And if you have any suggestion, please let me know.</p>
+
+<p>Enjoy ;)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Calling the Correct Grails Version Automatically From Command Line]]></title>

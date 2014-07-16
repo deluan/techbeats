@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | TechBeats]]></title>
   <link href="http://frozen-shelf-7499.herokuapp.com//tag/grails/atom.xml" rel="self"/>
   <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-15T23:59:22-05:00</updated>
+  <updated>2014-07-16T01:18:35-05:00</updated>
   <id>http://frozen-shelf-7499.herokuapp.com//</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -12,6 +12,169 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Profiling Web Requests in Your Grails Application]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//profiling-web-requests-in-grails-application"/>
+    <updated>2010-12-29T00:11:39-06:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//profiling-web-requests-in-your-grails-application</id>
+    <content type="html"><![CDATA[<p>Here’s a simple filter I’ve been using to help me detect points of improvement in my application:</p>
+
+<!-- more -->
+
+
+<p><div><script src='https://gist.github.com/744828.js'></script>
+<noscript><pre><code>class UtilFilters {
+
+    def filters = {
+
+        profiler(controller: '*', action: '*') {
+            before = {
+                request._timeBeforeRequest = System.currentTimeMillis()
+            }
+
+            after = {
+                request._timeAfterRequest = System.currentTimeMillis()
+            }
+
+            afterView = {
+                if (params.showTime) {
+                    session._showTime = params.showTime == &quot;on&quot;
+                }
+                if (session._showTime) {
+                    def actionDuration = request._timeAfterRequest - request._timeBeforeRequest
+                    def viewDuration = System.currentTimeMillis() - request._timeAfterRequest
+                    log.debug(&quot;Request duration for (${controllerName}/${actionName}): ${actionDuration}ms/${viewDuration}ms&quot;)
+                }
+            }
+        }
+    }
+
+}
+
+</code></pre></noscript></div>
+</p>
+
+<p>To use it, put this class in the <code>grails-app/conf</code> folder of your project. To activate the profile, call any URL
+of your application with the <code>showTime=on</code> parameter, like this:</p>
+
+<p><code>
+http://localhost:8080/my-grails-app/book/list?showTime=on
+</code></p>
+
+<p>After calling that URL, all request times will be measured and informed on the application’s log, like this:</p>
+
+<p><code>
+2010-12-21 12:02:31,698 [http-8080-5] DEBUG filters.UtilFilters  - Request duration for (book/list): 20ms/50ms
+</code></p>
+
+<p>The first time informed (20ms) is the time spent executing the action (list in this case) and the second (50ms) is
+the time spent rendering the view (<code>list.gsp</code>).</p>
+
+<p>To turn off the profiler, call any URL with <code>showTime=off</code>:</p>
+
+<p><code>
+http://localhost:8080/my-grails-app?showTime=on
+</code></p>
+
+<p>Enjoy :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Cache-Headers Plugin in a Non-english Server]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//using-cache-headers-plugin-in-a-non-english-s"/>
+    <updated>2010-12-21T00:03:35-06:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//using-cache-headers-plugin-in-a-non-english-server</id>
+    <content type="html"><![CDATA[<p><strong>UPDATE: This problem has been fixed in version 1.1.3 of the plugin. Thanks Marc and Luke Daley!</strong></p>
+
+<p>This week I tried the <a href="http://www.anyware.co.uk/2005/">Marc Palmer</a>’s excelent plugin
+<a href="http://www.grails.org/plugin/cache-headers">Cache-Headers</a>, and it really rocks! Using it I can make all my
+server-side generated images be cached on the client, reducing significantly the bandwidth and cpu-power necessary by
+my application.</p>
+
+<p>But there’s a little gotcha: The plugin (as of version 1.1.2) uses a SimpleDateFormat to generate and check the
+Last-Modified header, and the implementation creates this SimpleDateFormat with the system’s default Locale, in my
+case Portuguese. This causes errors like this:</p>
+
+<!-- more -->
+
+
+<p>```
+java.lang.IllegalArgumentException: Ter, 21 dez 2010 15:10:33 GMT</p>
+
+<pre><code>at com.grailsrocks.cacheheaders.CacheHeadersService.withCacheHeaders(CacheHeadersService.groovy:140)
+at com.grailsrocks.cacheheaders.CacheHeadersService$withCacheHeaders.call(Unknown Source)
+at CacheHeadersGrailsPlugin$_addCacheMethods_closure7_closure11.doCall(CacheHeadersGrailsPlugin.groovy:61)
+at org.weceem.controllers.WcmContentController$_closure3.doCall(WcmContentController.groovy:172)
+at org.weceem.controllers.WcmContentController$_closure3.doCall(WcmContentController.groovy)
+at org.apache.shiro.web.servlet.ShiroFilter.executeChain(ShiroFilter.java:687)
+at org.apache.shiro.web.servlet.ShiroFilter.doFilterInternal(ShiroFilter.java:616)
+at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:81)
+</code></pre>
+
+<p>```</p>
+
+<p>The workaround I found was to override the construction of that SimpleDateFormat. Luckily it’s been created in a small
+class, that is easy to extend:</p>
+
+<p><div><script src='https://gist.github.com/749785.js'></script>
+<noscript><pre><code>package com.deluan.grails.util
+
+import java.text.SimpleDateFormat
+import com.grailsrocks.cacheheaders.DateFormatterThreadLocal
+
+/**
+ * This class is used to force CacheHeadersService (from the cache-headers 
+ * plugin) to generate http-dates in english. It MUST be used when the 
+ * locale of your server is not English.
+ * &lt;p/&gt;
+ * To use it, put the following configuration in your Config.groovy:
+ * &lt;pre&gt;
+ * beans {
+ *    cacheHeadersService {
+ *        dateFormatters = new com.deluan.grails.util.EnglishDateFormatterThreadLocal()
+ *    }
+ * }
+ * &lt;/pre&gt;
+ * 
+ * @author Deluan
+ */
+class EnglishDateFormatterThreadLocal extends DateFormatterThreadLocal {
+    SimpleDateFormat initialValue() {
+        def v = new SimpleDateFormat(RFC1123_DATE_FORMAT, Locale.ENGLISH)
+        v.timeZone = TimeZone.getTimeZone('GMT')
+        return v
+    }
+}
+</code></pre></noscript></div>
+</p>
+
+<p>All you have to do is put this class in your project (in the <code>src/groovy</code> folder) and add the following configuration
+override in your <code>Config.groovy</code>:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">beans</span> <span class="o">{&lt;</span><span class="s">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">&lt;pre&gt;&lt;code&gt;cacheHeadersService {</span>
+</span><span class='line'><span class="s">    dateFormatters = new com.deluan.grails.util.EnglishDateFormatterThreadLocal()</span>
+</span><span class='line'><span class="s">}</span>
+</span><span class='line'><span class="s">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I already filled a bug report here: <a href="http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,">http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,</a> and probably this post will be
+obsolete in a near future :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Calling the Correct Grails Version Automatically From Command Line]]></title>

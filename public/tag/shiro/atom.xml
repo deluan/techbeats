@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Shiro | TechBeats]]></title>
+  <link href="http://frozen-shelf-7499.herokuapp.com//tag/shiro/atom.xml" rel="self"/>
+  <link href="http://frozen-shelf-7499.herokuapp.com//"/>
+  <updated>2014-07-16T01:18:35-05:00</updated>
+  <id>http://frozen-shelf-7499.herokuapp.com//</id>
+  <author>
+    <name><![CDATA[Deluan Quintão]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Apache Shiro Tags for Facelets - Securing Your JSF Pages]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//apache-shiro-tags-for-jsffacelets"/>
+    <updated>2010-11-01T00:49:27-05:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
+    <content type="html"><![CDATA[<p>First, a little introduction. You can skip it and go straight to the
+<a href="http://github.com/deluan/shiro-faces">source code</a>, if you want.</p>
+
+<p>I started working with <a href="http://shiro.apache.org/">Apache Shiro</a> when it was still called JSecurity, and I have to
+say that it really rocks! I tried to use Spring Security (Acegi) in some projects, but the easiness and lean approach
+of Shiro is unbeatable. For a quick introduction, here&rsquo;s a quote from the project&rsquo;s site:</p>
+
+<p><blockquote><p>Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management.<br/>With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p></blockquote></p>
+
+<!-- more -->
+
+
+<p>I&rsquo;ve used it in Java and Grails projects, and recently I&rsquo;ve even been
+<a href="https://github.com/deluan/shiro-gae">experimenting it with Google App Engine</a>. It fits very well in almost any Java
+platform project that needs security.</p>
+
+<p>Shiro already works great in a JSF/Facelets project. You can use it&rsquo;s <a href="http://shiro.apache.org/web.html">filters</a> to
+grant and deny access to some parts of your application and to force authentication (redirect to login).</p>
+
+<p>The only functionality missing is the power of it&rsquo;s JSP taglib, that are used to conditionally render some parts of
+your HTML, based on user&rsquo;s authorization, roles and permissions (you can learn how to use them with this
+<a href="http://svn.apache.org/repos/asf/shiro/trunk/samples/web/">simple example project</a>). The problem is that this
+conditional rendering <a href="http://www.devx.com/Java/Article/21020/1954">is not totally compatible with JSF&rsquo;s phases</a>.
+Better than trying to fit a cube in a spherical hole, I decided to rewrite Shiro&rsquo;s JSP tags into a
+<a href="http://en.wikipedia.org/wiki/Facelets">Facelets</a> taglib, totally compatible with JSF.</p>
+
+<p>All original tags are available as their Facelets equivalents, and I have introduced two new ones:</p>
+
+<p><code>&lt;shiro:hasAnyPermission&gt;</code> &ndash; Displays body content only if the current user has one of the specified permissions from
+a comma-separated list of permission strings.
+<code>&lt;shiro:remembered&gt;</code> &ndash; Displays body content only if the current user has a known identity that has been obtained from
+&lsquo;RememberMe&rsquo; services. Note that this is semantically different from the &lsquo;authenticated&rsquo; tag, which is more restrictive.</p>
+
+<p>I&rsquo;ve already submitted a <a href="https://issues.apache.org/jira/browse/SHIRO-206">patch</a> to Shiro&rsquo;s development team, but
+they&rsquo;re very busy at the moment packaging the new 1.1 version for release. So I decided to
+<a href="http://deluan.github.com/shiro-faces">share the taglib on GitHub</a>, and host the artifacts in my personal maven
+repository, as I need to use the tags in an on-going project.</p>
+
+<p>If you want to try it in your maven project, add my repository to your pom.xml:</p>
+
+<p><div><script src='https://gist.github.com/655983.js?file=repositories_pom.xml'></script>
+<noscript><pre><code>        &lt;repositories&gt;
+            &lt;repository&gt;
+                &lt;id&gt;deluan.repo&lt;/id&gt;
+                &lt;name&gt;Deluan's Public Repository&lt;/name&gt;
+                &lt;url&gt;http://deluan.googlecode.com/svn/releases&lt;/url&gt;
+            &lt;/repository&gt;
+            &lt;repository&gt;
+                &lt;id&gt;deluan.snapshots&lt;/id&gt;
+                &lt;name&gt;Deluan's Public Snapshots Repository&lt;/name&gt;
+                &lt;url&gt;http://deluan.googlecode.com/svn/snapshots&lt;/url&gt;
+                &lt;releases&gt;
+                    &lt;enabled&gt;false&lt;/enabled&gt;
+                &lt;/releases&gt;
+            &lt;/repository&gt;
+        &lt;/repositories&gt;</code></pre></noscript></div>
+</p>
+
+<p>and add the jar dependency:</p>
+
+<p><div><script src='https://gist.github.com/655983.js?file=dependency_pom.xml'></script>
+<noscript><pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
+            &lt;artifactId&gt;shiro-faces&lt;/artifactId&gt;
+            &lt;!-- See the latest version on the project's homepage --&gt;
+            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre></noscript></div>
+</p>
+
+<p>Now you can declare Shiro&rsquo;s namespace in your xhtml pages and use the tags like this:</p>
+
+<p><div><script src='https://gist.github.com/655983.js?file=test.xhtml'></script>
+<noscript><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;
+      xmlns:ui=&quot;http://java.sun.com/jsf/facelets&quot;
+      xmlns:shiro=&quot;http://shiro.apache.org/tags&quot;&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;ui:insert name=&quot;titulo&quot;&gt;Shiro Faces Test&lt;/ui:insert&gt;&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;p&gt;Hi, &lt;shiro:guest&gt;Guest&lt;/shiro:guest&gt;
+          &lt;shiro:user&gt;&lt;shiro:principal/&gt;&lt;/shiro:user&gt;!
+    &lt;/p&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre></noscript></div>
+</p>
+
+<p>That&rsquo;s it! Just keep in mind that as soon as this lib gets incorporated officially in Shiro, I&rsquo;ll stop updating it
+in GitHub and all future enhancements will only be available in the official version. If you want to see the tags
+incorporated officially into Shiro sooner than later, you can vote here: <a href="https://issues.apache.org/jira/browse/SHIRO-206">https://issues.apache.org/jira/browse/SHIRO-206</a></p>
+
+<p>And if you have any suggestion, please let me know.</p>
+
+<p>Enjoy ;)</p>
+]]></content>
+  </entry>
+  
+</feed>

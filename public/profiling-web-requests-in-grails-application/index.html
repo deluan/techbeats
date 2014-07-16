@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Creating Permalinks With Grails - TechBeats</title>
+  <title>Profiling Web Requests in Your Grails Application - TechBeats</title>
   <meta name="author" content="Deluan Quintão">
 
   
-  <meta name="description" content="I&rsquo;ve been working with Grails for some time now and if I had to choose just one good thing
-to say about it is how it&rsquo;s community is &hellip;">
+  <meta name="description" content="Here’s a simple filter I’ve been using to help me detect points of improvement in my application: class UtilFilters { def filters = { profiler( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ to say about it is how it&rsquo;s community is &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://frozen-shelf-7499.herokuapp.com//creating-permalinks-with-grails">
+  <link rel="canonical" href="http://frozen-shelf-7499.herokuapp.com//profiling-web-requests-in-grails-application">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="TechBeats" type="application/atom+xml">
@@ -69,7 +68,7 @@ to say about it is how it&rsquo;s community is &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Creating Permalinks With Grails</h1>
+      <h1 class="entry-title">Profiling Web Requests in Your Grails Application</h1>
     
     
       <p class="meta">
@@ -85,86 +84,75 @@ to say about it is how it&rsquo;s community is &hellip;">
   
 
 
-<time datetime="2009-03-18T21:51:37-05:00" pubdate data-updated="true">Mar 18<sup>th</sup>, 2009</time>
+<time datetime="2010-12-29T00:11:39-06:00" pubdate data-updated="true">Dec 29<sup>th</sup>, 2010</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing
-to say about it is how it&rsquo;s community is really great!</p>
-
-<p>I think it&rsquo;s time to start giving back some contribution, and here&rsquo;s the first one: A Permalink Codec to generate
-permalinks based on strings. It strips out all non word chars and convert the resulting string to lowercase:</p>
+<div class="entry-content"><p>Here’s a simple filter I’ve been using to help me detect points of improvement in my application:</p>
 
 <!-- more -->
 
 
 
 
-<div><script src='https://gist.github.com/600968.js'></script>
-<noscript><pre><code>/*
- * Copyright 2010 Deluan Cotts (grails@deluan.com.br)
- *
- * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+<div><script src='https://gist.github.com/744828.js'></script>
+<noscript><pre><code>class UtilFilters {
 
-package com.deluan.grails.codecs
+    def filters = {
 
-import java.util.regex.Matcher
-import java.util.regex.Pattern
+        profiler(controller: '*', action: '*') {
+            before = {
+                request._timeBeforeRequest = System.currentTimeMillis()
+            }
 
-/**
- * Strip all non word chars, convert to lowercase
- */
-class PermalinkCodec {
-    private static final String[] CARACTERES_SEM_ACENTO
-    private static final Pattern[] PATTERNS
+            after = {
+                request._timeAfterRequest = System.currentTimeMillis()
+            }
 
-    static {
-        CARACTERES_SEM_ACENTO = [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;, &quot;c&quot;, &quot;n&quot;]
-        PATTERNS = new Pattern[CARACTERES_SEM_ACENTO.length]
-        PATTERNS[0] = Pattern.compile(&quot;[áàãâä]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[1] = Pattern.compile(&quot;[éèêë]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[2] = Pattern.compile(&quot;[íìïî]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[3] = Pattern.compile(&quot;[óòöõô]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[4] = Pattern.compile(&quot;[úùüû]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[5] = Pattern.compile(&quot;ç&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[6] = Pattern.compile(&quot;ñ&quot;, Pattern.CASE_INSENSITIVE)
-    }
-
-    private static String replaceSpecial(String text) {
-        String result = text
-        for (int i = 0; i &lt; PATTERNS.length; i++) {
-            Matcher matcher = PATTERNS[i].matcher(result)
-            result = matcher.replaceAll(CARACTERES_SEM_ACENTO[i])
+            afterView = {
+                if (params.showTime) {
+                    session._showTime = params.showTime == &quot;on&quot;
+                }
+                if (session._showTime) {
+                    def actionDuration = request._timeAfterRequest - request._timeBeforeRequest
+                    def viewDuration = System.currentTimeMillis() - request._timeAfterRequest
+                    log.debug(&quot;Request duration for (${controllerName}/${actionName}): ${actionDuration}ms/${viewDuration}ms&quot;)
+                }
+            }
         }
-        return result
     }
 
-    static encode = {str -&gt;
-        str = replaceSpecial(str.toString().toLowerCase())
-        return str.replaceAll(&quot;\\W&quot;, &quot;-&quot;)
-    }
+}
 
-}</code></pre></noscript></div>
+</code></pre></noscript></div>
 
 
-<p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>
+<p>To use it, put this class in the <code>grails-app/conf</code> folder of your project. To activate the profile, call any URL
+of your application with the <code>showTime=on</code> parameter, like this:</p>
 
-<p>Please read the (excelent) <a href="http://grails.org/doc/latest">Grails manual</a> for more info
-on <a href="http://grails.org/doc/latest/guide/single.html#codecs">how to use codecs</a>.</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://localhost:8080/my-grails-app/book/list?showTime=on</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After calling that URL, all request times will be measured and informed on the application’s log, like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2010-12-21 12:02:31,698 [http-8080-5] DEBUG filters.UtilFilters  - Request duration for (book/list): 20ms/50ms</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first time informed (20ms) is the time spent executing the action (list in this case) and the second (50ms) is
+the time spent rendering the view (<code>list.gsp</code>).</p>
+
+<p>To turn off the profiler, call any URL with <code>showTime=off</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://localhost:8080/my-grails-app?showTime=on</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enjoy :)</p>
 </div>
 
 
@@ -187,12 +175,12 @@ on <a href="http://grails.org/doc/latest/guide/single.html#codecs">how to use co
   
 
 
-<time datetime="2009-03-18T21:51:37-05:00" pubdate data-updated="true">Mar 18<sup>th</sup>, 2009</time>
+<time datetime="2010-12-29T00:11:39-06:00" pubdate data-updated="true">Dec 29<sup>th</sup>, 2010</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/tag/grails/'>grails</a>, <a class='category' href='/tag/groovy/'>groovy</a>
+    <a class='category' href='/tag/grails/'>grails</a>
   
 </span>
 
@@ -201,7 +189,7 @@ on <a href="http://grails.org/doc/latest/guide/single.html#codecs">how to use co
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://frozen-shelf-7499.herokuapp.com//creating-permalinks-with-grails" data-via="deluan" data-counturl="http://frozen-shelf-7499.herokuapp.com//creating-permalinks-with-grails" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://frozen-shelf-7499.herokuapp.com//profiling-web-requests-in-grails-application" data-via="deluan" data-counturl="http://frozen-shelf-7499.herokuapp.com//profiling-web-requests-in-grails-application" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -214,8 +202,8 @@ on <a href="http://grails.org/doc/latest/guide/single.html#codecs">how to use co
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/using-cache-headers-plugin-in-a-non-english-s" title="Previous Post: Using Cache-Headers plugin in a non-english server">&laquo; Using Cache-Headers plugin in a non-english server</a>
       
-        <a class="basic-alignment right" href="/how-to-use-an-external-log4jproperties-in-you-0" title="Next Post: How to use an external log4j.properties in you Grails project">How to use an external log4j.properties in you Grails project &raquo;</a>
       
     </p>
   </footer>
