@@ -15,12 +15,12 @@ here my Grails caller script.
 I work and mantain various Grails projects at the same time, and some of them uses versions of Grails as old as 1.0.3! 
 So the question is: How to call the right version of grails command for a given project, the version that the project 
 was created with?
+<!-- more -->
 
 First I tried changing the `GRAILS_HOME` environment variable every time I was going to work with a project that uses a 
 different version than the default. But it’s just too much work for a thing that should be transparent. So I decided to 
 create a shell script to solve this problem. The script should detect which Grails version to call when it’s executed. 
 Here’s the script I came up with:
-<!-- more -->
 
 ## How it Works?
 
