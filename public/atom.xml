@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://frozen-shelf-7499.herokuapp.com//atom.xml" rel="self"/>
   <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-15T23:11:02-05:00</updated>
+  <updated>2014-07-15T23:12:15-05:00</updated>
   <id>http://frozen-shelf-7499.herokuapp.com//</id>
   <author>
     <name><![CDATA[Deluan Quintao]]></name>
@@ -22,14 +22,14 @@
 those were that the log4j configuration for an application must be externalized in a properties file.</p>
 
 <p>I searched for a <a href="http://grails.org/plugin/home">Grails plugin</a> that could help me with this, with no luck.
-Then I remembered that a Grails application is just a [Spring application in disguise]
-(<a href="http://blog.springsource.com/2010/06/08/spring-the-foundation-for-grails/">http://blog.springsource.com/2010/06/08/spring-the-foundation-for-grails/</a>),
+Then I remembered that a Grails application is just a
+<a href="http://blog.springsource.com/2010/06/08/spring-the-foundation-for-grails/">Spring application in disguise</a>,
 so I looked for a Spring way to do this.</p>
 
-<p>There are at least two ways to do this using Spring: [Log4jConfigListener]
-(<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/util/Log4jConfigListener.html">http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/util/Log4jConfigListener.html</a>)
-and [Log4jConfigurer]
-(<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/util/Log4jConfigurer.html">http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/util/Log4jConfigurer.html</a>).
+<p>There are at least two ways to do this using Spring:
+<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/util/Log4jConfigListener.html">Log4jConfigListener</a>
+and
+<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/util/Log4jConfigurer.html">Log4jConfigurer</a>.
 I chose the later because the former assumes an expanded WAR file, which was not my case.</p>
 
 <p>Here’s the recipe I came up with:</p>
