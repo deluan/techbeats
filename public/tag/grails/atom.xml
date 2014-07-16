@@ -4,14 +4,93 @@
   <title><![CDATA[Category: Grails | TechBeats]]></title>
   <link href="http://frozen-shelf-7499.herokuapp.com//tag/grails/atom.xml" rel="self"/>
   <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-15T23:12:15-05:00</updated>
+  <updated>2014-07-15T23:59:17-05:00</updated>
   <id>http://frozen-shelf-7499.herokuapp.com//</id>
   <author>
-    <name><![CDATA[Deluan Quintao]]></name>
+    <name><![CDATA[Deluan Quintão]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Calling the Correct Grails Version Automatically From Command Line]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//calling-the-right-grails-version-from-command"/>
+    <updated>2010-10-04T23:48:53-05:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//calling-the-correct-grails-version-automatically-from-command-line</id>
+    <content type="html"><![CDATA[<p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>
+
+<p>Now that I decided to organize and publish some of my code/hacks here, I thought it would be a good thing to republish
+here my Grails caller script.</p>
+
+<p>I work and mantain various Grails projects at the same time, and some of them uses versions of Grails as old as 1.0.3!
+So the question is: How to call the right version of grails command for a given project, the version that the project
+was created with?</p>
+
+<p>First I tried changing the <code>GRAILS_HOME</code> environment variable every time I was going to work with a project that uses a
+different version than the default. But it’s just too much work for a thing that should be transparent. So I decided to
+create a shell script to solve this problem. The script should detect which Grails version to call when it’s executed.
+Here’s the script I came up with:</p>
+
+<!-- more -->
+
+
+<h2>How it Works?</h2>
+
+<p>The script first checks if you specified a version in the command line, like: <code>grails 1.3.5-SNAPSHOT create-app</code>.
+If not, it looks for an application.properties file in the current folder. This file keeps some metadata for Grails
+projects, including the Grails version the project was created with. If it does not find any application.properties in
+the current folder, it then just calls the <a href="http://grails.org/Installation">default Grails installed</a> in your system,
+the one that <code>GRAILS_HOME</code> points to.</p>
+
+<h2>Prerequisites</h2>
+
+<ul>
+<li>All your Grails versions must be installed under the same base directory. Ex:</li>
+</ul>
+
+
+<p><code>
+  /opt/grails-1.0.3
+  /opt/grails-1.1.1
+  /opt/grails-1.2-M2
+  /opt/grails-1.3.3
+  /opt/grails-1.3.5-SNAPSHOT
+</code></p>
+
+<ul>
+<li><p><code>GRAILS_HOME</code> environment variable must be set and point to your “default” Grails installation</p></li>
+<li><p>This script was tested on Mac OS X (Snow Leopard), Linux (Ubuntu) and Windows (with cygwin)</p></li>
+</ul>
+
+
+<h2>Installation</h2>
+
+<ul>
+<li>Download the script: <a href="http://github.com/deluan/grails.sh/raw/master/grails">http://github.com/deluan/grails.sh/raw/master/grails</a></li>
+<li>Include the folder where it is installed in your <code>PATH</code>.</li>
+<li>Exclude <code>$GRAILS_HOME/bin</code> from your <code>PATH</code></li>
+</ul>
+
+
+<h2>Usage</h2>
+
+<p>Using the script is as transparent as possible:</p>
+
+<ul>
+<li>If you invoke it from a project folder, it will detect the version used by the project and call the correct grails
+(if it is installed in your system)</li>
+<li>If you invoke it from any other folder that does not contain a Grails project, it will call the “default” Grails
+installation</li>
+<li>If you want to call a specific Grails version (i.e. when doing an upgrade) you can specify the version you want in
+the first parameter. Ex:
+<code>
+$ grails 1.3.3 upgrade
+</code></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Use an External log4j.properties in You Grails Project]]></title>

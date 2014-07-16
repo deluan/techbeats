@@ -6,11 +6,10 @@
 <head>
   <meta charset="utf-8">
   <title>TechBeats</title>
-  <meta name="author" content="Deluan Quintao">
+  <meta name="author" content="Deluan Quintão">
 
   
-  <meta name="description" content="In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of
-those were that the log4j &hellip;">
+  <meta name="description" content="UPDATE: For latest version and instructions, see http://github.com/deluan/grails.sh Now that I decided to organize and publish some of my code/hacks &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +65,59 @@ those were that the log4j &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/calling-the-right-grails-version-from-command">Calling the Correct Grails Version Automatically From Command Line</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-04T23:48:53-05:00" pubdate data-updated="true">Oct 4<sup>th</sup>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>
+
+<p>Now that I decided to organize and publish some of my code/hacks here, I thought it would be a good thing to republish
+here my Grails caller script.</p>
+
+<p>I work and mantain various Grails projects at the same time, and some of them uses versions of Grails as old as 1.0.3!
+So the question is: How to call the right version of grails command for a given project, the version that the project
+was created with?</p>
+
+<p>First I tried changing the <code>GRAILS_HOME</code> environment variable every time I was going to work with a project that uses a
+different version than the default. But it’s just too much work for a thing that should be transparent. So I decided to
+create a shell script to solve this problem. The script should detect which Grails version to call when it’s executed.
+Here’s the script I came up with:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/calling-the-right-grails-version-from-command">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -180,6 +232,10 @@ permalinks based on strings. It strips out all non word chars and convert the re
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/calling-the-right-grails-version-from-command">Calling the Correct Grails Version Automatically From Command Line</a>
+      </li>
+    
+      <li class="post">
         <a href="/how-to-use-an-external-log4jproperties-in-you-0">How to Use an External log4j.properties in You Grails Project</a>
       </li>
     
@@ -238,7 +294,7 @@ permalinks based on strings. It strips out all non word chars and convert the re
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Deluan Quintao -
+  Copyright &copy; 2014 - Deluan Quintão -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
