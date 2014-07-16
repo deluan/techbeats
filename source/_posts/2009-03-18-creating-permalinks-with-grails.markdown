@@ -12,6 +12,7 @@ to say about it is how it's community is really great!
 
 I think it's time to start giving back some contribution, and here's the first one: A Permalink Codec to generate 
 permalinks based on strings. It strips out all non word chars and convert the resulting string to lowercase:
+<!-- more -->
 
 {% gist 600968 %}
 

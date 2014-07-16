@@ -19,6 +19,7 @@ and [Log4jConfigurer](http://static.springsource.org/spring/docs/3.0.x/javadoc-a
 because the former assumes an expanded WAR file, which was not my case.
 
 Here’s the recipe I came up with:
+<!-- more -->
 
 * Configure a Log4jConfigurer Spring bean in your `grails-app/conf/resources.groovy`: 
 (click [here for a resources.xml](https://gist.github.com/deluan/605359#file-resources-xml) version)

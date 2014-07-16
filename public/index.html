@@ -108,59 +108,12 @@ because the former assumes an expanded WAR file, which was not my case.</p>
 
 <p>Here’s the recipe I came up with:</p>
 
-<ul>
-<li>Configure a Log4jConfigurer Spring bean in your <code>grails-app/conf/resources.groovy</code>:
-(click <a href="https://gist.github.com/deluan/605359#file-resources-xml">here for a resources.xml</a> version)</li>
-</ul>
-
-
-<div><script src='https://gist.github.com/605359.js?file=resources.groovy'></script>
-<noscript><pre><code>beans = {
-    log4jConfigurer(org.springframework.beans.factory.config.MethodInvokingFactoryBean) {
-        targetClass = &quot;org.springframework.util.Log4jConfigurer&quot;
-        targetMethod = &quot;initLogging&quot;
-        arguments = [&quot;classpath:myapp/log4j.properties&quot;]
-    }
-
-    ...
-
-}</code></pre></noscript></div>
-
-
-<ul>
-<li><p>Install the templates in your project with grails install-templates, so you can change some files used for Grails&#8217;
-code generation. The one we are interested in is the web.xml template.</p></li>
-<li><p>Comment out the Grails&#8217; Log4jConfigListener from the <code>src/templates/war/web.xml</code> template:</p></li>
-</ul>
-
-
-<div><script src='https://gist.github.com/605359.js?file=web.xml'></script>
-<noscript><pre><code>    &lt;filter-mapping&gt;
-        &lt;filter-name&gt;sitemesh&lt;/filter-name&gt;
-        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-    &lt;/filter-mapping&gt;
-
-
-    &lt;!-- Comment this out!
-    &lt;listener&gt;
-        &lt;listener-class&gt;org.codehaus.groovy.grails.web.util.Log4jConfigListener&lt;/listener-class&gt;
-    &lt;/listener&gt;
-    --&gt;
-
-    &lt;listener&gt;
-        &lt;listener-class&gt;org.codehaus.groovy.grails.web.context.GrailsContextLoaderListener&lt;/listener-class&gt;
-    &lt;/listener&gt;</code></pre></noscript></div>
-
-
-<ul>
-<li><p>You can (and should) remove the log4j configuration block from your Config.groovy</p></li>
-<li><p>That’s it!</p></li>
-</ul>
-
-
-<p>This was tested with Grails 1.3.3, deploying to an Oracle WebLogic 10.3.0 container.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/how-to-use-an-external-log4jproperties-in-you-0">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -200,70 +153,12 @@ to say about it is how it&rsquo;s community is really great!</p>
 <p>I think it&rsquo;s time to start giving back some contribution, and here&rsquo;s the first one: A Permalink Codec to generate
 permalinks based on strings. It strips out all non word chars and convert the resulting string to lowercase:</p>
 
-<div><script src='https://gist.github.com/600968.js'></script>
-<noscript><pre><code>/*
- * Copyright 2010 Deluan Cotts (grails@deluan.com.br)
- *
- * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.deluan.grails.codecs
-
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
-/**
- * Strip all non word chars, convert to lowercase
- */
-class PermalinkCodec {
-    private static final String[] CARACTERES_SEM_ACENTO
-    private static final Pattern[] PATTERNS
-
-    static {
-        CARACTERES_SEM_ACENTO = [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;, &quot;c&quot;, &quot;n&quot;]
-        PATTERNS = new Pattern[CARACTERES_SEM_ACENTO.length]
-        PATTERNS[0] = Pattern.compile(&quot;[áàãâä]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[1] = Pattern.compile(&quot;[éèêë]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[2] = Pattern.compile(&quot;[íìïî]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[3] = Pattern.compile(&quot;[óòöõô]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[4] = Pattern.compile(&quot;[úùüû]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[5] = Pattern.compile(&quot;ç&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[6] = Pattern.compile(&quot;ñ&quot;, Pattern.CASE_INSENSITIVE)
-    }
-
-    private static String replaceSpecial(String text) {
-        String result = text
-        for (int i = 0; i &lt; PATTERNS.length; i++) {
-            Matcher matcher = PATTERNS[i].matcher(result)
-            result = matcher.replaceAll(CARACTERES_SEM_ACENTO[i])
-        }
-        return result
-    }
-
-    static encode = {str -&gt;
-        str = replaceSpecial(str.toString().toLowerCase())
-        return str.replaceAll(&quot;\\W&quot;, &quot;-&quot;)
-    }
-
-}</code></pre></noscript></div>
-
-
-<p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>
-
-<p>Please read the (excelent) <a href="http://grails.org/doc/latest">Grails manual</a> for more info
-on <a href="http://grails.org/doc/latest/guide/single.html#codecs">how to use codecs</a>.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/creating-permalinks-with-grails">Read on &rarr;</a>
+    </footer>
   
 
 

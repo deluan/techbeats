@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Spring | TechBeats]]></title>
   <link href="http://frozen-shelf-7499.herokuapp.com//tag/spring/atom.xml" rel="self"/>
   <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-15T22:43:47-05:00</updated>
+  <updated>2014-07-15T22:53:09-05:00</updated>
   <id>http://frozen-shelf-7499.herokuapp.com//</id>
   <author>
     <name><![CDATA[Deluan Quintao]]></name>
@@ -30,6 +30,9 @@ and <a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/sp
 because the former assumes an expanded WAR file, which was not my case.</p>
 
 <p>Here’s the recipe I came up with:</p>
+
+<!-- more -->
+
 
 <ul>
 <li>Configure a Log4jConfigurer Spring bean in your <code>grails-app/conf/resources.groovy</code>:
