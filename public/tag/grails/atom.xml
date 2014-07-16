@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | TechBeats]]></title>
   <link href="http://frozen-shelf-7499.herokuapp.com//tag/grails/atom.xml" rel="self"/>
   <link href="http://frozen-shelf-7499.herokuapp.com//"/>
-  <updated>2014-07-15T22:17:52-05:00</updated>
+  <updated>2014-07-15T22:40:40-05:00</updated>
   <id>http://frozen-shelf-7499.herokuapp.com//</id>
   <author>
     <name><![CDATA[Deluan Quintao]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How to Use an External log4j.properties in You Grails Project]]></title>
+    <link href="http://frozen-shelf-7499.herokuapp.com//how-to-use-an-external-log4jproperties-in-you-0"/>
+    <updated>2010-09-30T22:33:52-05:00</updated>
+    <id>http://frozen-shelf-7499.herokuapp.com//how-to-use-an-external-log4j-dot-properties-in-you-grails-project</id>
+    <content type="html"><![CDATA[<p>In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of
+those were that the log4j configuration for the application must be externalized and in the properties format.</p>
+
+<p>I searched for a Grails plugin that could help me on this, with no luck. Then I remembered that a Grails application
+is just a Spring application in disguise, so I looked for the Spring way to do this.</p>
+
+<p>There are at least two ways to do this using Spring:
+<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/util/Log4jConfigListener.html">Log4jConfigListener</a>
+and <a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/util/Log4jConfigurer.html">Log4jConfigurer</a>. I chose the later
+because the former assumes an expanded WAR file, which was not my case.</p>
+
+<p>Here’s the recipe I came up with:</p>
+
+<ul>
+<li>Configure a Log4jConfigurer Spring bean in your grails-app/conf/resources.groovy:
+(see here for a <a href="https://gist.github.com/deluan/605359#file-resources-xml">resources.xml</a> version)</li>
+</ul>
+
+
+<p><div><script src='https://gist.github.com/605359.js?file=resources.groovy'></script>
+<noscript><pre><code>beans = {
+    log4jConfigurer(org.springframework.beans.factory.config.MethodInvokingFactoryBean) {
+        targetClass = &quot;org.springframework.util.Log4jConfigurer&quot;
+        targetMethod = &quot;initLogging&quot;
+        arguments = [&quot;classpath:myapp/log4j.properties&quot;]
+    }
+
+    ...
+
+}</code></pre></noscript></div>
+</p>
+
+<ul>
+<li><p>Install the templates in your project with grails install-templates, so you can change some files used for Grails'
+code generation. The one we are interested in is the web.xml template.</p></li>
+<li><p>Comment out the Grails' Log4jConfigListener from the src/templates/war/web.xml template:</p></li>
+</ul>
+
+
+<p><div><script src='https://gist.github.com/605359.js?file=web.xml'></script>
+<noscript><pre><code>    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;sitemesh&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+
+
+    &lt;!-- Comment this out!
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.codehaus.groovy.grails.web.util.Log4jConfigListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    --&gt;
+
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.codehaus.groovy.grails.web.context.GrailsContextLoaderListener&lt;/listener-class&gt;
+    &lt;/listener&gt;</code></pre></noscript></div>
+</p>
+
+<ul>
+<li><p>You can (and should) remove the log4j configuration block from your Config.groovy</p></li>
+<li><p>That’s it!</p></li>
+</ul>
+
+
+<p>This was tested with Grails 1.3.3, deploying to an Oracle WebLogic 10.3.0 container.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Creating Permalinks With Grails]]></title>
