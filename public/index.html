@@ -101,14 +101,62 @@ to say about it is how it&rsquo;s community is really great!</p>
 <p>I think it&rsquo;s time to start giving back some contribution, and here&rsquo;s the first one: A Permalink Codec to generate
 permalinks based on strings. It strips out all non word chars and convert the resulting string to lowercase:</p>
 
-<div><script src='https://gist.github.com/5555251.js'></script>
-<noscript><pre><code>Here's an example of how to embed a Gist on GitHub Pages:
+<div><script src='https://gist.github.com/600968.js'></script>
+<noscript><pre><code>/*
+ * Copyright 2010 Deluan Cotts (grails@deluan.com.br)
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-```
-{% gist 5555251 %}
-```
+package com.deluan.grails.codecs
 
-All you need to do is copy and paste the Gist's ID from the URL (here `5555251`), and add it to a `gist` tag surrounded by `{%` and `%}`.</code></pre></noscript></div>
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+/**
+ * Strip all non word chars, convert to lowercase
+ */
+class PermalinkCodec {
+    private static final String[] CARACTERES_SEM_ACENTO
+    private static final Pattern[] PATTERNS
+
+    static {
+        CARACTERES_SEM_ACENTO = [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;, &quot;c&quot;, &quot;n&quot;]
+        PATTERNS = new Pattern[CARACTERES_SEM_ACENTO.length]
+        PATTERNS[0] = Pattern.compile(&quot;[áàãâä]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[1] = Pattern.compile(&quot;[éèêë]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[2] = Pattern.compile(&quot;[íìïî]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[3] = Pattern.compile(&quot;[óòöõô]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[4] = Pattern.compile(&quot;[úùüû]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[5] = Pattern.compile(&quot;ç&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[6] = Pattern.compile(&quot;ñ&quot;, Pattern.CASE_INSENSITIVE)
+    }
+
+    private static String replaceSpecial(String text) {
+        String result = text
+        for (int i = 0; i &lt; PATTERNS.length; i++) {
+            Matcher matcher = PATTERNS[i].matcher(result)
+            result = matcher.replaceAll(CARACTERES_SEM_ACENTO[i])
+        }
+        return result
+    }
+
+    static encode = {str -&gt;
+        str = replaceSpecial(str.toString().toLowerCase())
+        return str.replaceAll(&quot;\\W&quot;, &quot;-&quot;)
+    }
+
+}</code></pre></noscript></div>
 
 
 <p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>

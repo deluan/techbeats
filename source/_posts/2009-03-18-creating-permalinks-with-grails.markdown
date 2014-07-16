@@ -13,7 +13,7 @@ to say about it is how it's community is really great!
 I think it's time to start giving back some contribution, and here's the first one: A Permalink Codec to generate 
 permalinks based on strings. It strips out all non word chars and convert the resulting string to lowercase:
 
-{% gist 5555251 %}
+{% gist 600968 %}
 
 To use it in your Grails project, save it in `grails-app/utils/com/deluan/grails/codecs` folder as `PermalinkCodec.groovy`.
 
