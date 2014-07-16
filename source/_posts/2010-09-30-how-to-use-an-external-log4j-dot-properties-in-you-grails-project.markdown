@@ -20,15 +20,15 @@ because the former assumes an expanded WAR file, which was not my case.
 
 Here’s the recipe I came up with:
 
-* Configure a Log4jConfigurer Spring bean in your grails-app/conf/resources.groovy: 
-(see here for a [resources.xml](https://gist.github.com/deluan/605359#file-resources-xml) version)
+* Configure a Log4jConfigurer Spring bean in your `grails-app/conf/resources.groovy`: 
+(click [here for a resources.xml](https://gist.github.com/deluan/605359#file-resources-xml) version)
 
 {% gist 605359 resources.groovy %}
 
 * Install the templates in your project with grails install-templates, so you can change some files used for Grails' 
 code generation. The one we are interested in is the web.xml template.
 
-* Comment out the Grails' Log4jConfigListener from the src/templates/war/web.xml template:
+* Comment out the Grails' Log4jConfigListener from the `src/templates/war/web.xml` template:
 
 {% gist 605359 web.xml %}
 
