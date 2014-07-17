@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shiro | TechBeats]]></title>
   <link href="http://techbeats.deluan.com//blog/tag/shiro/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T21:26:30-05:00</updated>
+  <updated>2014-07-16T21:28:07-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -18,7 +18,7 @@
     <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
     <updated>2010-11-01T00:49:27-05:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
-    <content type="html"><![CDATA[<p>First, a little introduction. You can skip it and go straight to the
+    <content type="html"><![CDATA[<p>First, a small introduction. You can skip it and go straight to the
 <a href="http://github.com/deluan/shiro-faces">source code</a>, if you want.</p>
 
 <p>I started working with <a href="http://shiro.apache.org/">Apache Shiro</a> when it was still called JSecurity, and I have to

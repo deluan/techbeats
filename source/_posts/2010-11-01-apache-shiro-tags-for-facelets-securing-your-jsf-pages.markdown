@@ -7,7 +7,7 @@ comments: true
 categories: [java, jsf, shiro] 
 ---
 
-First, a little introduction. You can skip it and go straight to the 
+First, a small introduction. You can skip it and go straight to the 
 [source code](http://github.com/deluan/shiro-faces), if you want.
 
 I started working with [Apache Shiro](http://shiro.apache.org/) when it was still called JSecurity, and I have to 
