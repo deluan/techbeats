@@ -2,9 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: grails | TechBeats]]></title>
-  <link href="http://techbeats.deluan.com//blog/tag/grails/atom.xml" rel="self"/>
+  <link href="http://techbeats.deluan.com/blog/tag/grails/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T21:28:07-05:00</updated>
+  <updated>2014-07-16T21:35:37-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
