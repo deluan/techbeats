@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Jsf | TechBeats]]></title>
-  <link href="http://techbeats.deluan.com/tag/jsf/atom.xml" rel="self"/>
+  <title><![CDATA[Category: jsf | TechBeats]]></title>
+  <link href="http://techbeats.deluan.com//blog/tag/jsf/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T12:36:57-05:00</updated>
+  <updated>2014-07-16T21:26:30-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Apache Shiro Tags for Facelets - Securing Your JSF Pages]]></title>
+    <title type="html"><![CDATA[Apache Shiro tags for Facelets - Securing your JSF pages]]></title>
     <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
     <updated>2010-11-01T00:49:27-05:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>

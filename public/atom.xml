@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T12:36:57-05:00</updated>
+  <updated>2014-07-16T21:26:30-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Profiling Web Requests in Your Grails Application]]></title>
+    <title type="html"><![CDATA[Profiling web requests in your Grails application]]></title>
     <link href="http://techbeats.deluan.com/profiling-web-requests-in-grails-application"/>
     <updated>2010-12-29T00:11:39-06:00</updated>
     <id>http://techbeats.deluan.com/profiling-web-requests-in-your-grails-application</id>
@@ -84,7 +84,7 @@ the time spent rendering the view (<code>list.gsp</code>).</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Using Cache-Headers Plugin in a Non-english Server]]></title>
+    <title type="html"><![CDATA[Using Cache-Headers plugin in a non-english server]]></title>
     <link href="http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s"/>
     <updated>2010-12-21T00:03:35-06:00</updated>
     <id>http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-server</id>
@@ -183,7 +183,7 @@ obsolete in a near future :)</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Apache Shiro Tags for Facelets - Securing Your JSF Pages]]></title>
+    <title type="html"><![CDATA[Apache Shiro tags for Facelets - Securing your JSF pages]]></title>
     <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
     <updated>2010-11-01T00:49:27-05:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
@@ -289,7 +289,7 @@ incorporated officially into Shiro sooner than later, you can vote here: <a href
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Using Spring DI in Your Gaelyk Projects]]></title>
+    <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
     <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
     <updated>2010-10-11T00:07:55-05:00</updated>
     <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
@@ -509,7 +509,7 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Calling the Correct Grails Version Automatically From Command Line]]></title>
+    <title type="html"><![CDATA[Calling the correct Grails version automatically from command line]]></title>
     <link href="http://techbeats.deluan.com/calling-the-right-grails-version-from-command"/>
     <updated>2010-10-04T23:48:53-05:00</updated>
     <id>http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line</id>
@@ -593,7 +593,7 @@ the first parameter. Ex:</li>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[How to Use an External log4j.properties in You Grails Project]]></title>
+    <title type="html"><![CDATA[How to use an external log4j.properties in you Grails project]]></title>
     <link href="http://techbeats.deluan.com/how-to-use-an-external-log4jproperties-in-you-0"/>
     <updated>2010-09-30T22:33:52-05:00</updated>
     <id>http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project</id>
@@ -671,7 +671,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Creating Permalinks With Grails]]></title>
+    <title type="html"><![CDATA[Creating permalinks with Grails]]></title>
     <link href="http://techbeats.deluan.com/creating-permalinks-with-grails"/>
     <updated>2009-03-18T21:51:37-05:00</updated>
     <id>http://techbeats.deluan.com/creating-permalinks-with-grails</id>

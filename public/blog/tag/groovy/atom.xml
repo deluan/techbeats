@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Gaelyk | TechBeats]]></title>
-  <link href="http://techbeats.deluan.com/tag/gaelyk/atom.xml" rel="self"/>
+  <title><![CDATA[Category: groovy | TechBeats]]></title>
+  <link href="http://techbeats.deluan.com//blog/tag/groovy/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-16T12:36:57-05:00</updated>
+  <updated>2014-07-16T21:26:30-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Using Spring DI in Your Gaelyk Projects]]></title>
+    <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
     <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
     <updated>2010-10-11T00:07:55-05:00</updated>
     <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
@@ -229,6 +229,85 @@ You can follow each commit to see exactly what was changed in each step of this 
 
 <p><strong>UPDATE</strong>: I&rsquo;ve refactored the <code>autowire</code>method into a Category, so now it&rsquo;s not necessary to pass <code>this</code> as the first
 parameter.  The new version is available at <a href="http://github.com/deluan/gaelyk-spring">GitHub</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Creating permalinks with Grails]]></title>
+    <link href="http://techbeats.deluan.com/creating-permalinks-with-grails"/>
+    <updated>2009-03-18T21:51:37-05:00</updated>
+    <id>http://techbeats.deluan.com/creating-permalinks-with-grails</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing
+to say about it is how it&rsquo;s community is really great!</p>
+
+<p>I think it&rsquo;s time to start giving back some contribution, and here&rsquo;s the first one: A Permalink Codec to generate
+permalinks based on strings. It strips out all non word chars and convert the resulting string to lowercase:</p>
+
+<!-- more -->
+
+
+<p><div><script src='https://gist.github.com/600968.js'></script>
+<noscript><pre><code>/*
+ * Copyright 2010 Deluan Cotts (grails@deluan.com.br)
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.deluan.grails.codecs
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+/**
+ * Strip all non word chars, convert to lowercase
+ */
+class PermalinkCodec {
+    private static final String[] CARACTERES_SEM_ACENTO
+    private static final Pattern[] PATTERNS
+
+    static {
+        CARACTERES_SEM_ACENTO = [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;, &quot;c&quot;, &quot;n&quot;]
+        PATTERNS = new Pattern[CARACTERES_SEM_ACENTO.length]
+        PATTERNS[0] = Pattern.compile(&quot;[áàãâä]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[1] = Pattern.compile(&quot;[éèêë]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[2] = Pattern.compile(&quot;[íìïî]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[3] = Pattern.compile(&quot;[óòöõô]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[4] = Pattern.compile(&quot;[úùüû]&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[5] = Pattern.compile(&quot;ç&quot;, Pattern.CASE_INSENSITIVE)
+        PATTERNS[6] = Pattern.compile(&quot;ñ&quot;, Pattern.CASE_INSENSITIVE)
+    }
+
+    private static String replaceSpecial(String text) {
+        String result = text
+        for (int i = 0; i &lt; PATTERNS.length; i++) {
+            Matcher matcher = PATTERNS[i].matcher(result)
+            result = matcher.replaceAll(CARACTERES_SEM_ACENTO[i])
+        }
+        return result
+    }
+
+    static encode = {str -&gt;
+        str = replaceSpecial(str.toString().toLowerCase())
+        return str.replaceAll(&quot;\\W&quot;, &quot;-&quot;)
+    }
+
+}</code></pre></noscript></div>
+</p>
+
+<p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>
+
+<p>Please read the (excelent) <a href="http://grails.org/doc/latest">Grails manual</a> for more info
+on <a href="http://grails.org/doc/latest/guide/single.html#codecs">how to use codecs</a>.</p>
 ]]></content>
   </entry>
   

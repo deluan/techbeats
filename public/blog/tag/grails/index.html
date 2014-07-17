@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Calling the correct Grails version automatically from command line - TechBeats</title>
+  <title>Category: grails - TechBeats</title>
   <meta name="author" content="Deluan Quintão">
 
   
-  <meta name="description" content="UPDATE: For latest version and instructions, see http://github.com/deluan/grails.sh Now that I decided to organize and publish some of my code/hacks &hellip;">
+  <meta name="description" content="Category: grails">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://techbeats.deluan.com/calling-the-right-grails-version-from-command">
+  <link rel="canonical" href="http://techbeats.deluan.com/blog/tag/grails/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,165 +65,94 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Calling the correct Grails version automatically from command line</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-04T23:48:53-05:00" pubdate data-updated="true">Oct 4<sup>th</sup>, 2010</time>
-        
-      </p>
+    <h1 class="entry-title">Category: grails</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-<div class="entry-content"><p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>
 
-<p>Now that I decided to organize and publish some of my code/hacks here, I thought it would be a good thing to republish
-here my Grails caller script.</p>
+  
+  <h2>2010</h2>
 
-<p>I work and mantain various Grails projects at the same time, and some of them uses versions of Grails as old as 1.0.3!
-So the question is: How to call the right version of grails command for a given project, the version that the project
-was created with?</p>
+<article>
+  
+<h1><a href="/profiling-web-requests-in-grails-application">Profiling web requests in your Grails application</a></h1>
+<time datetime="2010-12-29T00:11:39-06:00" pubdate><span class='month'>Dec</span> <span class='day'>29</span> <span class='year'>2010</span></time>
 
-<!-- more -->
-
-
-<p>First I tried changing the <code>GRAILS_HOME</code> environment variable every time I was going to work with a project that uses a
-different version than the default. But it’s just too much work for a thing that should be transparent. So I decided to
-create a shell script to solve this problem. The script should detect which Grails version to call when it’s executed.
-Here’s the script I came up with:</p>
-
-<h2>How it Works?</h2>
-
-<p>The script first checks if you specified a version in the command line, like: <code>grails 1.3.5-SNAPSHOT create-app</code>.
-If not, it looks for an application.properties file in the current folder. This file keeps some metadata for Grails
-projects, including the Grails version the project was created with. If it does not find any application.properties in
-the current folder, it then just calls the <a href="http://grails.org/Installation">default Grails installed</a> in your system,
-the one that <code>GRAILS_HOME</code> points to.</p>
-
-<h2>Prerequisites</h2>
-
-<ul>
-<li>All your Grails versions must be installed under the same base directory. Ex:</li>
-</ul>
+<footer>
+  <span class="categories">posted in <a class='category' href='//blog/tag/grails/'>grails</a></span>
+</footer>
 
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  /opt/grails-1.0.3
-</span><span class='line'>  /opt/grails-1.1.1
-</span><span class='line'>  /opt/grails-1.2-M2
-</span><span class='line'>  /opt/grails-1.3.3
-</span><span class='line'>  /opt/grails-1.3.5-SNAPSHOT</span></code></pre></td></tr></table></div></figure>
+</article>
 
 
-<ul>
-<li><p><code>GRAILS_HOME</code> environment variable must be set and point to your “default” Grails installation</p></li>
-<li><p>This script was tested on Mac OS X (Snow Leopard), Linux (Ubuntu) and Windows (with cygwin)</p></li>
-</ul>
+
+<article>
+  
+<h1><a href="/using-cache-headers-plugin-in-a-non-english-s">Using Cache-Headers plugin in a non-english server</a></h1>
+<time datetime="2010-12-21T00:03:35-06:00" pubdate><span class='month'>Dec</span> <span class='day'>21</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='//blog/tag/grails/'>grails</a></span>
+</footer>
 
 
-<h2>Installation</h2>
-
-<ul>
-<li>Download the script: <a href="http://github.com/deluan/grails.sh/raw/master/grails">http://github.com/deluan/grails.sh/raw/master/grails</a></li>
-<li>Include the folder where it is installed in your <code>PATH</code>.</li>
-<li>Exclude <code>$GRAILS_HOME/bin</code> from your <code>PATH</code></li>
-</ul>
+</article>
 
 
-<h2>Usage</h2>
 
-<p>Using the script is as transparent as possible:</p>
+<article>
+  
+<h1><a href="/calling-the-right-grails-version-from-command">Calling the correct Grails version automatically from command line</a></h1>
+<time datetime="2010-10-04T23:48:53-05:00" pubdate><span class='month'>Oct</span> <span class='day'>04</span> <span class='year'>2010</span></time>
 
-<ul>
-<li>If you invoke it from a project folder, it will detect the version used by the project and call the correct grails
-(if it is installed in your system)</li>
-<li>If you invoke it from any other folder that does not contain a Grails project, it will call the “default” Grails
-installation</li>
-<li>If you want to call a specific Grails version (i.e. when doing an upgrade) you can specify the version you want in
-the first parameter. Ex:</li>
-</ul>
+<footer>
+  <span class="categories">posted in <a class='category' href='//blog/tag/bash/'>bash</a>, <a class='category' href='//blog/tag/grails/'>grails</a></span>
+</footer>
 
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ grails 1.3.3 upgrade</span></code></pre></td></tr></table></div></figure>
+</article>
+
+
+
+<article>
+  
+<h1><a href="/how-to-use-an-external-log4jproperties-in-you-0">How to use an external log4j.properties in you Grails project</a></h1>
+<time datetime="2010-09-30T22:33:52-05:00" pubdate><span class='month'>Sep</span> <span class='day'>30</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='//blog/tag/grails/'>grails</a>, <a class='category' href='//blog/tag/spring/'>spring</a></span>
+</footer>
+
+
+</article>
+
+
+
+  
+  <h2>2009</h2>
+
+<article>
+  
+<h1><a href="/creating-permalinks-with-grails">Creating permalinks with Grails</a></h1>
+<time datetime="2009-03-18T21:51:37-05:00" pubdate><span class='month'>Mar</span> <span class='day'>18</span> <span class='year'>2009</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='//blog/tag/grails/'>grails</a>, <a class='category' href='//blog/tag/groovy/'>groovy</a></span>
+</footer>
+
+
+</article>
 
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Deluan Quintão</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-04T23:48:53-05:00" pubdate data-updated="true">Oct 4<sup>th</sup>, 2010</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='//blog/tag/bash/'>bash</a>, <a class='category' href='//blog/tag/grails/'>grails</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://techbeats.deluan.com/calling-the-right-grails-version-from-command" data-via="deluan" data-counturl="http://techbeats.deluan.com/calling-the-right-grails-version-from-command" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/how-to-use-an-external-log4jproperties-in-you-0" title="Previous Post: How to use an external log4j.properties in you Grails project">&laquo; How to use an external log4j.properties in you Grails project</a>
-      
-      
-        <a class="basic-alignment right" href="/using-spring-di-in-your-gaelyk-projects" title="Next Post: Using Spring DI in your Gaelyk projects">Using Spring DI in your Gaelyk projects &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>
