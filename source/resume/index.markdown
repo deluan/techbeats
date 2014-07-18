@@ -85,7 +85,7 @@ I founded this company, focusing on the development of custom, high technology s
 - Performed technical requirements gathering, use-case discovery, and platform analysis.
 - Prepared and delivered technical proposals and presentations to all levels of a client's organization.
 
-## Technologies used: Delphi, C, Java, JavaEE, J2ME, JSP, Struts, Velocity, Ant, Adobe Flex, RFID, Hibernate, Swing
+Technologies used: Delphi, C, Java, JavaEE, J2ME, JSP, Struts, Velocity, Ant, Adobe Flex, RFID, Hibernate, Swing
 
 ## Fininvest Administradora de Cartões S/A    1999-2002
 
