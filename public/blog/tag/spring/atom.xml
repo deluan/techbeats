@@ -4,7 +4,7 @@
   <title><![CDATA[Category: spring | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/spring/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-17T20:38:26-05:00</updated>
+  <updated>2014-07-17T22:18:05-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -143,7 +143,7 @@ public class SpringApplicationContext implements ApplicationContextAware {
 
 <p>As you can see, I also declared some SimpleDateFormat instances as beans to be used in our examples.</p>
 
-<p>Now everything is configured and ready to be used. Let&rsquo;s se how we can obtain a spring bean inside a Groovlet.
+<p>Now everything is configured and ready to be used. Let&rsquo;s see how we can obtain a spring bean inside a Groovlet.
 Create the file <code>WEB-INF/groovy/index.groovy</code> with the following content:</p>
 
 <p><div><pre><code>import com.deluan.gaelyk.SpringApplicationContext
@@ -185,7 +185,7 @@ binding {
 </p>
 
 <p>Before you can use these shortcuts, you need to tell Gaelyk about your descriptor by &ldquo;installing&rdquo; it in your project.
-Save the code bellow in the file WEB-INF/plugins.groovy:</p>
+Save the code bellow in the file <code>WEB-INF/plugins.groovy</code>:</p>
 
 <p><div><pre><code>install spring</code></pre></div>
 </p>
@@ -250,7 +250,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 
 <ul>
 <li>Configure a Log4jConfigurer Spring bean in your <code>grails-app/conf/resources.groovy</code>:
-(click <a href="https://gist.github.com/deluan/605359#file-resources-xml">here for a resources.xml</a> version)</li>
+(click <a href="https://gist.github.com/deluan/605359#file-resources-xml">here for a xml version</a>)</li>
 </ul>
 
 

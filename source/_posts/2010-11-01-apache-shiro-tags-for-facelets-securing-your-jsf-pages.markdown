@@ -6,6 +6,8 @@ date: 2010-11-01 00:49:27 -0500
 comments: true
 categories: [java, jsf, shiro] 
 ---
+**UPDATE** There is now a JSF 2.0 version of this library available in the 
+[project repo](http://github.com/deluan/shiro-faces)
 
 First, a small introduction. You can skip it and go straight to the 
 [source code](http://github.com/deluan/shiro-faces), if you want.
@@ -27,19 +29,20 @@ platform project that needs security.
 Shiro already works great in a JSF/Facelets project. You can use its [filters](http://shiro.apache.org/web.html) to 
 grant and deny access to some parts of your application and to force authentication (redirect to login).
 
-The only functionality missing is the power of its JSP taglib, that are used to conditionally render some parts of 
+The only functionality missing is the power of its JSP taglib, that is used to conditionally render some parts of 
 your HTML, based on user's authorization, roles and permissions (you can learn how to use them with this 
 [simple example project](http://svn.apache.org/repos/asf/shiro/trunk/samples/web/)). The problem is that this 
 conditional rendering [is not totally compatible with JSF's phases](http://www.devx.com/Java/Article/21020/1954). 
-Better than trying to fit a cube in a spherical hole, I decided to rewrite Shiro's JSP tags into a 
+Better than trying to fit a cube into a spherical hole, I decided to rewrite Shiro's JSP tags into a 
 [Facelets](http://en.wikipedia.org/wiki/Facelets) taglib, totally compatible with JSF.
 
 All original tags are available as their Facelets equivalents, and I have introduced two new ones:
 
 `<shiro:hasAnyPermission>` - Displays body content only if the current user has one of the specified permissions from 
 a comma-separated list of permission strings.
+
 `<shiro:remembered>` - Displays body content only if the current user has a known identity that has been obtained from 
-'RememberMe' services. Note that this is semantically different from the 'authenticated' tag, which is more restrictive.
+'RememberMe' services. Note that this is semantically different from the `<shiro:authenticated>` tag, which is more restrictive.
 
 I've already submitted a [patch](https://issues.apache.org/jira/browse/SHIRO-206) to Shiro's development team, but 
 they're very busy at the moment packaging the new 1.1 version for release. So I decided to 

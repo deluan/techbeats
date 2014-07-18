@@ -46,7 +46,7 @@ Configure the singleton in your spring context:
 
 As you can see, I also declared some SimpleDateFormat instances as beans to be used in our examples.
 
-Now everything is configured and ready to be used. Let's se how we can obtain a spring bean inside a Groovlet. 
+Now everything is configured and ready to be used. Let's see how we can obtain a spring bean inside a Groovlet. 
 Create the file `WEB-INF/groovy/index.groovy` with the following content:
 
 {% gist 618739 index.groovy %}
@@ -67,7 +67,7 @@ and getBean(). Save it in the file `WEB-INF/plugins/spring.groovy`:
 {% gist 618739 spring.groovy %}
 
 Before you can use these shortcuts, you need to tell Gaelyk about your descriptor by "installing" it in your project. 
-Save the code bellow in the file WEB-INF/plugins.groovy:
+Save the code bellow in the file `WEB-INF/plugins.groovy`:
 
 {% gist 618739 plugins.groovy %}
 

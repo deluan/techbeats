@@ -4,7 +4,7 @@
   <title><![CDATA[Category: grails | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/grails/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-17T20:38:26-05:00</updated>
+  <updated>2014-07-17T22:18:05-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -279,7 +279,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 
 <ul>
 <li>Configure a Log4jConfigurer Spring bean in your <code>grails-app/conf/resources.groovy</code>:
-(click <a href="https://gist.github.com/deluan/605359#file-resources-xml">here for a resources.xml</a> version)</li>
+(click <a href="https://gist.github.com/deluan/605359#file-resources-xml">here for a xml version</a>)</li>
 </ul>
 
 

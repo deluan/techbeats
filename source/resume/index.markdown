@@ -5,6 +5,7 @@ date: 2014-07-17 20:01
 comments: true
 sharing: true
 footer: true
+published: false
 ---
 # Summary
 [PDF Version](http://goo.gl/cFRTHP)
