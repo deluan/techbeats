@@ -130,8 +130,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 </ul>
 
 
-<div><script src='https://gist.github.com/605359.js?file=resources.groovy'></script>
-<noscript><pre><code>beans = {
+<div><pre><code>beans = {
     log4jConfigurer(org.springframework.beans.factory.config.MethodInvokingFactoryBean) {
         targetClass = &quot;org.springframework.util.Log4jConfigurer&quot;
         targetMethod = &quot;initLogging&quot;
@@ -140,7 +139,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 
     ...
 
-}</code></pre></noscript></div>
+}</code></pre></div>
 
 
 <ul>
@@ -150,8 +149,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
 </ul>
 
 
-<div><script src='https://gist.github.com/605359.js?file=web.xml'></script>
-<noscript><pre><code>    &lt;filter-mapping&gt;
+<div><pre><code>    &lt;filter-mapping&gt;
         &lt;filter-name&gt;sitemesh&lt;/filter-name&gt;
         &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
     &lt;/filter-mapping&gt;
@@ -165,7 +163,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
 
     &lt;listener&gt;
         &lt;listener-class&gt;org.codehaus.groovy.grails.web.context.GrailsContextLoaderListener&lt;/listener-class&gt;
-    &lt;/listener&gt;</code></pre></noscript></div>
+    &lt;/listener&gt;</code></pre></div>
 
 
 <ul>

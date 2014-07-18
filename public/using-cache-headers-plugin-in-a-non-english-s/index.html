@@ -143,8 +143,7 @@ case Portuguese. This causes errors like this:</p>
 <p>The workaround I found was to override the construction of that SimpleDateFormat. Luckily it’s been created in a small
 class, that is easy to extend:</p>
 
-<div><script src='https://gist.github.com/749785.js'></script>
-<noscript><pre><code>package com.deluan.grails.util
+<div><pre><code>package com.deluan.grails.util
 
 import java.text.SimpleDateFormat
 import com.grailsrocks.cacheheaders.DateFormatterThreadLocal
@@ -172,7 +171,7 @@ class EnglishDateFormatterThreadLocal extends DateFormatterThreadLocal {
         return v
     }
 }
-</code></pre></noscript></div>
+</code></pre></div>
 
 
 <p>All you have to do is put this class in your project (in the <code>src/groovy</code> folder) and add the following configuration

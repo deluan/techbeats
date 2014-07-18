@@ -35,11 +35,18 @@ module Jekyll
       end
     end
 
+#     def html_output_for(script_url, code)
+#       code = CGI.escapeHTML code
+#       <<-HTML
+# <div><script src='#{script_url}'></script>
+# <noscript><pre><code>#{code}</code></pre></noscript></div>
+#       HTML
+#     end
+
     def html_output_for(script_url, code)
       code = CGI.escapeHTML code
       <<-HTML
-<div><script src='#{script_url}'></script>
-<noscript><pre><code>#{code}</code></pre></noscript></div>
+<div><pre><code>#{code}</code></pre></div>
       HTML
     end
 

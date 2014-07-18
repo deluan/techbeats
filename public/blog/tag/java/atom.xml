@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/java/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-17T19:00:43-05:00</updated>
+  <updated>2014-07-17T19:27:52-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -58,8 +58,7 @@ repository, as I need to use the tags in an on-going project.</p>
 
 <p>If you want to try it in your maven project, add my repository to your pom.xml:</p>
 
-<p><div><script src='https://gist.github.com/655983.js?file=repositories_pom.xml'></script>
-<noscript><pre><code>        &lt;repositories&gt;
+<p><div><pre><code>        &lt;repositories&gt;
             &lt;repository&gt;
                 &lt;id&gt;deluan.repo&lt;/id&gt;
                 &lt;name&gt;Deluan's Public Repository&lt;/name&gt;
@@ -73,24 +72,22 @@ repository, as I need to use the tags in an on-going project.</p>
                     &lt;enabled&gt;false&lt;/enabled&gt;
                 &lt;/releases&gt;
             &lt;/repository&gt;
-        &lt;/repositories&gt;</code></pre></noscript></div>
+        &lt;/repositories&gt;</code></pre></div>
 </p>
 
 <p>and add the jar dependency:</p>
 
-<p><div><script src='https://gist.github.com/655983.js?file=dependency_pom.xml'></script>
-<noscript><pre><code>        &lt;dependency&gt;
+<p><div><pre><code>        &lt;dependency&gt;
             &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
             &lt;artifactId&gt;shiro-faces&lt;/artifactId&gt;
             &lt;!-- See the latest version on the project's homepage --&gt;
             &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-        &lt;/dependency&gt;</code></pre></noscript></div>
+        &lt;/dependency&gt;</code></pre></div>
 </p>
 
 <p>Now you can declare Shiro&rsquo;s namespace in your xhtml pages and use the tags like this:</p>
 
-<p><div><script src='https://gist.github.com/655983.js?file=test.xhtml'></script>
-<noscript><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<p><div><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
 &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;
       xmlns:ui=&quot;http://java.sun.com/jsf/facelets&quot;
@@ -105,7 +102,7 @@ repository, as I need to use the tags in an on-going project.</p>
     &lt;/p&gt;
 &lt;/body&gt;
 
-&lt;/html&gt;</code></pre></noscript></div>
+&lt;/html&gt;</code></pre></div>
 </p>
 
 <p>That&rsquo;s it! Just keep in mind that as soon as this lib gets incorporated officially in Shiro, I&rsquo;ll stop updating it

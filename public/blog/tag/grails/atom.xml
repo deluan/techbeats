@@ -4,7 +4,7 @@
   <title><![CDATA[Category: grails | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/grails/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-17T19:00:43-05:00</updated>
+  <updated>2014-07-17T19:27:52-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -23,8 +23,7 @@
 <!-- more -->
 
 
-<p><div><script src='https://gist.github.com/744828.js'></script>
-<noscript><pre><code>class UtilFilters {
+<p><div><pre><code>class UtilFilters {
 
     def filters = {
 
@@ -52,7 +51,7 @@
 
 }
 
-</code></pre></noscript></div>
+</code></pre></div>
 </p>
 
 <p>To use it, put this class in the <code>grails-app/conf</code> folder of your project. To activate the profile, call any URL
@@ -118,8 +117,7 @@ at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilt
 <p>The workaround I found was to override the construction of that SimpleDateFormat. Luckily it’s been created in a small
 class, that is easy to extend:</p>
 
-<p><div><script src='https://gist.github.com/749785.js'></script>
-<noscript><pre><code>package com.deluan.grails.util
+<p><div><pre><code>package com.deluan.grails.util
 
 import java.text.SimpleDateFormat
 import com.grailsrocks.cacheheaders.DateFormatterThreadLocal
@@ -147,7 +145,7 @@ class EnglishDateFormatterThreadLocal extends DateFormatterThreadLocal {
         return v
     }
 }
-</code></pre></noscript></div>
+</code></pre></div>
 </p>
 
 <p>All you have to do is put this class in your project (in the <code>src/groovy</code> folder) and add the following configuration
@@ -285,8 +283,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 </ul>
 
 
-<p><div><script src='https://gist.github.com/605359.js?file=resources.groovy'></script>
-<noscript><pre><code>beans = {
+<p><div><pre><code>beans = {
     log4jConfigurer(org.springframework.beans.factory.config.MethodInvokingFactoryBean) {
         targetClass = &quot;org.springframework.util.Log4jConfigurer&quot;
         targetMethod = &quot;initLogging&quot;
@@ -295,7 +292,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 
     ...
 
-}</code></pre></noscript></div>
+}</code></pre></div>
 </p>
 
 <ul>
@@ -305,8 +302,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
 </ul>
 
 
-<p><div><script src='https://gist.github.com/605359.js?file=web.xml'></script>
-<noscript><pre><code>    &lt;filter-mapping&gt;
+<p><div><pre><code>    &lt;filter-mapping&gt;
         &lt;filter-name&gt;sitemesh&lt;/filter-name&gt;
         &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
     &lt;/filter-mapping&gt;
@@ -320,7 +316,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
 
     &lt;listener&gt;
         &lt;listener-class&gt;org.codehaus.groovy.grails.web.context.GrailsContextLoaderListener&lt;/listener-class&gt;
-    &lt;/listener&gt;</code></pre></noscript></div>
+    &lt;/listener&gt;</code></pre></div>
 </p>
 
 <ul>
@@ -347,8 +343,7 @@ permalinks based on strings. It strips out all non word chars and convert the re
 <!-- more -->
 
 
-<p><div><script src='https://gist.github.com/600968.js'></script>
-<noscript><pre><code>/*
+<p><div><pre><code>/*
  * Copyright 2010 Deluan Cotts (grails@deluan.com.br)
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
@@ -402,7 +397,7 @@ class PermalinkCodec {
         return str.replaceAll(&quot;\\W&quot;, &quot;-&quot;)
     }
 
-}</code></pre></noscript></div>
+}</code></pre></div>
 </p>
 
 <p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>

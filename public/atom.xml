@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-17T19:00:43-05:00</updated>
+  <updated>2014-07-17T19:27:52-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -25,8 +25,7 @@
 
 
 
-<div><script src='https://gist.github.com/744828.js'></script>
-<noscript><pre><code>class UtilFilters {
+<div><pre><code>class UtilFilters {
 
     def filters = {
 
@@ -54,7 +53,7 @@
 
 }
 
-</code></pre></noscript></div>
+</code></pre></div>
 
 
 <p>To use it, put this class in the <code>grails-app/conf</code> folder of your project. To activate the profile, call any URL
@@ -127,8 +126,7 @@ case Portuguese. This causes errors like this:</p>
 <p>The workaround I found was to override the construction of that SimpleDateFormat. Luckily it’s been created in a small
 class, that is easy to extend:</p>
 
-<div><script src='https://gist.github.com/749785.js'></script>
-<noscript><pre><code>package com.deluan.grails.util
+<div><pre><code>package com.deluan.grails.util
 
 import java.text.SimpleDateFormat
 import com.grailsrocks.cacheheaders.DateFormatterThreadLocal
@@ -156,7 +154,7 @@ class EnglishDateFormatterThreadLocal extends DateFormatterThreadLocal {
         return v
     }
 }
-</code></pre></noscript></div>
+</code></pre></div>
 
 
 <p>All you have to do is put this class in your project (in the <code>src/groovy</code> folder) and add the following configuration
@@ -228,8 +226,7 @@ repository, as I need to use the tags in an on-going project.</p>
 
 <p>If you want to try it in your maven project, add my repository to your pom.xml:</p>
 
-<div><script src='https://gist.github.com/655983.js?file=repositories_pom.xml'></script>
-<noscript><pre><code>        &lt;repositories&gt;
+<div><pre><code>        &lt;repositories&gt;
             &lt;repository&gt;
                 &lt;id&gt;deluan.repo&lt;/id&gt;
                 &lt;name&gt;Deluan's Public Repository&lt;/name&gt;
@@ -243,24 +240,22 @@ repository, as I need to use the tags in an on-going project.</p>
                     &lt;enabled&gt;false&lt;/enabled&gt;
                 &lt;/releases&gt;
             &lt;/repository&gt;
-        &lt;/repositories&gt;</code></pre></noscript></div>
+        &lt;/repositories&gt;</code></pre></div>
 
 
 <p>and add the jar dependency:</p>
 
-<div><script src='https://gist.github.com/655983.js?file=dependency_pom.xml'></script>
-<noscript><pre><code>        &lt;dependency&gt;
+<div><pre><code>        &lt;dependency&gt;
             &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
             &lt;artifactId&gt;shiro-faces&lt;/artifactId&gt;
             &lt;!-- See the latest version on the project's homepage --&gt;
             &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-        &lt;/dependency&gt;</code></pre></noscript></div>
+        &lt;/dependency&gt;</code></pre></div>
 
 
 <p>Now you can declare Shiro&rsquo;s namespace in your xhtml pages and use the tags like this:</p>
 
-<div><script src='https://gist.github.com/655983.js?file=test.xhtml'></script>
-<noscript><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<div><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
 &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;
       xmlns:ui=&quot;http://java.sun.com/jsf/facelets&quot;
@@ -275,7 +270,7 @@ repository, as I need to use the tags in an on-going project.</p>
     &lt;/p&gt;
 &lt;/body&gt;
 
-&lt;/html&gt;</code></pre></noscript></div>
+&lt;/html&gt;</code></pre></div>
 
 
 <p>That&rsquo;s it! Just keep in mind that as soon as this lib gets incorporated officially in Shiro, I&rsquo;ll stop updating it
@@ -313,18 +308,16 @@ Spring, Gaelyk and Maven.</p>
 
 <p>Now open the project in your favorite IDE, so we can edit the configuration files. First, add the Spring dependency to your <code>pom.xml</code>:</p>
 
-<div><script src='https://gist.github.com/618739.js?file=pom.xml'></script>
-<noscript><pre><code>        &lt;dependency&gt;
+<div><pre><code>        &lt;dependency&gt;
             &lt;groupId&gt;org.springframework&lt;/groupId&gt;
             &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
             &lt;version&gt;${spring.version}&lt;/version&gt;
-        &lt;/dependency&gt;</code></pre></noscript></div>
+        &lt;/dependency&gt;</code></pre></div>
 
 
 <p>Next we need to configure Spring&rsquo;s ContextLoaderListener in <code>web.xml</code>:</p>
 
-<div><script src='https://gist.github.com/618739.js?file=web.xml'></script>
-<noscript><pre><code>    &lt;context-param&gt;
+<div><pre><code>    &lt;context-param&gt;
         &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
         &lt;param-value&gt;
             /WEB-INF/spring/*.xml
@@ -335,7 +328,7 @@ Spring, Gaelyk and Maven.</p>
         &lt;listener-class&gt;
             org.springframework.web.context.ContextLoaderListener
         &lt;/listener-class&gt;
-    &lt;/listener&gt;</code></pre></noscript></div>
+    &lt;/listener&gt;</code></pre></div>
 
 
 <p>As you can see from above, we configured Spring to load all context configuration files under the directory <code>WEB-INF/spring</code>.</p>
@@ -347,8 +340,7 @@ interface. To keep this post as small as possible, I borrowed an implementation 
 more about the details. Create the directory <code>src/main/groovy</code> and put the following SpringApplicationContext singleton
 there (in the correct package):</p>
 
-<div><script src='https://gist.github.com/618739.js?file=SpringApplicationContext.java'></script>
-<noscript><pre><code>package com.deluan.gaelyk;
+<div><pre><code>package com.deluan.gaelyk;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -393,13 +385,12 @@ public class SpringApplicationContext implements ApplicationContextAware {
         return CONTEXT;
     }
 }
-</code></pre></noscript></div>
+</code></pre></div>
 
 
 <p>Configure the singleton in your spring context:</p>
 
-<div><script src='https://gist.github.com/618739.js?file=resources.xml'></script>
-<noscript><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<div><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
        xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
@@ -418,7 +409,7 @@ public class SpringApplicationContext implements ApplicationContextAware {
         &lt;constructor-arg value=&quot;yyyy/MM/dd hh:mm:ss&quot; /&gt;
     &lt;/bean&gt;
 
-&lt;/beans&gt;</code></pre></noscript></div>
+&lt;/beans&gt;</code></pre></div>
 
 
 <p>As you can see, I also declared some SimpleDateFormat instances as beans to be used in our examples.</p>
@@ -426,13 +417,12 @@ public class SpringApplicationContext implements ApplicationContextAware {
 <p>Now everything is configured and ready to be used. Let&rsquo;s se how we can obtain a spring bean inside a Groovlet.
 Create the file <code>WEB-INF/groovy/index.groovy</code> with the following content:</p>
 
-<div><script src='https://gist.github.com/618739.js?file=index.groovy'></script>
-<noscript><pre><code>import com.deluan.gaelyk.SpringApplicationContext
+<div><pre><code>import com.deluan.gaelyk.SpringApplicationContext
 
 def dateFormat = SpringApplicationContext.getBean('dateFormat')
 def now = new Date()
 
-println dateFormat.format(now)</code></pre></noscript></div>
+println dateFormat.format(now)</code></pre></div>
 
 
 <p>Now run your application with the command <code>mvn gae:run</code>, point your browser to <a href="http://localhost:8080/index.groovy">http://localhost:8080/index.groovy</a> and
@@ -448,8 +438,7 @@ remember: Gaelyk is NOT your normal Web framework so let&rsquo;s spice things a 
 Using the plugin descriptor bellow, we can provide shortcuts to our SpringApplicationContext&rsquo;s methods, getContext()
 and getBean(). Save it in the file <code>WEB-INF/plugins/spring.groovy</code>:</p>
 
-<div><script src='https://gist.github.com/618739.js?file=spring.groovy'></script>
-<noscript><pre><code>import com.deluan.gaelyk.SpringApplicationContext
+<div><pre><code>import com.deluan.gaelyk.SpringApplicationContext
 
 binding {
     appCtx = SpringApplicationContext.context
@@ -463,20 +452,18 @@ binding {
             self.setProperty(it, SpringApplicationContext.getBean(it))
         }
     }
-}</code></pre></noscript></div>
+}</code></pre></div>
 
 
 <p>Before you can use these shortcuts, you need to tell Gaelyk about your descriptor by &ldquo;installing&rdquo; it in your project.
 Save the code bellow in the file WEB-INF/plugins.groovy:</p>
 
-<div><script src='https://gist.github.com/618739.js?file=plugins.groovy'></script>
-<noscript><pre><code>install spring</code></pre></noscript></div>
+<div><pre><code>install spring</code></pre></div>
 
 
 <p>Now you can use the shortcuts in your Groovlets this way:</p>
 
-<div><script src='https://gist.github.com/618739.js?file=index2.groovy'></script>
-<noscript><pre><code>
+<div><pre><code>
 def now = new Date()
 
 // Simple context lookup
@@ -492,7 +479,7 @@ html.html {
         p timeFormat.format(now)
         p dateTimeFormat.format(now)
     }
-}</code></pre></noscript></div>
+}</code></pre></div>
 
 
 <p>Cool, isn&rsquo;t it? A note on the <code>autowire</code> binding: It creates bindings &ldquo;automagically&rdquo; for each bean you passed as a
@@ -622,8 +609,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 </ul>
 
 
-<div><script src='https://gist.github.com/605359.js?file=resources.groovy'></script>
-<noscript><pre><code>beans = {
+<div><pre><code>beans = {
     log4jConfigurer(org.springframework.beans.factory.config.MethodInvokingFactoryBean) {
         targetClass = &quot;org.springframework.util.Log4jConfigurer&quot;
         targetMethod = &quot;initLogging&quot;
@@ -632,7 +618,7 @@ I chose the later because the former assumes an expanded WAR file, which was not
 
     ...
 
-}</code></pre></noscript></div>
+}</code></pre></div>
 
 
 <ul>
@@ -642,8 +628,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
 </ul>
 
 
-<div><script src='https://gist.github.com/605359.js?file=web.xml'></script>
-<noscript><pre><code>    &lt;filter-mapping&gt;
+<div><pre><code>    &lt;filter-mapping&gt;
         &lt;filter-name&gt;sitemesh&lt;/filter-name&gt;
         &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
     &lt;/filter-mapping&gt;
@@ -657,7 +642,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
 
     &lt;listener&gt;
         &lt;listener-class&gt;org.codehaus.groovy.grails.web.context.GrailsContextLoaderListener&lt;/listener-class&gt;
-    &lt;/listener&gt;</code></pre></noscript></div>
+    &lt;/listener&gt;</code></pre></div>
 
 
 <ul>
@@ -686,8 +671,7 @@ permalinks based on strings. It strips out all non word chars and convert the re
 
 
 
-<div><script src='https://gist.github.com/600968.js'></script>
-<noscript><pre><code>/*
+<div><pre><code>/*
  * Copyright 2010 Deluan Cotts (grails@deluan.com.br)
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
@@ -741,7 +725,7 @@ class PermalinkCodec {
         return str.replaceAll(&quot;\\W&quot;, &quot;-&quot;)
     }
 
-}</code></pre></noscript></div>
+}</code></pre></div>
 
 
 <p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>
