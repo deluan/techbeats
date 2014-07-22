@@ -4,7 +4,7 @@
   <title><![CDATA[Category: grails | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/grails/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-17T22:18:05-05:00</updated>
+  <updated>2014-07-21T22:27:44-05:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -19,9 +19,6 @@
     <updated>2010-12-29T00:11:39-06:00</updated>
     <id>http://techbeats.deluan.com/profiling-web-requests-in-your-grails-application</id>
     <content type="html"><![CDATA[<p>Here’s a simple filter I’ve been using to help me detect points of improvement in my application:</p>
-
-<!-- more -->
-
 
 <p><div><pre><code>class UtilFilters {
 
@@ -56,6 +53,9 @@
 
 <p>To use it, put this class in the <code>grails-app/conf</code> folder of your project. To activate the profile, call any URL
 of your application with the <code>showTime=on</code> parameter, like this:</p>
+
+<!-- more -->
+
 
 <p><code>
 http://localhost:8080/my-grails-app/book/list?showTime=on

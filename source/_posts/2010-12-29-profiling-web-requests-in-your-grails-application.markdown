@@ -8,12 +8,12 @@ categories: [grails]
 ---
 
 Here’s a simple filter I’ve been using to help me detect points of improvement in my application:
-<!-- more -->
 
 {% gist 744828 %}
 
 To use it, put this class in the `grails-app/conf` folder of your project. To activate the profile, call any URL 
 of your application with the `showTime=on` parameter, like this:
+<!-- more -->
 
 ```
 http://localhost:8080/my-grails-app/book/list?showTime=on
