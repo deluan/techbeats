@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>File encoding auto-detection for ZK Fileupload component - TechBeats</title>
+  <meta name="author" content="Deluan Quintão">
+
+  
+  <meta name="description" content="Proper handling of file encoding can be a royal headache. Recently I spent an
+unreasonable amount of time trying to figure out why ZK&rsquo;s &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="TechBeats" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2382675-13']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:techbeats.deluan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+        <span class="blue_light">
+            TechBeats
+        </span>
+       
+           <span class="blue_dark">
+             ~ Show me the code!
+           </span>
+       
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">File encoding auto-detection for ZK Fileupload component</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-11T22:09:24-04:00" pubdate data-updated="true">Jun 11<sup>th</sup>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Proper handling of file encoding can be a royal headache. Recently I spent an
+unreasonable amount of time trying to figure out why <a href="www.zkoss.com">ZK&rsquo;s</a>
+Fileupload component was messing with the contents of my CSV file:</p>
+
+<!-- more -->
+
+
+<p><img src="/images/blog/2015-06-11-file-encoding-auto-detection-for-zk-fileupload-component/0.png"></p>
+
+<p>The data should be: <code>código redome;;código hemocentro;nome; da mãe;</code></p>
+
+<p>The file was generated with Windows Excel, using the encoding ISO-8859-2
+(common encoding for Windows). After some investigation I found
+out that Fileupload by default treats all files with content type <code>text/...</code>
+as UTF-8! Ouch!!</p>
+
+<p>If all your files will be generated using the same file encoding, this can be
+fixed with the following configuration:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;zk&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;system-config&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;upload-charset&gt;</span>YOUR ENCODING<span class="nt">&lt;/upload-charset&gt;</span> <span class="c">&lt;!-- ISO-8859-2 in my case --&gt;</span>
+</span><span class='line'>    ...
+</span><span class='line'>  <span class="nt">&lt;/system-config&gt;</span>
+</span><span class='line'>  ...
+</span><span class='line'><span class="nt">&lt;/zk&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset_Element">upload-charset</a> tag did the trick! But what if my user decides to
+move to a different (better?) platform in the future, and generates the file
+with UTF-8? Or any other encoding?</p>
+
+<p>Then the proper solution is to use the tag <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset-finder-class_Element">upload-charset-finder-class</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;upload-charset-finder-class&gt;</span>a_class_name<span class="nt">&lt;/upload-charset-finder-class&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset-finder-class_Element">documentation</a> says that this class has to implement
+the interface <a href="http://www.zkoss.org/javadoc/latest/zk/org/zkoss/zk/ui/util/CharsetFinder.html">CharsetFinder</a>
+and its sole method <code>String getCharset(String contentType, InputStream content)</code>:</p>
+
+<blockquote><p>When a text file is uploaded, the getCharset method is called and it can
+determines the encoding based on the content type and/or the content of the
+uploaded file.</p></blockquote>
+
+<p>Which leads us to the main reason of this post: <em>How to detect the file
+encoding, if ZK itself does not provide a default implementation for this
+interface?</em></p>
+
+<p>More research pointed me to the <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
+<a href="https://any23.apache.org">Apache Any23</a>. It includes the <code>TikaEncodingDetector</code>,
+that can be used to auto-detect the file encoding of a stream. The final code
+for the CharsetFinder implementation is the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">util</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.any23.encoding.TikaEncodingDetector</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.zkoss.zk.ui.util.CharsetFinder</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.nio.charset.Charset</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TikaCharsetFinder</span> <span class="kd">implements</span> <span class="n">CharsetFinder</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getCharset</span><span class="o">(</span><span class="n">String</span> <span class="n">contentType</span><span class="o">,</span> <span class="n">InputStream</span> <span class="n">content</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">TikaEncodingDetector</span><span class="o">().</span><span class="na">guessEncoding</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yep, it is that simple. The final ZK configuration to use this class is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;zk&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;system-config&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;upload-charset-finder-class&gt;</span>util.TikaCharsetFinder<span class="nt">&lt;/upload-charset-finder-class&gt;</span>
+</span><span class='line'>    ...
+</span><span class='line'>  <span class="nt">&lt;/system-config&gt;</span>
+</span><span class='line'>  ...
+</span><span class='line'><span class="nt">&lt;/zk&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Deluan Quintão</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-11T22:09:24-04:00" pubdate data-updated="true">Jun 11<sup>th</sup>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tag/zk/'>zk</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/" data-via="deluan" data-counturl="http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/profiling-web-requests-in-grails-application" title="Previous Post: Profiling web requests in your Grails application">&laquo; Profiling web requests in your Grails application</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>
+      Senior developer and architect interested in backend development, DevOps and music :)
+  </p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/">File encoding auto-detection for ZK Fileupload component</a>
+      </li>
+    
+      <li class="post">
+        <a href="/profiling-web-requests-in-grails-application">Profiling web requests in your Grails application</a>
+      </li>
+    
+      <li class="post">
+        <a href="/using-cache-headers-plugin-in-a-non-english-s">Using Cache-Headers plugin in a non-english server</a>
+      </li>
+    
+      <li class="post">
+        <a href="/apache-shiro-tags-for-jsffacelets">Apache Shiro tags for Facelets - Securing your JSF pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/using-spring-di-in-your-gaelyk-projects">Using Spring DI in your Gaelyk projects</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/deluan">@deluan</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'deluan',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/deluan"  data-widget-id="489593627404812288"  data-link-color="#1863a1" data-tweet-limit="4" data-chrome="noheader nofooter transparent noscrollbar">Tweets by @deluan</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </ul>
+  
+    <a href="http://twitter.com/deluan" class="twitter-follow-button" data-show-count="false">Follow @deluan</a>
+  
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/+DeluanQuintao?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Deluan Quintão -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Creating permalinks with Grails - TechBeats</title>
+  <title>Category: zk - TechBeats</title>
   <meta name="author" content="Deluan Quintão">
 
   
-  <meta name="description" content="I&rsquo;ve been working with Grails for some time now and if I had to choose just one good thing
-to say about it is how it&rsquo;s community is &hellip;">
+  <meta name="description" content="Category: zk">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ to say about it is how it&rsquo;s community is &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://techbeats.deluan.com/creating-permalinks-with-grails">
+  <link rel="canonical" href="http://techbeats.deluan.com/blog/tag/zk/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -78,159 +77,35 @@ to say about it is how it&rsquo;s community is &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Creating permalinks with Grails</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-03-18T22:51:37-04:00" pubdate data-updated="true">Mar 18<sup>th</sup>, 2009</time>
-        
-      </p>
+    <h1 class="entry-title">Category: zk</h1>
     
   </header>
-
-
-<div class="entry-content"><p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing
-to say about it is how it&rsquo;s community is really great!</p>
-
-<p>I think it&rsquo;s time to start giving back some contribution, and here&rsquo;s the first one: A Permalink Codec to generate
-permalinks based on strings. It strips out all non word chars and convert the resulting string to lowercase:</p>
-
-<!-- more -->
+  
+  <div id="blog-archives" class="category">
 
 
 
+  
+  <h2>2015</h2>
 
-<div><pre><code>/*
- * Copyright 2010 Deluan Cotts (grails@deluan.com.br)
- *
- * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+<article>
+  
+<h1><a href="/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/">File encoding auto-detection for ZK Fileupload component</a></h1>
+<time datetime="2015-06-11T22:09:24-04:00" pubdate><span class='month'>Jun</span> <span class='day'>11</span> <span class='year'>2015</span></time>
 
-package com.deluan.grails.codecs
-
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
-/**
- * Strip all non word chars, convert to lowercase
- */
-class PermalinkCodec {
-    private static final String[] CARACTERES_SEM_ACENTO
-    private static final Pattern[] PATTERNS
-
-    static {
-        CARACTERES_SEM_ACENTO = [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;, &quot;c&quot;, &quot;n&quot;]
-        PATTERNS = new Pattern[CARACTERES_SEM_ACENTO.length]
-        PATTERNS[0] = Pattern.compile(&quot;[áàãâä]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[1] = Pattern.compile(&quot;[éèêë]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[2] = Pattern.compile(&quot;[íìïî]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[3] = Pattern.compile(&quot;[óòöõô]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[4] = Pattern.compile(&quot;[úùüû]&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[5] = Pattern.compile(&quot;ç&quot;, Pattern.CASE_INSENSITIVE)
-        PATTERNS[6] = Pattern.compile(&quot;ñ&quot;, Pattern.CASE_INSENSITIVE)
-    }
-
-    private static String replaceSpecial(String text) {
-        String result = text
-        for (int i = 0; i &lt; PATTERNS.length; i++) {
-            Matcher matcher = PATTERNS[i].matcher(result)
-            result = matcher.replaceAll(CARACTERES_SEM_ACENTO[i])
-        }
-        return result
-    }
-
-    static encode = {str -&gt;
-        str = replaceSpecial(str.toString().toLowerCase())
-        return str.replaceAll(&quot;\\W&quot;, &quot;-&quot;)
-    }
-
-}</code></pre></div>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/tag/zk/'>zk</a></span>
+</footer>
 
 
-<p>To use it in your Grails project, save it in <code>grails-app/utils/com/deluan/grails/codecs</code> folder as <code>PermalinkCodec.groovy</code>.</p>
+</article>
 
-<p>Please read the (excelent) <a href="http://grails.org/doc/latest">Grails manual</a> for more info
-on <a href="http://grails.org/doc/latest/guide/single.html#codecs">how to use codecs</a>.</p>
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Deluan Quintão</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-03-18T22:51:37-04:00" pubdate data-updated="true">Mar 18<sup>th</sup>, 2009</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/tag/grails/'>grails</a>, <a class='category' href='/blog/tag/groovy/'>groovy</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://techbeats.deluan.com/creating-permalinks-with-grails" data-via="deluan" data-counturl="http://techbeats.deluan.com/creating-permalinks-with-grails" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-      
-        <a class="basic-alignment right" href="/how-to-use-an-external-log4jproperties-in-you-0" title="Next Post: How to use an external log4j.properties in you Grails project">How to use an external log4j.properties in you Grails project &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>

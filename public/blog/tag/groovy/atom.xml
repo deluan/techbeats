@@ -4,7 +4,7 @@
   <title><![CDATA[Category: groovy | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/groovy/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-23T20:12:29-05:00</updated>
+  <updated>2015-06-11T23:24:44-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
     <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
-    <updated>2010-10-11T00:07:55-05:00</updated>
+    <updated>2010-10-11T01:07:55-04:00</updated>
     <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
     <content type="html"><![CDATA[<p>Since I started using <a href="http://gaelyk.appspot.com/">Gaelyk</a>, one of the features I missed most (coming from a Grails
 background) is Spring&rsquo;s dependency injection. Until recently I didn&rsquo;t even know if it was possible to use Spring in
@@ -227,7 +227,7 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
   <entry>
     <title type="html"><![CDATA[Creating permalinks with Grails]]></title>
     <link href="http://techbeats.deluan.com/creating-permalinks-with-grails"/>
-    <updated>2009-03-18T21:51:37-05:00</updated>
+    <updated>2009-03-18T22:51:37-04:00</updated>
     <id>http://techbeats.deluan.com/creating-permalinks-with-grails</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing
 to say about it is how it&rsquo;s community is really great!</p>

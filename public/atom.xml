@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-23T20:12:29-05:00</updated>
+  <updated>2015-06-11T23:24:44-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -14,9 +14,128 @@
 
   
   <entry>
+    <title type="html"><![CDATA[File encoding auto-detection for ZK Fileupload component]]></title>
+    <link href="http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/"/>
+    <updated>2015-06-11T22:09:24-04:00</updated>
+    <id>http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component</id>
+    <content type="html"><![CDATA[<p>Proper handling of file encoding can be a royal headache. Recently I spent an
+unreasonable amount of time trying to figure out why <a href="www.zkoss.com">ZK&rsquo;s</a>
+Fileupload component was messing with the contents of my CSV file:</p>
+
+<!-- more -->
+
+
+<p><img src="http://techbeats.deluan.com/images/blog/2015-06-11-file-encoding-auto-detection-for-zk-fileupload-component/0.png"></p>
+
+<p>The data should be: <code>código redome;;código hemocentro;nome; da mãe;</code></p>
+
+<p>The file was generated with Windows Excel, using the encoding ISO-8859-2
+(common encoding for Windows). After some investigation I found
+out that Fileupload by default treats all files with content type <code>text/...</code>
+as UTF-8! Ouch!!</p>
+
+<p>If all your files will be generated using the same file encoding, this can be
+fixed with the following configuration:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;zk&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;system-config&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;upload-charset&gt;</span>YOUR ENCODING<span class="nt">&lt;/upload-charset&gt;</span> <span class="c">&lt;!-- ISO-8859-2 in my case --&gt;</span>
+</span><span class='line'>    ...
+</span><span class='line'>  <span class="nt">&lt;/system-config&gt;</span>
+</span><span class='line'>  ...
+</span><span class='line'><span class="nt">&lt;/zk&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset_Element">upload-charset</a> tag did the trick! But what if my user decides to
+move to a different (better?) platform in the future, and generates the file
+with UTF-8? Or any other encoding?</p>
+
+<p>Then the proper solution is to use the tag <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset-finder-class_Element">upload-charset-finder-class</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;upload-charset-finder-class&gt;</span>a_class_name<span class="nt">&lt;/upload-charset-finder-class&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset-finder-class_Element">documentation</a> says that this class has to implement
+the interface <a href="http://www.zkoss.org/javadoc/latest/zk/org/zkoss/zk/ui/util/CharsetFinder.html">CharsetFinder</a>
+and its sole method <code>String getCharset(String contentType, InputStream content)</code>:</p>
+
+<blockquote><p>When a text file is uploaded, the getCharset method is called and it can
+determines the encoding based on the content type and/or the content of the
+uploaded file.</p></blockquote>
+
+<p>Which leads us to the main reason of this post: <em>How to detect the file
+encoding, if ZK itself does not provide a default implementation for this
+interface?</em></p>
+
+<p>More research pointed me to the <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
+<a href="https://any23.apache.org">Apache Any23</a>. It includes the <code>TikaEncodingDetector</code>,
+that can be used to auto-detect the file encoding of a stream. The final code
+for the CharsetFinder implementation is the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">util</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.any23.encoding.TikaEncodingDetector</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.zkoss.zk.ui.util.CharsetFinder</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.nio.charset.Charset</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TikaCharsetFinder</span> <span class="kd">implements</span> <span class="n">CharsetFinder</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getCharset</span><span class="o">(</span><span class="n">String</span> <span class="n">contentType</span><span class="o">,</span> <span class="n">InputStream</span> <span class="n">content</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">TikaEncodingDetector</span><span class="o">().</span><span class="na">guessEncoding</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yep, it is that simple. The final ZK configuration to use this class is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;zk&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;system-config&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;upload-charset-finder-class&gt;</span>util.TikaCharsetFinder<span class="nt">&lt;/upload-charset-finder-class&gt;</span>
+</span><span class='line'>    ...
+</span><span class='line'>  <span class="nt">&lt;/system-config&gt;</span>
+</span><span class='line'>  ...
+</span><span class='line'><span class="nt">&lt;/zk&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Profiling web requests in your Grails application]]></title>
     <link href="http://techbeats.deluan.com/profiling-web-requests-in-grails-application"/>
-    <updated>2010-12-29T00:11:39-06:00</updated>
+    <updated>2010-12-29T01:11:39-05:00</updated>
     <id>http://techbeats.deluan.com/profiling-web-requests-in-your-grails-application</id>
     <content type="html"><![CDATA[<p>Here’s a simple filter I’ve been using to help me detect points of improvement in my application:</p>
 
@@ -85,7 +204,7 @@ the time spent rendering the view (<code>list.gsp</code>).</p>
   <entry>
     <title type="html"><![CDATA[Using Cache-Headers plugin in a non-english server]]></title>
     <link href="http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s"/>
-    <updated>2010-12-21T00:03:35-06:00</updated>
+    <updated>2010-12-21T01:03:35-05:00</updated>
     <id>http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-server</id>
     <content type="html"><![CDATA[<p><strong>UPDATE: This problem has been fixed in version 1.1.3 of the plugin. Thanks Marc and Luke Daley!</strong></p>
 
@@ -183,7 +302,7 @@ obsolete in a near future :)</p>
   <entry>
     <title type="html"><![CDATA[Apache Shiro tags for Facelets - Securing your JSF pages]]></title>
     <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
-    <updated>2010-11-01T00:49:27-05:00</updated>
+    <updated>2010-11-01T01:49:27-04:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong> There is now a JSF 2.0 version of this library available in the
 <a href="http://github.com/deluan/shiro-faces">project repo</a></p>
@@ -290,7 +409,7 @@ incorporated officially into Shiro sooner than later, you can vote here: <a href
   <entry>
     <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
     <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
-    <updated>2010-10-11T00:07:55-05:00</updated>
+    <updated>2010-10-11T01:07:55-04:00</updated>
     <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
     <content type="html"><![CDATA[<p>Since I started using <a href="http://gaelyk.appspot.com/">Gaelyk</a>, one of the features I missed most (coming from a Grails
 background) is Spring&rsquo;s dependency injection. Until recently I didn&rsquo;t even know if it was possible to use Spring in
@@ -502,7 +621,7 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
   <entry>
     <title type="html"><![CDATA[Calling the correct Grails version automatically from command line]]></title>
     <link href="http://techbeats.deluan.com/calling-the-right-grails-version-from-command"/>
-    <updated>2010-10-04T23:48:53-05:00</updated>
+    <updated>2010-10-05T00:48:53-04:00</updated>
     <id>http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>
 
@@ -586,7 +705,7 @@ the first parameter. Ex:</li>
   <entry>
     <title type="html"><![CDATA[How to use an external log4j.properties in you Grails project]]></title>
     <link href="http://techbeats.deluan.com/how-to-use-an-external-log4jproperties-in-you-0"/>
-    <updated>2010-09-30T22:33:52-05:00</updated>
+    <updated>2010-09-30T23:33:52-04:00</updated>
     <id>http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project</id>
     <content type="html"><![CDATA[<p>In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of
 those were that the log4j configuration for an application must be externalized in a properties file.</p>
@@ -662,7 +781,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
   <entry>
     <title type="html"><![CDATA[Creating permalinks with Grails]]></title>
     <link href="http://techbeats.deluan.com/creating-permalinks-with-grails"/>
-    <updated>2009-03-18T21:51:37-05:00</updated>
+    <updated>2009-03-18T22:51:37-04:00</updated>
     <id>http://techbeats.deluan.com/creating-permalinks-with-grails</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing
 to say about it is how it&rsquo;s community is really great!</p>

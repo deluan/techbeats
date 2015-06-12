@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shiro | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/shiro/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2014-07-23T20:12:29-05:00</updated>
+  <updated>2015-06-11T23:24:44-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Apache Shiro tags for Facelets - Securing your JSF pages]]></title>
     <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
-    <updated>2010-11-01T00:49:27-05:00</updated>
+    <updated>2010-11-01T01:49:27-04:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong> There is now a JSF 2.0 version of this library available in the
 <a href="http://github.com/deluan/shiro-faces">project repo</a></p>
