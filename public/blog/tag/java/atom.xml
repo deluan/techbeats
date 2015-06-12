@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/java/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-11T23:50:10-04:00</updated>
+  <updated>2015-06-12T00:10:55-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -19,7 +19,7 @@
     <updated>2015-06-11T22:09:24-04:00</updated>
     <id>http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component</id>
     <content type="html"><![CDATA[<p>Proper handling of file encoding can be a royal headache. Recently I spent an
-unreasonable amount of time trying to figure out why <a href="www.zkoss.com">ZK&rsquo;s</a>
+unreasonable amount of time trying to figure out why <a href="http://www.zkoss.com">ZK&rsquo;s</a>
 Fileupload component was messing with the contents of my CSV file:</p>
 
 <!-- more -->

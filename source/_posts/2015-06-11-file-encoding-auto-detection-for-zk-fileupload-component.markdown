@@ -8,7 +8,7 @@ categories: [zk, java]
 ---
 
 Proper handling of file encoding can be a royal headache. Recently I spent an
-unreasonable amount of time trying to figure out why [ZK's](www.zkoss.com)
+unreasonable amount of time trying to figure out why [ZK's](http://www.zkoss.com)
 Fileupload component was messing with the contents of my CSV file:
 
 <!-- more -->
