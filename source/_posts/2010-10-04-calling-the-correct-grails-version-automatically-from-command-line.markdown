@@ -12,9 +12,9 @@ categories: [bash, grails]
 Now that I decided to organize and publish some of my code/hacks here, I thought
 it would be a good thing to republish here my Grails caller script.
 
-I work and mantain various Grails projects at the same time, and some of them
-uses versions of Grails as old as 1.0.3! So the question is: How to call the
-right version of grails command for a given project, the version that the
+I work on and maintain various Grails projects at the same time, and some of
+them uses versions of Grails as old as 1.0.3! So the question is: How to call
+the right version of grails command for a given project, the version that the
 project was created with?
 <!-- more -->
 

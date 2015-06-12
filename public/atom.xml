@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-12T00:50:39-04:00</updated>
+  <updated>2015-06-12T00:56:15-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -628,9 +628,9 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
 <p>Now that I decided to organize and publish some of my code/hacks here, I thought
 it would be a good thing to republish here my Grails caller script.</p>
 
-<p>I work and mantain various Grails projects at the same time, and some of them
-uses versions of Grails as old as 1.0.3! So the question is: How to call the
-right version of grails command for a given project, the version that the
+<p>I work on and maintain various Grails projects at the same time, and some of
+them uses versions of Grails as old as 1.0.3! So the question is: How to call
+the right version of grails command for a given project, the version that the
 project was created with?</p>
 
 <!-- more -->
