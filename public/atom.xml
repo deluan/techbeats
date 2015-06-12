@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-12T00:13:56-04:00</updated>
+  <updated>2015-06-12T00:50:39-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -625,27 +625,73 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
     <id>http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>
 
-<p>Now that I decided to organize and publish some of my code/hacks here, I thought it would be a good thing to republish
-here my Grails caller script.</p>
+<p>Now that I decided to organize and publish some of my code/hacks here, I thought
+it would be a good thing to republish here my Grails caller script.</p>
 
-<p>I work and mantain various Grails projects at the same time, and some of them uses versions of Grails as old as 1.0.3!
-So the question is: How to call the right version of grails command for a given project, the version that the project
-was created with?</p>
+<p>I work and mantain various Grails projects at the same time, and some of them
+uses versions of Grails as old as 1.0.3! So the question is: How to call the
+right version of grails command for a given project, the version that the
+project was created with?</p>
 
 <!-- more -->
 
 
-<p>First I tried changing the <code>GRAILS_HOME</code> environment variable every time I was going to work with a project that uses a
-different version than the default. But it’s just too much work for a thing that should be transparent. So I decided to
-create a shell script to solve this problem. The script should detect which Grails version to call when it’s executed.
-Here’s the script I came up with:</p>
+<p>First I tried changing the <code>GRAILS_HOME</code> environment variable every time I was
+going to work with a project that uses a different version than the default.
+But it’s just too much work for a thing that should be transparent. So I decided
+to create a shell script to solve this problem. The script should detect which
+Grails version to call when it’s executed. Here’s the script I came up with:</p>
+
+<div><pre><code>#!/bin/sh
+# Author: Deluan (http://techbeats.deluan.com)
+
+# Check if GRAILS_HOME is set
+if [ -z &quot;$GRAILS_HOME&quot; -o ! -d &quot;$GRAILS_HOME&quot; ]; then
+    echo &quot;Error: GRAILS_HOME not set&quot;
+    exit 2
+fi
+
+# Extract the base path from GRAILS_HOME
+BASE_GRAILS_PATH=`echo $GRAILS_HOME | sed -e &quot;s/[^\/\\]*$//&quot; -e &quot;s/^$/./&quot;`
+APP_PROP=&quot;application.properties&quot;
+
+# Try to get the version from the command line
+TRY_VERSION=$1
+if [ -d &quot;${BASE_GRAILS_PATH}/grails-${TRY_VERSION}&quot; ]; then
+    VERSION=$TRY_VERSION
+    shift
+fi 
+
+# Or else get the version from the application.properties in the current directory
+[ -z &quot;$VERSION&quot; -a -f &quot;$APP_PROP&quot; ] &amp;&amp;
+    VERSION=`awk -F'=' '/app.grails.version/ { print $2 }' $APP_PROP | tr -d '\r\n'`
+
+# Or else use the default version
+if [ -z &quot;$VERSION&quot; ]; then  
+    VERSION=`basename $GRAILS_HOME | cut -f 2 -d &quot;-&quot;`
+fi
+
+export GRAILS_HOME=${BASE_GRAILS_PATH}/grails-${VERSION}
+GRAILS_CMD=${GRAILS_HOME}/bin/grails
+
+if [ ! -x &quot;$GRAILS_CMD&quot; ]; then
+    echo &quot;Error: grails command not found at '$GRAILS_CMD'!&quot;
+    exit 3
+fi
+
+exec $GRAILS_CMD $*
+</code></pre></div>
+
 
 <h2>How it Works?</h2>
 
-<p>The script first checks if you specified a version in the command line, like: <code>grails 1.3.5-SNAPSHOT create-app</code>.
-If not, it looks for an application.properties file in the current folder. This file keeps some metadata for Grails
-projects, including the Grails version the project was created with. If it does not find any application.properties in
-the current folder, it then just calls the <a href="http://grails.org/Installation">default Grails installed</a> in your system,
+<p>The script first checks if you specified a version in the command line,
+like: <code>grails 1.3.5-SNAPSHOT create-app</code>. If not, it looks for an
+<code>application.properties</code> file in the current folder. This file keeps some
+metadata for Grails projects, including the Grails version the project was
+created with. If it does not find any <code>application.properties</code> in the current
+folder, it then just calls the
+<a href="http://grails.org/Installation">default Grails installed</a> in your system,
 the one that <code>GRAILS_HOME</code> points to.</p>
 
 <h2>Prerequisites</h2>
@@ -668,8 +714,10 @@ the one that <code>GRAILS_HOME</code> points to.</p>
 
 
 <ul>
-<li><p><code>GRAILS_HOME</code> environment variable must be set and point to your “default” Grails installation</p></li>
-<li><p>This script was tested on Mac OS X (Snow Leopard), Linux (Ubuntu) and Windows (with cygwin)</p></li>
+<li><p><code>GRAILS_HOME</code> environment variable must be set and point to your “default”
+Grails installation</p></li>
+<li><p>This script was tested on Mac OS X (Snow Leopard), Linux (Ubuntu) and
+Windows (with cygwin)</p></li>
 </ul>
 
 
@@ -687,12 +735,12 @@ the one that <code>GRAILS_HOME</code> points to.</p>
 <p>Using the script is as transparent as possible:</p>
 
 <ul>
-<li>If you invoke it from a project folder, it will detect the version used by the project and call the correct grails
-(if it is installed in your system)</li>
-<li>If you invoke it from any other folder that does not contain a Grails project, it will call the “default” Grails
-installation</li>
-<li>If you want to call a specific Grails version (i.e. when doing an upgrade) you can specify the version you want in
-the first parameter. Ex:</li>
+<li>If you invoke it from a project folder, it will detect the version used by
+the project and call the correct grails (if it is installed in your system)</li>
+<li>If you invoke it from any other folder that does not contain a Grails project,
+it will call the “default” Grails installation</li>
+<li>If you want to call a specific Grails version (i.e. when doing an upgrade) you
+can specify the version you want in the first parameter. Ex:</li>
 </ul>
 
 
