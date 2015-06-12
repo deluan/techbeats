@@ -4,7 +4,7 @@ title: "File encoding auto-detection for ZK Fileupload component"
 date: 2015-06-11 22:09:24 -0400
 comments: true
 published: true
-categories: [zk]
+categories: [zk, java]
 ---
 
 Proper handling of file encoding can be a royal headache. Recently I spent an
