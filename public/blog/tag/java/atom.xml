@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/java/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-12T00:10:55-04:00</updated>
+  <updated>2015-06-12T00:13:56-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -27,7 +27,7 @@ Fileupload component was messing with the contents of my CSV file:</p>
 
 <p><img src="/images/blog/2015-06-11-file-encoding-auto-detection-for-zk-fileupload-component/0.png"></p>
 
-<p>The data should be: <code>código redome;;código hemocentro;nome; da mãe;</code></p>
+<p>The data should be: <code>código redome;;código hemocentro;nome;nome da mãe;</code></p>
 
 <p>The file was generated with Windows Excel, using the encoding ISO-8859-2
 (common encoding for Windows). After some investigation I found

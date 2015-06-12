@@ -15,7 +15,7 @@ Fileupload component was messing with the contents of my CSV file:
 
 {% img /images/blog/2015-06-11-file-encoding-auto-detection-for-zk-fileupload-component/0.png %}
 
-The data should be: `código redome;;código hemocentro;nome; da mãe;`
+The data should be: `código redome;;código hemocentro;nome;nome da mãe;`
 
 The file was generated with Windows Excel, using the encoding ISO-8859-2
 (common encoding for Windows). After some investigation I found
