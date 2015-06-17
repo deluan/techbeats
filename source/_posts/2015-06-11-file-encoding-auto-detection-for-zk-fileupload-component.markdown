@@ -57,7 +57,7 @@ Which leads us to the main reason of this post: *How to detect the file
 encoding, if ZK itself does not provide a default implementation for this
 interface?*
 
-More research pointed me to the [some solutions](http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream), but the one that I ended up implementing was using the
+More research pointed me to [some solutions](http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream), but the one that I ended up implementing was using the
 [Apache Any23](https://any23.apache.org). It includes the `TikaEncodingDetector`,
 that can be used to auto-detect the file encoding of a stream. The final code
 for the CharsetFinder implementation is the following:
