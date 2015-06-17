@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-12T00:56:15-04:00</updated>
+  <updated>2015-06-16T23:01:55-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -77,7 +77,7 @@ uploaded file.</p></blockquote>
 encoding, if ZK itself does not provide a default implementation for this
 interface?</em></p>
 
-<p>More research pointed me to the <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
+<p>More research pointed me to <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
 <a href="https://any23.apache.org">Apache Any23</a>. It includes the <code>TikaEncodingDetector</code>,
 that can be used to auto-detect the file encoding of a stream. The final code
 for the CharsetFinder implementation is the following:</p>
@@ -336,10 +336,10 @@ Better than trying to fit a cube into a spherical hole, I decided to rewrite Shi
 
 <p>All original tags are available as their Facelets equivalents, and I have introduced two new ones:</p>
 
-<p><code>&lt;shiro:hasAnyPermission&gt;</code> &ndash; Displays body content only if the current user has one of the specified permissions from
+<p><code>&lt;shiro:hasAnyPermission&gt;</code> - Displays body content only if the current user has one of the specified permissions from
 a comma-separated list of permission strings.</p>
 
-<p><code>&lt;shiro:remembered&gt;</code> &ndash; Displays body content only if the current user has a known identity that has been obtained from
+<p><code>&lt;shiro:remembered&gt;</code> - Displays body content only if the current user has a known identity that has been obtained from
 &lsquo;RememberMe&rsquo; services. Note that this is semantically different from the <code>&lt;shiro:authenticated&gt;</code> tag, which is more restrictive.</p>
 
 <p>I&rsquo;ve already submitted a <a href="https://issues.apache.org/jira/browse/SHIRO-206">patch</a> to Shiro&rsquo;s development team, but

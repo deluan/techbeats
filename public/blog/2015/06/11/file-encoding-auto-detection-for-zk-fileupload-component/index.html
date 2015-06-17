@@ -164,7 +164,7 @@ uploaded file.</p></blockquote>
 encoding, if ZK itself does not provide a default implementation for this
 interface?</em></p>
 
-<p>More research pointed me to the <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
+<p>More research pointed me to <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
 <a href="https://any23.apache.org">Apache Any23</a>. It includes the <code>TikaEncodingDetector</code>,
 that can be used to auto-detect the file encoding of a stream. The final code
 for the CharsetFinder implementation is the following:</p>

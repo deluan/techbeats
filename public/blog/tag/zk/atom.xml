@@ -4,7 +4,7 @@
   <title><![CDATA[Category: zk | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/zk/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-12T00:56:15-04:00</updated>
+  <updated>2015-06-16T23:01:55-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -37,18 +37,14 @@ as UTF-8! Ouch!!</p>
 <p>If all your files will be generated using the same file encoding, this can be
 fixed with the following configuration:</p>
 
-<p>```xml
-<zk>
-  &lt;system-config></p>
-
-<pre><code>&lt;upload-charset&gt;YOUR ENCODING&lt;/upload-charset&gt; &lt;!-- ISO-8859-2 in my case --&gt;
-...
+<pre><code class="xml">&lt;zk&gt;
+  &lt;system-config&gt;
+    &lt;upload-charset&gt;YOUR ENCODING&lt;/upload-charset&gt; &lt;!-- ISO-8859-2 in my case --&gt;
+    ...
+  &lt;/system-config&gt;
+  ...
+&lt;/zk&gt;
 </code></pre>
-
-<p>  &lt;/system-config>
-  &hellip;
-</zk>
-```</p>
 
 <p>The <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset_Element">upload-charset</a> tag did the trick! But what if my user decides to
 move to a different (better?) platform in the future, and generates the file
@@ -56,9 +52,8 @@ with UTF-8? Or any other encoding?</p>
 
 <p>Then the proper solution is to use the tag <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset-finder-class_Element">upload-charset-finder-class</a>:</p>
 
-<p><code>xml
-&lt;upload-charset-finder-class&gt;a_class_name&lt;/upload-charset-finder-class&gt;
-</code></p>
+<pre><code class="xml">&lt;upload-charset-finder-class&gt;a_class_name&lt;/upload-charset-finder-class&gt;
+</code></pre>
 
 <p>The <a href="http://books.zkoss.org/wiki/ZK_Configuration_Reference/zk.xml/The_system-config_Element/The_upload-charset-finder-class_Element">documentation</a> says that this class has to implement
 the interface <a href="http://www.zkoss.org/javadoc/latest/zk/org/zkoss/zk/ui/util/CharsetFinder.html">CharsetFinder</a>
@@ -72,7 +67,7 @@ uploaded file.</p></blockquote>
 encoding, if ZK itself does not provide a default implementation for this
 interface?</em></p>
 
-<p>More research pointed me to the <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
+<p>More research pointed me to <a href="http://stackoverflow.com/questions/499010/java-how-to-determine-the-correct-charset-encoding-of-a-stream">some solutions</a>, but the one that I ended up implementing was using the
 <a href="https://any23.apache.org">Apache Any23</a>. It includes the <code>TikaEncodingDetector</code>,
 that can be used to auto-detect the file encoding of a stream. The final code
 for the CharsetFinder implementation is the following:
@@ -84,30 +79,24 @@ import org.zkoss.zk.ui.util.CharsetFinder;</p>
 
 <p>import java.nio.charset.Charset;</p>
 
-<p>public class TikaCharsetFinder implements CharsetFinder {</p>
-
-<pre><code>@Override
-public String getCharset(String contentType, InputStream content) throws IOException {
-    return new TikaEncodingDetector().guessEncoding(content);
+<p>public class TikaCharsetFinder implements CharsetFinder {
+    @Override
+    public String getCharset(String contentType, InputStream content) throws IOException {
+        return new TikaEncodingDetector().guessEncoding(content);
+    }
 }
-</code></pre>
-
-<p>}
 ```</p>
 
 <p>Yep, it is that simple. The final ZK configuration to use this class is:
-```xml
-<zk>
-  &lt;system-config></p>
-
-<pre><code>&lt;upload-charset-finder-class&gt;util.TikaCharsetFinder&lt;/upload-charset-finder-class&gt;
-...
-</code></pre>
-
-<p>  &lt;/system-config>
-  &hellip;
-</zk>
-```</p>
+<code>xml
+&lt;zk&gt;
+  &lt;system-config&gt;
+    &lt;upload-charset-finder-class&gt;util.TikaCharsetFinder&lt;/upload-charset-finder-class&gt;
+    ...
+  &lt;/system-config&gt;
+  ...
+&lt;/zk&gt;
+</code></p>
 ]]></content>
   </entry>
   
