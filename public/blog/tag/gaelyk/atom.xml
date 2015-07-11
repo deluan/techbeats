@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gaelyk | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/gaelyk/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-16T23:01:55-04:00</updated>
+  <updated>2015-07-10T21:12:18-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -77,7 +77,7 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  * Wrapper to always return a reference to the Spring Application Context from
- * within non-Spring enabled beans. Unlike Spring MVC's WebApplicationContextUtils
+ * within non-Spring enabled beans. Unlike Spring MVC&#39;s WebApplicationContextUtils
  * we do not need a reference to the Servlet context for this. All we need is
  * for this bean to be initialized during application startup.
  *
@@ -148,7 +148,7 @@ Create the file <code>WEB-INF/groovy/index.groovy</code> with the following cont
 
 <p><div><pre><code>import com.deluan.gaelyk.SpringApplicationContext
 
-def dateFormat = SpringApplicationContext.getBean('dateFormat')
+def dateFormat = SpringApplicationContext.getBean(&#39;dateFormat&#39;)
 def now = new Date()
 
 println dateFormat.format(now)</code></pre></div>
@@ -196,10 +196,10 @@ Save the code bellow in the file <code>WEB-INF/plugins.groovy</code>:</p>
 def now = new Date()
 
 // Simple context lookup
-def dateFormat = getBean('dateFormat')
+def dateFormat = getBean(&#39;dateFormat&#39;)
 
 // Resolve a list of bean names and create bindings for each one of them
-autowire this, ['timeFormat', 'dateTimeFormat']
+autowire this, [&#39;timeFormat&#39;, &#39;dateTimeFormat&#39;]
 
 html.html {
     body {

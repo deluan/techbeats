@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/</loc>
+    <lastmod>2015-07-10T20:44:24-04:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/</loc>
     <lastmod>2015-06-11T22:09:24-04:00</lastmod>
     <priority>0.8</priority>
@@ -53,21 +59,21 @@
   
   <url>
     <loc>http://techbeats.deluan.com/404.html</loc>
-    <lastmod>2015-06-16T23:01:55-04:00</lastmod>
+    <lastmod>2015-07-10T21:12:18-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://techbeats.deluan.com/blog/archives/</loc>
-    <lastmod>2015-06-16T23:01:55-04:00</lastmod>
+    <lastmod>2015-07-10T21:12:18-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://techbeats.deluan.com/</loc>
-    <lastmod>2015-06-16T23:01:55-04:00</lastmod>
+    <lastmod>2015-07-10T21:12:18-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

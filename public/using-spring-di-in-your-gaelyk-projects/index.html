@@ -165,7 +165,7 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  * Wrapper to always return a reference to the Spring Application Context from
- * within non-Spring enabled beans. Unlike Spring MVC's WebApplicationContextUtils
+ * within non-Spring enabled beans. Unlike Spring MVC&#39;s WebApplicationContextUtils
  * we do not need a reference to the Servlet context for this. All we need is
  * for this bean to be initialized during application startup.
  *
@@ -236,7 +236,7 @@ Create the file <code>WEB-INF/groovy/index.groovy</code> with the following cont
 
 <div><pre><code>import com.deluan.gaelyk.SpringApplicationContext
 
-def dateFormat = SpringApplicationContext.getBean('dateFormat')
+def dateFormat = SpringApplicationContext.getBean(&#39;dateFormat&#39;)
 def now = new Date()
 
 println dateFormat.format(now)</code></pre></div>
@@ -284,10 +284,10 @@ Save the code bellow in the file <code>WEB-INF/plugins.groovy</code>:</p>
 def now = new Date()
 
 // Simple context lookup
-def dateFormat = getBean('dateFormat')
+def dateFormat = getBean(&#39;dateFormat&#39;)
 
 // Resolve a list of bean names and create bindings for each one of them
-autowire this, ['timeFormat', 'dateTimeFormat']
+autowire this, [&#39;timeFormat&#39;, &#39;dateTimeFormat&#39;]
 
 html.html {
     body {
@@ -382,6 +382,10 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/">Processing large templates with Gradle and FreeMarker</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/">File encoding auto-detection for ZK Fileupload component</a>
       </li>
     
@@ -395,10 +399,6 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
     
       <li class="post">
         <a href="/apache-shiro-tags-for-jsffacelets">Apache Shiro tags for Facelets - Securing your JSF pages</a>
-      </li>
-    
-      <li class="post">
-        <a href="/using-spring-di-in-your-gaelyk-projects">Using Spring DI in your Gaelyk projects</a>
       </li>
     
   </ul>

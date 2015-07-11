@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Profiling web requests in your Grails application - TechBeats</title>
+  <title>Category: gradle - TechBeats</title>
   <meta name="author" content="Deluan Quintão">
 
   
-  <meta name="description" content="Here’s a simple filter I’ve been using to help me detect points of improvement in my application: class UtilFilters { def filters = { profiler( &hellip;">
+  <meta name="description" content="Category: gradle">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://techbeats.deluan.com/profiling-web-requests-in-grails-application">
+  <link rel="canonical" href="http://techbeats.deluan.com/blog/tag/gradle/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -77,150 +77,35 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Profiling web requests in your Grails application</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-29T01:11:39-05:00" pubdate data-updated="true">Dec 29<sup>th</sup>, 2010</time>
-        
-      </p>
+    <h1 class="entry-title">Category: gradle</h1>
     
   </header>
-
-
-<div class="entry-content"><p>Here’s a simple filter I’ve been using to help me detect points of improvement in my application:</p>
-
-<div><pre><code>class UtilFilters {
-
-    def filters = {
-
-        profiler(controller: &#39;*&#39;, action: &#39;*&#39;) {
-            before = {
-                request._timeBeforeRequest = System.currentTimeMillis()
-            }
-
-            after = {
-                request._timeAfterRequest = System.currentTimeMillis()
-            }
-
-            afterView = {
-                if (params.showTime) {
-                    session._showTime = params.showTime == &quot;on&quot;
-                }
-                if (session._showTime) {
-                    def actionDuration = request._timeAfterRequest - request._timeBeforeRequest
-                    def viewDuration = System.currentTimeMillis() - request._timeAfterRequest
-                    log.debug(&quot;Request duration for (${controllerName}/${actionName}): ${actionDuration}ms/${viewDuration}ms&quot;)
-                }
-            }
-        }
-    }
-
-}
-
-</code></pre></div>
-
-
-<p>To use it, put this class in the <code>grails-app/conf</code> folder of your project. To activate the profile, call any URL
-of your application with the <code>showTime=on</code> parameter, like this:</p>
-
-<!-- more -->
+  
+  <div id="blog-archives" class="category">
 
 
 
+  
+  <h2>2015</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>http://localhost:8080/my-grails-app/book/list?showTime=on</span></code></pre></td></tr></table></div></figure>
+<article>
+  
+<h1><a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/">Processing large templates with Gradle and FreeMarker</a></h1>
+<time datetime="2015-07-10T20:44:24-04:00" pubdate><span class='month'>Jul</span> <span class='day'>10</span> <span class='year'>2015</span></time>
 
-
-<p>After calling that URL, all request times will be measured and informed on the application’s log, like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>2010-12-21 12:02:31,698 [http-8080-5] DEBUG filters.UtilFilters  - Request duration for (book/list): 20ms/50ms</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The first time informed (20ms) is the time spent executing the action (list in this case) and the second (50ms) is
-the time spent rendering the view (<code>list.gsp</code>).</p>
-
-<p>To turn off the profiler, call any URL with <code>showTime=off</code>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>http://localhost:8080/my-grails-app?showTime=on</span></code></pre></td></tr></table></div></figure>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/tag/gradle/'>gradle</a>, <a class='category' href='/blog/tag/groovy/'>groovy</a></span>
+</footer>
 
 
-<p>Enjoy :)</p>
+</article>
+
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Deluan Quintão</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-29T01:11:39-05:00" pubdate data-updated="true">Dec 29<sup>th</sup>, 2010</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/tag/grails/'>grails</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://techbeats.deluan.com/profiling-web-requests-in-grails-application" data-via="deluan" data-counturl="http://techbeats.deluan.com/profiling-web-requests-in-grails-application" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/using-cache-headers-plugin-in-a-non-english-s" title="Previous Post: Using Cache-Headers plugin in a non-english server">&laquo; Using Cache-Headers plugin in a non-english server</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/" title="Next Post: File encoding auto-detection for ZK Fileupload component">File encoding auto-detection for ZK Fileupload component &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>

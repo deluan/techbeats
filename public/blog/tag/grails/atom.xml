@@ -4,7 +4,7 @@
   <title><![CDATA[Category: grails | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/grails/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-16T23:01:55-04:00</updated>
+  <updated>2015-07-10T21:12:18-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -24,7 +24,7 @@
 
     def filters = {
 
-        profiler(controller: '*', action: '*') {
+        profiler(controller: &#39;*&#39;, action: &#39;*&#39;) {
             before = {
                 request._timeBeforeRequest = System.currentTimeMillis()
             }
@@ -134,7 +134,7 @@ import com.grailsrocks.cacheheaders.DateFormatterThreadLocal
 class EnglishDateFormatterThreadLocal extends DateFormatterThreadLocal {
     SimpleDateFormat initialValue() {
         def v = new SimpleDateFormat(RFC1123_DATE_FORMAT, Locale.ENGLISH)
-        v.timeZone = TimeZone.getTimeZone('GMT')
+        v.timeZone = TimeZone.getTimeZone(&#39;GMT&#39;)
         return v
     }
 }
@@ -207,7 +207,7 @@ fi
 
 # Or else get the version from the application.properties in the current directory
 [ -z &quot;$VERSION&quot; -a -f &quot;$APP_PROP&quot; ] &amp;&amp;
-    VERSION=`awk -F'=' '/app.grails.version/ { print $2 }' $APP_PROP | tr -d '\r\n'`
+    VERSION=`awk -F&#39;=&#39; &#39;/app.grails.version/ { print $2 }&#39; $APP_PROP | tr -d &#39;\r\n&#39;`
 
 # Or else use the default version
 if [ -z &quot;$VERSION&quot; ]; then  
@@ -218,7 +218,7 @@ export GRAILS_HOME=${BASE_GRAILS_PATH}/grails-${VERSION}
 GRAILS_CMD=${GRAILS_HOME}/bin/grails
 
 if [ ! -x &quot;$GRAILS_CMD&quot; ]; then
-	echo &quot;Error: grails command not found at '$GRAILS_CMD'!&quot;
+	echo &quot;Error: grails command not found at &#39;$GRAILS_CMD&#39;!&quot;
 	exit 3
 fi
 

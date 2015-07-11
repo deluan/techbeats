@@ -145,7 +145,7 @@ fi
 
 # Or else get the version from the application.properties in the current directory
 [ -z &quot;$VERSION&quot; -a -f &quot;$APP_PROP&quot; ] &amp;&amp;
-    VERSION=`awk -F'=' '/app.grails.version/ { print $2 }' $APP_PROP | tr -d '\r\n'`
+    VERSION=`awk -F&#39;=&#39; &#39;/app.grails.version/ { print $2 }&#39; $APP_PROP | tr -d &#39;\r\n&#39;`
 
 # Or else use the default version
 if [ -z &quot;$VERSION&quot; ]; then  
@@ -156,7 +156,7 @@ export GRAILS_HOME=${BASE_GRAILS_PATH}/grails-${VERSION}
 GRAILS_CMD=${GRAILS_HOME}/bin/grails
 
 if [ ! -x &quot;$GRAILS_CMD&quot; ]; then
-    echo &quot;Error: grails command not found at '$GRAILS_CMD'!&quot;
+    echo &quot;Error: grails command not found at &#39;$GRAILS_CMD&#39;!&quot;
     exit 3
 fi
 
@@ -301,6 +301,10 @@ can specify the version you want in the first parameter. Ex:</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/">Processing large templates with Gradle and FreeMarker</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/">File encoding auto-detection for ZK Fileupload component</a>
       </li>
     
@@ -314,10 +318,6 @@ can specify the version you want in the first parameter. Ex:</li>
     
       <li class="post">
         <a href="/apache-shiro-tags-for-jsffacelets">Apache Shiro tags for Facelets - Securing your JSF pages</a>
-      </li>
-    
-      <li class="post">
-        <a href="/using-spring-di-in-your-gaelyk-projects">Using Spring DI in your Gaelyk projects</a>
       </li>
     
   </ul>

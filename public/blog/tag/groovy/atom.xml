@@ -4,7 +4,7 @@
   <title><![CDATA[Category: groovy | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/groovy/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-16T23:01:55-04:00</updated>
+  <updated>2015-07-10T21:12:18-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -12,6 +12,189 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Processing large templates with Gradle and FreeMarker]]></title>
+    <link href="http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/"/>
+    <updated>2015-07-10T20:44:24-04:00</updated>
+    <id>http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker</id>
+    <content type="html"><![CDATA[<p><strong>TL;DR</strong> This article show a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
+You can <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
+at the bottom of this post.</p>
+
+<p>In my current project we have a need to generate a set of files for each environment, using templates. As this is a
+<a href="http://gradle.org">Gradle</a> project, this requirement is easily accomplished with a <code>CopyTask</code>:</p>
+
+<!-- more -->
+
+
+<pre><code class="groovy build.gradle">task processTemplates(type: Copy) {
+     from 'src/templates', {
+         include '**/*.*'
+     }
+
+     def env = loadEnvironment()
+     eachFile { FileCopyDetails file -&gt;
+         if (file.name.endsWith('.template')) {
+             expand(env)
+             file.name = file.sourceName - '.template'
+         }
+     }
+
+     inputs.file "env/${envName}.properties"
+     into "$buildDir/output/$envName"
+}
+
+def getEnvName() {
+    hasProperty('env') ? env : 'dev'
+}
+
+def loadEnvironment() {
+    def properties = new Properties()
+    new File("env/${envName}.properties").withInputStream { properties.load(it) }
+    properties
+}
+</code></pre>
+
+<p>The <code>processTemplates</code> task above will copy all files from <code>src/templates</code> to <code>build/output/&lt;envName&gt;</code>. All files whose
+name ends with <code>.template</code> will be processed and tokens (ex: <code>${variable}</code>) will be replaced by their values from the
+<code>env/&lt;envName&gt;.properties</code> file. Adding the properties file as an input for the task is important (<code>inputs.file</code> method
+call), so when you change it, the task will be re-executed on the next build.</p>
+
+<p>Simple, right?</p>
+
+<h3>Not so fast, Johnny&hellip;</h3>
+
+<p>This worked fine until we had one template that was really big (120KB) and we found out about issue
+<a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>. Gradle uses Groovy&rsquo;s
+<a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_simpletemplateengine">SimpleTemplateEngine</a>,
+that can only process files up to 64KB!</p>
+
+<p>Newest versions of Groovy (2.4+) include
+<a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_streamingtemplateengine">StreamingTemplateEngine</a>
+that does not have this limit, but the most recent version of Gradle (2.5 as of this post)
+still uses Groovy 2.3&hellip;</p>
+
+<p>One way to overcome this would be to use Ant&rsquo;s <code>ReplaceTokens</code> filter, simply by changing our templates to use Ant&rsquo;s
+token syntax (ex: <code>@variable@</code>) and changing the line <code>expand(env)</code> to <code>filter(ReplaceTokens, tokens: env)</code></p>
+
+<p>But because we need to use logic in our templates (if&rsquo;s and loops), we had to come up with a different approach.
+The solutions available were too simple for our needs or too complicated to implement in a clear way, making them
+unsuitable for our project. So we decided to roll&hellip;</p>
+
+<h3><a name="final-solution"></a>Our own solution</h3>
+
+<p>Finally we decided to implement a simple template processor using <a href="http://freemarker.org">FreeMarker</a>. We select
+this awesome template engine for its feature set, IDE support and excelent OSS reputation, although the solution bellow
+could be adapted to be used with any other template engine (<a href="http://velocity.apache.org">Velocity</a>,
+<a href="https://github.com/samskivert/jmustache">JMustache</a>, etc&hellip;)</p>
+
+<pre><code class="groovy buildSrc/src/main/groovy/your/package/TemplateProcessor.groovy">package your.package
+
+import freemarker.template.Configuration
+import org.apache.commons.io.FileUtils
+import org.apache.tools.ant.DirectoryScanner
+
+import static freemarker.template.TemplateExceptionHandler.RETHROW_HANDLER
+
+class TemplateProcessor {
+    private static final String TEMPLATE_EXTENSION = '.ftl'
+    private String templatesDir
+    private String outputDir
+    private Configuration cfg
+
+    TemplateProcessor(String templatesDir, String outputDir) {
+        this.templatesDir = templatesDir
+        this.outputDir = outputDir
+
+        cfg = new Configuration()
+        cfg.setDirectoryForTemplateLoading(new File(templatesDir))
+        cfg.setDefaultEncoding("UTF-8")
+        cfg.setTemplateExceptionHandler(RETHROW_HANDLER)
+    }
+
+    void execute(Map properties) {
+        DirectoryScanner scanner = createScanner()
+        scanner.scan()
+        scanner.includedFiles.each { String fileName -&gt;
+            if (fileName.endsWith(TEMPLATE_EXTENSION)) {
+                process(fileName, properties)
+            } else {
+                copy(fileName)
+            }
+        }
+    }
+
+    private process(String fileName, Map properties) {
+        def outputFile = new File(outputDir, fileName - TEMPLATE_EXTENSION)
+        def template = cfg.getTemplate(fileName)
+
+        outputFile.withWriter { out -&gt;
+            template.process(properties, out)
+        }
+    }
+
+    private copy(String fileName) {
+        def inputFile = new File(templatesDir, fileName)
+        def outputFile = new File(outputDir, fileName)
+        FileUtils.copyFile(inputFile, outputFile)
+    }
+
+    private DirectoryScanner createScanner() {
+        def scanner = new DirectoryScanner()
+        scanner.includes = ['**/*']
+        scanner.basedir = new File(templatesDir)
+        scanner
+    }
+}
+</code></pre>
+
+<p>Note that we now use the <code>.ftl</code> file extension for our templates, to enable support in our
+<a href="http://jetbrains.com/idea">IDE of choice</a>. To use the processor, you have to put it under the
+<a href="https://docs.gradle.org/current/userguide/organizing_build_logic.html#sec:build_sources">buildSrc project</a>.
+This is a special &ldquo;module&rdquo; in your project that is a simple way to organize build logic in your build scripts. It is
+all automatically handled by Gradle. You&rsquo;ll also need a small <code>build.gradle</code> just for  declaring the dependencies for
+FreeMarker and Apache Commons IO (used for the <code>copyFile</code> method):</p>
+
+<pre><code class="groovy buildSrc/build.gradle">repositories { mavenCentral() }
+
+dependencies {
+    compile 'org.freemarker:freemarker:2.3.23'
+    compile 'commons-io:commons-io:2.4'
+}
+</code></pre>
+
+<p>To have this code available to your main build script, add this two files in your project, in the following paths:</p>
+
+<ul>
+<li><em>buildSrc/build.gradle</em></li>
+<li><em>buildSrc/src/main/groovy/your/package/TemplateProcessor.groovy</em></li>
+</ul>
+
+
+<p>The last step is to actually use it in our <code>processTemplates</code> task:</p>
+
+<pre><code class="groovy build.gradle">import your.package.TemplateProcessor
+
+task processTemplates() {
+    def fromDir = 'src/templates'
+    def intoDir = "$buildDir/output/$envName"
+    doLast {
+      def env = loadEnvironment()
+      new TemplateProcessor(fromDir, intoDir).execute(env)
+    }
+
+    inputs.dir fromDir
+    inputs.file "env/${envName}.properties"
+    outputs.dir intoDir
+}
+</code></pre>
+
+<p>Not hard, eh? Note that this task is not a <code>CopyTask</code> anymore, so we now need to specify its inputs and outputs.</p>
+
+<p>My plan is to convert this code into a proper Gradle plugin. But for now: That&rsquo;s all, folks!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
@@ -77,7 +260,7 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  * Wrapper to always return a reference to the Spring Application Context from
- * within non-Spring enabled beans. Unlike Spring MVC's WebApplicationContextUtils
+ * within non-Spring enabled beans. Unlike Spring MVC&#39;s WebApplicationContextUtils
  * we do not need a reference to the Servlet context for this. All we need is
  * for this bean to be initialized during application startup.
  *
@@ -148,7 +331,7 @@ Create the file <code>WEB-INF/groovy/index.groovy</code> with the following cont
 
 <p><div><pre><code>import com.deluan.gaelyk.SpringApplicationContext
 
-def dateFormat = SpringApplicationContext.getBean('dateFormat')
+def dateFormat = SpringApplicationContext.getBean(&#39;dateFormat&#39;)
 def now = new Date()
 
 println dateFormat.format(now)</code></pre></div>
@@ -196,10 +379,10 @@ Save the code bellow in the file <code>WEB-INF/plugins.groovy</code>:</p>
 def now = new Date()
 
 // Simple context lookup
-def dateFormat = getBean('dateFormat')
+def dateFormat = getBean(&#39;dateFormat&#39;)
 
 // Resolve a list of bean names and create bindings for each one of them
-autowire this, ['timeFormat', 'dateTimeFormat']
+autowire this, [&#39;timeFormat&#39;, &#39;dateTimeFormat&#39;]
 
 html.html {
     body {

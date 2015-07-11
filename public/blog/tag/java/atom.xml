@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/java/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-06-16T23:01:55-04:00</updated>
+  <updated>2015-07-10T21:12:18-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -152,12 +152,12 @@ repository, as I need to use the tags in an on-going project.</p>
 <p><div><pre><code>        &lt;repositories&gt;
             &lt;repository&gt;
                 &lt;id&gt;deluan.repo&lt;/id&gt;
-                &lt;name&gt;Deluan's Public Repository&lt;/name&gt;
+                &lt;name&gt;Deluan&#39;s Public Repository&lt;/name&gt;
                 &lt;url&gt;http://deluan.googlecode.com/svn/releases&lt;/url&gt;
             &lt;/repository&gt;
             &lt;repository&gt;
                 &lt;id&gt;deluan.snapshots&lt;/id&gt;
-                &lt;name&gt;Deluan's Public Snapshots Repository&lt;/name&gt;
+                &lt;name&gt;Deluan&#39;s Public Snapshots Repository&lt;/name&gt;
                 &lt;url&gt;http://deluan.googlecode.com/svn/snapshots&lt;/url&gt;
                 &lt;releases&gt;
                     &lt;enabled&gt;false&lt;/enabled&gt;
@@ -171,7 +171,7 @@ repository, as I need to use the tags in an on-going project.</p>
 <p><div><pre><code>        &lt;dependency&gt;
             &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
             &lt;artifactId&gt;shiro-faces&lt;/artifactId&gt;
-            &lt;!-- See the latest version on the project's homepage --&gt;
+            &lt;!-- See the latest version on the project&#39;s homepage --&gt;
             &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
         &lt;/dependency&gt;</code></pre></div>
 </p>

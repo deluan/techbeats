@@ -9,8 +9,9 @@
   <meta name="author" content="Deluan Quintão">
 
   
-  <meta name="description" content="Proper handling of file encoding can be a royal headache. Recently I spent an
-unreasonable amount of time trying to figure out why ZK&rsquo;s &hellip;">
+  <meta name="description" content="TL;DR This article show a solution for overcoming the issue GRADLE-3122.
+You can jump straight to the implementation
+at the bottom of this post. In &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +80,52 @@ unreasonable amount of time trying to figure out why ZK&rsquo;s &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/">Processing large templates with Gradle and FreeMarker</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-07-10T20:44:24-04:00" pubdate data-updated="true">Jul 10<sup>th</sup>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>TL;DR</strong> This article show a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
+You can <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
+at the bottom of this post.</p>
+
+<p>In my current project we have a need to generate a set of files for each environment, using templates. As this is a
+<a href="http://gradle.org">Gradle</a> project, this requirement is easily accomplished with a <code>CopyTask</code>:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -157,7 +204,7 @@ Fileupload component was messing with the contents of my CSV file:</p>
 
     def filters = {
 
-        profiler(controller: '*', action: '*') {
+        profiler(controller: &#39;*&#39;, action: &#39;*&#39;) {
             before = {
                 request._timeBeforeRequest = System.currentTimeMillis()
             }
@@ -522,6 +569,10 @@ permalinks based on strings. It strips out all non word chars and convert the re
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/">Processing large templates with Gradle and FreeMarker</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/">File encoding auto-detection for ZK Fileupload component</a>
       </li>
     
@@ -535,10 +586,6 @@ permalinks based on strings. It strips out all non word chars and convert the re
     
       <li class="post">
         <a href="/apache-shiro-tags-for-jsffacelets">Apache Shiro tags for Facelets - Securing your JSF pages</a>
-      </li>
-    
-      <li class="post">
-        <a href="/using-spring-di-in-your-gaelyk-projects">Using Spring DI in your Gaelyk projects</a>
       </li>
     
   </ul>
