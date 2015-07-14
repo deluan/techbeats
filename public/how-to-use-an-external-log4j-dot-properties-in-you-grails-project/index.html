@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Using Cache-Headers plugin in a non-english server - TechBeats</title>
+  <title>How to use an external log4j.properties in you Grails project - TechBeats</title>
   <meta name="author" content="Deluan Quintão">
 
   
-  <meta name="description" content="UPDATE: This problem has been fixed in version 1.1.3 of the plugin. Thanks Marc and Luke Daley! This week I tried the Marc Palmer’s excelent plugin &hellip;">
+  <meta name="description" content="In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of
+those were that the log4j &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s">
+  <link rel="canonical" href="http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">Using Cache-Headers plugin in a non-english server</h1>
+      <h1 class="entry-title">How to use an external log4j.properties in you Grails project</h1>
     
     
       <p class="meta">
@@ -97,7 +98,7 @@
   
 
 
-<time datetime="2010-12-21T01:03:35-05:00" pubdate data-updated="true">Dec 21<sup>st</sup>, 2010</time>
+<time datetime="2010-09-30T23:33:52-04:00" pubdate data-updated="true">Sep 30<sup>th</sup>, 2010</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -106,96 +107,74 @@
   </header>
 
 
-<div class="entry-content"><p><strong>UPDATE: This problem has been fixed in version 1.1.3 of the plugin. Thanks Marc and Luke Daley!</strong></p>
+<div class="entry-content"><p>In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of
+those were that the log4j configuration for an application must be externalized in a properties file.</p>
 
-<p>This week I tried the <a href="http://www.anyware.co.uk/2005/">Marc Palmer</a>’s excelent plugin
-<a href="http://www.grails.org/plugin/cache-headers">Cache-Headers</a>, and it really rocks! Using it I can make all my
-server-side generated images be cached on the client, reducing significantly the bandwidth and cpu-power necessary by
-my application.</p>
+<p>I searched for a <a href="http://grails.org/plugin/home">Grails plugin</a> that could help me with this, with no luck.
+Then I remembered that a Grails application is just a
+<a href="http://blog.springsource.com/2010/06/08/spring-the-foundation-for-grails/">Spring application in disguise</a>,
+so I looked for a Spring way to do this.</p>
 
-<p>But there’s a little gotcha: The plugin (as of version 1.1.2) uses a SimpleDateFormat to generate and check the
-Last-Modified header, and the implementation creates this SimpleDateFormat with the system’s default Locale, in my
-case Portuguese. This causes errors like this:</p>
+<p>There are at least two ways to do this using Spring:
+<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/util/Log4jConfigListener.html">Log4jConfigListener</a>
+and
+<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/util/Log4jConfigurer.html">Log4jConfigurer</a>.
+I chose the later because the former assumes an expanded WAR file, which was not my case.</p>
+
+<p>Here’s the recipe I came up with:</p>
 
 <!-- more -->
 
 
+<ul>
+<li>Configure a Log4jConfigurer Spring bean in your <code>grails-app/conf/resources.groovy</code>:
+(click <a href="https://gist.github.com/deluan/605359#file-resources-xml">here for a xml version</a>)</li>
+</ul>
 
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>java.lang.IllegalArgumentException: Ter, 21 dez 2010 15:10:33 GMT
-</span><span class='line'>    at com.grailsrocks.cacheheaders.CacheHeadersService.withCacheHeaders(CacheHeadersService.groovy:140)
-</span><span class='line'>    at com.grailsrocks.cacheheaders.CacheHeadersService$withCacheHeaders.call(Unknown Source)
-</span><span class='line'>    at CacheHeadersGrailsPlugin$_addCacheMethods_closure7_closure11.doCall(CacheHeadersGrailsPlugin.groovy:61)
-</span><span class='line'>    at org.weceem.controllers.WcmContentController$_closure3.doCall(WcmContentController.groovy:172)
-</span><span class='line'>    at org.weceem.controllers.WcmContentController$_closure3.doCall(WcmContentController.groovy)
-</span><span class='line'>    at org.apache.shiro.web.servlet.ShiroFilter.executeChain(ShiroFilter.java:687)
-</span><span class='line'>    at org.apache.shiro.web.servlet.ShiroFilter.doFilterInternal(ShiroFilter.java:616)
-</span><span class='line'>    at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:81)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The workaround I found was to override the construction of that SimpleDateFormat. Luckily it’s been created in a small
-class, that is easy to extend:</p>
-
-<div><pre><code>package com.deluan.grails.util
-
-import java.text.SimpleDateFormat
-import com.grailsrocks.cacheheaders.DateFormatterThreadLocal
-
-/**
- * This class is used to force CacheHeadersService (from the cache-headers 
- * plugin) to generate http-dates in english. It MUST be used when the 
- * locale of your server is not English.
- * &lt;p/&gt;
- * To use it, put the following configuration in your Config.groovy:
- * &lt;pre&gt;
- * beans {
- *    cacheHeadersService {
- *        dateFormatters = new com.deluan.grails.util.EnglishDateFormatterThreadLocal()
- *    }
- * }
- * &lt;/pre&gt;
- * 
- * @author Deluan
- */
-class EnglishDateFormatterThreadLocal extends DateFormatterThreadLocal {
-    SimpleDateFormat initialValue() {
-        def v = new SimpleDateFormat(RFC1123_DATE_FORMAT, Locale.ENGLISH)
-        v.timeZone = TimeZone.getTimeZone(&#39;GMT&#39;)
-        return v
+<div><pre><code>beans = {
+    log4jConfigurer(org.springframework.beans.factory.config.MethodInvokingFactoryBean) {
+        targetClass = &quot;org.springframework.util.Log4jConfigurer&quot;
+        targetMethod = &quot;initLogging&quot;
+        arguments = [&quot;classpath:myapp/log4j.properties&quot;]
     }
-}
-</code></pre></div>
+
+    ...
+
+}</code></pre></div>
 
 
-<p>All you have to do is put this class in your project (in the <code>src/groovy</code> folder) and add the following configuration
-override in your <code>Config.groovy</code>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">beans</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">cacheHeadersService</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">dateFormatters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">com</span><span class="o">.</span><span class="na">deluan</span><span class="o">.</span><span class="na">grails</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">EnglishDateFormatterThreadLocal</span><span class="o">()</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li><p>Install the templates in your project with grails install-templates, so you can change some files used for Grails&#8217;
+code generation. The one we are interested in is the web.xml template.</p></li>
+<li><p>Comment out the Grails&#8217; Log4jConfigListener from the <code>src/templates/war/web.xml</code> template:</p></li>
+</ul>
 
 
-<p></p>
+<div><pre><code>    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;sitemesh&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
 
-<p>I already filled a bug report here: <a href="http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,">http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,</a> and probably this post will be
-obsolete in a near future :)</p>
+
+    &lt;!-- Comment this out!
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.codehaus.groovy.grails.web.util.Log4jConfigListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    --&gt;
+
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.codehaus.groovy.grails.web.context.GrailsContextLoaderListener&lt;/listener-class&gt;
+    &lt;/listener&gt;</code></pre></div>
+
+
+<ul>
+<li><p>You can (and should) remove the log4j configuration block from your Config.groovy</p></li>
+<li><p>That’s it!</p></li>
+</ul>
+
+
+<p>This was tested with Grails 1.3.3, deploying to an Oracle WebLogic 10.3.0 container.</p>
 </div>
 
 
@@ -218,12 +197,12 @@ obsolete in a near future :)</p>
   
 
 
-<time datetime="2010-12-21T01:03:35-05:00" pubdate data-updated="true">Dec 21<sup>st</sup>, 2010</time>
+<time datetime="2010-09-30T23:33:52-04:00" pubdate data-updated="true">Sep 30<sup>th</sup>, 2010</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/tag/grails/'>grails</a>
+    <a class='category' href='/blog/tag/grails/'>grails</a>, <a class='category' href='/blog/tag/spring/'>spring</a>
   
 </span>
 
@@ -232,7 +211,7 @@ obsolete in a near future :)</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s" data-via="deluan" data-counturl="http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project/" data-via="deluan" data-counturl="http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -245,10 +224,10 @@ obsolete in a near future :)</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/apache-shiro-tags-for-jsffacelets" title="Previous Post: Apache Shiro tags for Facelets - Securing your JSF pages">&laquo; Apache Shiro tags for Facelets - Securing your JSF pages</a>
+        <a class="basic-alignment left" href="/creating-permalinks-with-grails/" title="Previous Post: Creating permalinks with Grails">&laquo; Creating permalinks with Grails</a>
       
       
-        <a class="basic-alignment right" href="/profiling-web-requests-in-grails-application" title="Next Post: Profiling web requests in your Grails application">Profiling web requests in your Grails application &raquo;</a>
+        <a class="basic-alignment right" href="/calling-the-correct-grails-version-automatically-from-command-line/" title="Next Post: Calling the correct Grails version automatically from command line">Calling the correct Grails version automatically from command line &raquo;</a>
       
     </p>
   </footer>
@@ -275,23 +254,23 @@ obsolete in a near future :)</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/">Processing large templates with Gradle and FreeMarker</a>
+        <a href="/processing-large-templates-with-gradle-and-freemarker/">Processing large templates with Gradle and FreeMarker</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/">File encoding auto-detection for ZK Fileupload component</a>
+        <a href="/file-encoding-auto-detection-for-zk-fileupload-component/">File encoding auto-detection for ZK Fileupload component</a>
       </li>
     
       <li class="post">
-        <a href="/profiling-web-requests-in-grails-application">Profiling web requests in your Grails application</a>
+        <a href="/profiling-web-requests-in-your-grails-application/">Profiling web requests in your Grails application</a>
       </li>
     
       <li class="post">
-        <a href="/using-cache-headers-plugin-in-a-non-english-s">Using Cache-Headers plugin in a non-english server</a>
+        <a href="/using-cache-headers-plugin-in-a-non-english-server/">Using Cache-Headers plugin in a non-english server</a>
       </li>
     
       <li class="post">
-        <a href="/apache-shiro-tags-for-jsffacelets">Apache Shiro tags for Facelets - Securing your JSF pages</a>
+        <a href="/apache-shiro-tags-for-facelets-securing-your-jsf-pages/">Apache Shiro tags for Facelets - Securing your JSF pages</a>
       </li>
     
   </ul>
@@ -369,8 +348,8 @@ obsolete in a near future :)</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s';
-        var disqus_url = 'http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s';
+        var disqus_identifier = 'http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project/';
+        var disqus_url = 'http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gradle | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/gradle/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-07-10T21:36:27-04:00</updated>
+  <updated>2015-07-14T18:47:34-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Processing large templates with Gradle and FreeMarker]]></title>
-    <link href="http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/"/>
+    <link href="http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker/"/>
     <updated>2015-07-10T20:44:24-04:00</updated>
-    <id>http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker</id>
+    <id>http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker</id>
     <content type="html"><![CDATA[<p><strong>TL;DR</strong> This article show a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
 You can <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
 at the bottom of this post.</p>

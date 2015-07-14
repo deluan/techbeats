@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gaelyk | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/gaelyk/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-07-10T21:36:27-04:00</updated>
+  <updated>2015-07-14T18:47:34-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -15,7 +15,7 @@
   
   <entry>
     <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
-    <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
+    <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects/"/>
     <updated>2010-10-11T01:07:55-04:00</updated>
     <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
     <content type="html"><![CDATA[<p>Since I started using <a href="http://gaelyk.appspot.com/">Gaelyk</a>, one of the features I missed most (coming from a Grails

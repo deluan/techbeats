@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bash | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/bash/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-07-10T21:36:27-04:00</updated>
+  <updated>2015-07-14T18:47:34-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -15,7 +15,7 @@
   
   <entry>
     <title type="html"><![CDATA[Calling the correct Grails version automatically from command line]]></title>
-    <link href="http://techbeats.deluan.com/calling-the-right-grails-version-from-command"/>
+    <link href="http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line/"/>
     <updated>2010-10-05T00:48:53-04:00</updated>
     <id>http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>

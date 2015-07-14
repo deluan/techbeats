@@ -3,55 +3,55 @@
   
   
   <url>
-    <loc>http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/</loc>
+    <loc>http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker/</loc>
     <lastmod>2015-07-10T20:44:24-04:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/</loc>
+    <loc>http://techbeats.deluan.com/file-encoding-auto-detection-for-zk-fileupload-component/</loc>
     <lastmod>2015-06-11T22:09:24-04:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/profiling-web-requests-in-grails-application</loc>
+    <loc>http://techbeats.deluan.com/profiling-web-requests-in-your-grails-application/</loc>
     <lastmod>2010-12-29T01:11:39-05:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s</loc>
+    <loc>http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-server/</loc>
     <lastmod>2010-12-21T01:03:35-05:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets</loc>
+    <loc>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages/</loc>
     <lastmod>2010-11-01T01:49:27-04:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</loc>
+    <loc>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects/</loc>
     <lastmod>2010-10-11T01:07:55-04:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/calling-the-right-grails-version-from-command</loc>
+    <loc>http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line/</loc>
     <lastmod>2010-10-05T00:48:53-04:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/how-to-use-an-external-log4jproperties-in-you-0</loc>
+    <loc>http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project/</loc>
     <lastmod>2010-09-30T23:33:52-04:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://techbeats.deluan.com/creating-permalinks-with-grails</loc>
+    <loc>http://techbeats.deluan.com/creating-permalinks-with-grails/</loc>
     <lastmod>2009-03-18T22:51:37-04:00</lastmod>
     <priority>0.8</priority>
   </url>
@@ -59,24 +59,36 @@
   
   <url>
     <loc>http://techbeats.deluan.com/404.html</loc>
-    <lastmod>2015-07-10T21:36:27-04:00</lastmod>
+    <lastmod>2015-07-14T18:47:34-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://techbeats.deluan.com/blog/archives/</loc>
-    <lastmod>2015-07-10T21:36:27-04:00</lastmod>
+    <lastmod>2015-07-14T18:47:34-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://techbeats.deluan.com/</loc>
-    <lastmod>2015-07-10T21:36:27-04:00</lastmod>
+    <lastmod>2015-07-14T18:47:34-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
+  
+  <url>
+    <loc>http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/index.html</loc>
+    <lastmod>2015-07-14T18:44:1436913872Z</lastmod>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/index.html</loc>
+    <lastmod>2015-07-14T18:46:1436913992Z</lastmod>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: groovy | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/groovy/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-07-10T21:36:27-04:00</updated>
+  <updated>2015-07-14T18:47:34-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Processing large templates with Gradle and FreeMarker]]></title>
-    <link href="http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/"/>
+    <link href="http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker/"/>
     <updated>2015-07-10T20:44:24-04:00</updated>
-    <id>http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker</id>
+    <id>http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker</id>
     <content type="html"><![CDATA[<p><strong>TL;DR</strong> This article show a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
 You can <a href="/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
 at the bottom of this post.</p>
@@ -198,7 +198,7 @@ task processTemplates() {
   
   <entry>
     <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
-    <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
+    <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects/"/>
     <updated>2010-10-11T01:07:55-04:00</updated>
     <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
     <content type="html"><![CDATA[<p>Since I started using <a href="http://gaelyk.appspot.com/">Gaelyk</a>, one of the features I missed most (coming from a Grails
@@ -409,7 +409,7 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
   
   <entry>
     <title type="html"><![CDATA[Creating permalinks with Grails]]></title>
-    <link href="http://techbeats.deluan.com/creating-permalinks-with-grails"/>
+    <link href="http://techbeats.deluan.com/creating-permalinks-with-grails/"/>
     <updated>2009-03-18T22:51:37-04:00</updated>
     <id>http://techbeats.deluan.com/creating-permalinks-with-grails</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing

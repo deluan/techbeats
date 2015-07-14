@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/java/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-07-10T21:36:27-04:00</updated>
+  <updated>2015-07-14T18:47:34-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[File encoding auto-detection for ZK Fileupload component]]></title>
-    <link href="http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/"/>
+    <link href="http://techbeats.deluan.com/file-encoding-auto-detection-for-zk-fileupload-component/"/>
     <updated>2015-06-11T22:09:24-04:00</updated>
-    <id>http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component</id>
+    <id>http://techbeats.deluan.com/file-encoding-auto-detection-for-zk-fileupload-component</id>
     <content type="html"><![CDATA[<p>Proper handling of file encoding can be a royal headache. Recently I spent an
 unreasonable amount of time trying to figure out why <a href="http://www.zkoss.com">ZK&rsquo;s</a>
 Fileupload component was messing with the contents of my CSV file:</p>
@@ -102,7 +102,7 @@ import org.zkoss.zk.ui.util.CharsetFinder;</p>
   
   <entry>
     <title type="html"><![CDATA[Apache Shiro tags for Facelets - Securing your JSF pages]]></title>
-    <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
+    <link href="http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages/"/>
     <updated>2010-11-01T01:49:27-04:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong> There is now a JSF 2.0 version of this library available in the

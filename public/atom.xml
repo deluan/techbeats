@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2015-07-10T21:36:27-04:00</updated>
+  <updated>2015-07-14T18:47:34-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Processing large templates with Gradle and FreeMarker]]></title>
-    <link href="http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/"/>
+    <link href="http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker/"/>
     <updated>2015-07-10T20:44:24-04:00</updated>
-    <id>http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker</id>
+    <id>http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker</id>
     <content type="html"><![CDATA[<p><strong>TL;DR</strong> This article show a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
 You can <a href="http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
 at the bottom of this post.</p>
@@ -308,9 +308,9 @@ FreeMarker and Apache Commons IO (used for the <code>copyFile</code> method):</p
   
   <entry>
     <title type="html"><![CDATA[File encoding auto-detection for ZK Fileupload component]]></title>
-    <link href="http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component/"/>
+    <link href="http://techbeats.deluan.com/file-encoding-auto-detection-for-zk-fileupload-component/"/>
     <updated>2015-06-11T22:09:24-04:00</updated>
-    <id>http://techbeats.deluan.com/blog/2015/06/11/file-encoding-auto-detection-for-zk-fileupload-component</id>
+    <id>http://techbeats.deluan.com/file-encoding-auto-detection-for-zk-fileupload-component</id>
     <content type="html"><![CDATA[<p>Proper handling of file encoding can be a royal headache. Recently I spent an
 unreasonable amount of time trying to figure out why <a href="http://www.zkoss.com">ZK&rsquo;s</a>
 Fileupload component was messing with the contents of my CSV file:</p>
@@ -427,7 +427,7 @@ for the CharsetFinder implementation is the following:</p>
   
   <entry>
     <title type="html"><![CDATA[Profiling web requests in your Grails application]]></title>
-    <link href="http://techbeats.deluan.com/profiling-web-requests-in-grails-application"/>
+    <link href="http://techbeats.deluan.com/profiling-web-requests-in-your-grails-application/"/>
     <updated>2010-12-29T01:11:39-05:00</updated>
     <id>http://techbeats.deluan.com/profiling-web-requests-in-your-grails-application</id>
     <content type="html"><![CDATA[<p>Here’s a simple filter I’ve been using to help me detect points of improvement in my application:</p>
@@ -496,7 +496,7 @@ the time spent rendering the view (<code>list.gsp</code>).</p>
   
   <entry>
     <title type="html"><![CDATA[Using Cache-Headers plugin in a non-english server]]></title>
-    <link href="http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-s"/>
+    <link href="http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-server/"/>
     <updated>2010-12-21T01:03:35-05:00</updated>
     <id>http://techbeats.deluan.com/using-cache-headers-plugin-in-a-non-english-server</id>
     <content type="html"><![CDATA[<p><strong>UPDATE: This problem has been fixed in version 1.1.3 of the plugin. Thanks Marc and Luke Daley!</strong></p>
@@ -585,8 +585,6 @@ override in your <code>Config.groovy</code>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p></p>
-
 <p>I already filled a bug report here: <a href="http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,">http://jira.codehaus.org/browse/GRAILSPLUGINS-2707,</a> and probably this post will be
 obsolete in a near future :)</p>
 ]]></content>
@@ -594,7 +592,7 @@ obsolete in a near future :)</p>
   
   <entry>
     <title type="html"><![CDATA[Apache Shiro tags for Facelets - Securing your JSF pages]]></title>
-    <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
+    <link href="http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages/"/>
     <updated>2010-11-01T01:49:27-04:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong> There is now a JSF 2.0 version of this library available in the
@@ -607,7 +605,7 @@ obsolete in a near future :)</p>
 say that it really rocks! I tried to use Spring Security (Acegi) in some projects, but the easiness and lean approach
 of Shiro is unbeatable. For a quick introduction, here&rsquo;s a quote from the project&rsquo;s site:</p>
 
-<blockquote><p>Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. <br/>With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p></blockquote>
+<blockquote><p>Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management.<br/>With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p></blockquote>
 
 
 <!-- more -->
@@ -701,7 +699,7 @@ incorporated officially into Shiro sooner than later, you can vote here: <a href
   
   <entry>
     <title type="html"><![CDATA[Using Spring DI in your Gaelyk projects]]></title>
-    <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects"/>
+    <link href="http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects/"/>
     <updated>2010-10-11T01:07:55-04:00</updated>
     <id>http://techbeats.deluan.com/using-spring-di-in-your-gaelyk-projects</id>
     <content type="html"><![CDATA[<p>Since I started using <a href="http://gaelyk.appspot.com/">Gaelyk</a>, one of the features I missed most (coming from a Grails
@@ -913,7 +911,7 @@ parameter.  The new version is available at <a href="http://github.com/deluan/ga
   
   <entry>
     <title type="html"><![CDATA[Calling the correct Grails version automatically from command line]]></title>
-    <link href="http://techbeats.deluan.com/calling-the-right-grails-version-from-command"/>
+    <link href="http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line/"/>
     <updated>2010-10-05T00:48:53-04:00</updated>
     <id>http://techbeats.deluan.com/calling-the-correct-grails-version-automatically-from-command-line</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong>: For latest version and instructions, see <a href="http://github.com/deluan/grails.sh">http://github.com/deluan/grails.sh</a></p>
@@ -1045,7 +1043,7 @@ can specify the version you want in the first parameter. Ex:</li>
   
   <entry>
     <title type="html"><![CDATA[How to use an external log4j.properties in you Grails project]]></title>
-    <link href="http://techbeats.deluan.com/how-to-use-an-external-log4jproperties-in-you-0"/>
+    <link href="http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project/"/>
     <updated>2010-09-30T23:33:52-04:00</updated>
     <id>http://techbeats.deluan.com/how-to-use-an-external-log4j-dot-properties-in-you-grails-project</id>
     <content type="html"><![CDATA[<p>In a recent Grails project, I had to follow some corporate guidelines regarding application deployment, and one of
@@ -1121,7 +1119,7 @@ code generation. The one we are interested in is the web.xml template.</p></li>
   
   <entry>
     <title type="html"><![CDATA[Creating permalinks with Grails]]></title>
-    <link href="http://techbeats.deluan.com/creating-permalinks-with-grails"/>
+    <link href="http://techbeats.deluan.com/creating-permalinks-with-grails/"/>
     <updated>2009-03-18T22:51:37-04:00</updated>
     <id>http://techbeats.deluan.com/creating-permalinks-with-grails</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been working with <a href="http://grails.org">Grails</a> for some time now and if I had to choose just one good thing

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Calling the correct Grails version automatically from command line"
-permalink: /calling-the-right-grails-version-from-command
 date: 2010-10-04 23:48:53 -0500
 comments: true
 categories: [bash, grails]
