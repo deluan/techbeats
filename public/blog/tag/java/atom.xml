@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | TechBeats]]></title>
   <link href="http://techbeats.deluan.com/blog/tag/java/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2016-08-04T23:30:16-04:00</updated>
+  <updated>2016-08-08T10:29:22-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -102,7 +102,7 @@ import org.zkoss.zk.ui.util.CharsetFinder;</p>
   
   <entry>
     <title type="html"><![CDATA[Apache Shiro tags for Facelets - Securing your JSF pages]]></title>
-    <link href="http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages/"/>
+    <link href="http://techbeats.deluan.com/apache-shiro-tags-for-jsffacelets"/>
     <updated>2010-11-01T01:49:27-04:00</updated>
     <id>http://techbeats.deluan.com/apache-shiro-tags-for-facelets-securing-your-jsf-pages</id>
     <content type="html"><![CDATA[<p><strong>UPDATE</strong> There is now a JSF 2.0 version of this library available in the

@@ -4,6 +4,7 @@ title: "Apache Shiro tags for Facelets - Securing your JSF pages"
 date: 2010-11-01 00:49:27 -0500
 comments: true
 categories: [java, jsf, shiro]
+permalink: 	/apache-shiro-tags-for-jsffacelets
 ---
 **UPDATE** There is now a JSF 2.0 version of this library available in the
 [project repo](http://github.com/deluan/shiro-faces)
