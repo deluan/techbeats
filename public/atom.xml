@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2016-08-28T03:20:28-04:00</updated>
+  <updated>2016-08-28T03:24:11-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -19,7 +19,7 @@
     <updated>2015-07-10T20:44:24-04:00</updated>
     <id>http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker</id>
     <content type="html"><![CDATA[<p><strong>TL;DR</strong> This article shows a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
-You can <a href="http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
+You can <a href="http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
 at the bottom of this post.</p>
 
 <p>In my current project we have a need to generate a set of files for each environment, using templates. As this is a
