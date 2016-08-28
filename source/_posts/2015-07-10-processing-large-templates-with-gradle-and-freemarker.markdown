@@ -7,7 +7,7 @@ published: true
 categories: [gradle, groovy]
 ---
 
-__TL;DR__ This article show a solution for overcoming the issue [GRADLE-3122](https://issues.gradle.org/browse/GRADLE-3122).
+__TL;DR__ This article shows a solution for overcoming the issue [GRADLE-3122](https://issues.gradle.org/browse/GRADLE-3122).
 You can [jump straight to the implementation](/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution)
 at the bottom of this post.
 

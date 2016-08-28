@@ -4,7 +4,7 @@
   <title><![CDATA[TechBeats]]></title>
   <link href="http://techbeats.deluan.com/atom.xml" rel="self"/>
   <link href="http://techbeats.deluan.com/"/>
-  <updated>2016-08-08T10:29:22-04:00</updated>
+  <updated>2016-08-28T03:20:28-04:00</updated>
   <id>http://techbeats.deluan.com/</id>
   <author>
     <name><![CDATA[Deluan Quintão]]></name>
@@ -18,7 +18,7 @@
     <link href="http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker/"/>
     <updated>2015-07-10T20:44:24-04:00</updated>
     <id>http://techbeats.deluan.com/processing-large-templates-with-gradle-and-freemarker</id>
-    <content type="html"><![CDATA[<p><strong>TL;DR</strong> This article show a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
+    <content type="html"><![CDATA[<p><strong>TL;DR</strong> This article shows a solution for overcoming the issue <a href="https://issues.gradle.org/browse/GRADLE-3122">GRADLE-3122</a>.
 You can <a href="http://techbeats.deluan.com/blog/2015/07/10/processing-large-templates-with-gradle-and-freemarker/#final-solution">jump straight to the implementation</a>
 at the bottom of this post.</p>
 
@@ -312,7 +312,7 @@ FreeMarker and Apache Commons IO (used for the <code>copyFile</code> method):</p
     <updated>2015-06-11T22:09:24-04:00</updated>
     <id>http://techbeats.deluan.com/file-encoding-auto-detection-for-zk-fileupload-component</id>
     <content type="html"><![CDATA[<p>Proper handling of file encoding can be a royal headache. Recently I spent an
-unreasonable amount of time trying to figure out why <a href="http://www.zkoss.com">ZK&rsquo;s</a>
+unreasonable amount of time trying to figure out why <a href="http://www.zkoss.org">ZK&rsquo;s</a>
 Fileupload component was messing with the contents of my CSV file:</p>
 
 <!-- more -->
