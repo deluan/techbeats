@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://techbeats.deluan.com/sitemap.xml 
